@@ -16,16 +16,11 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "eslint src/* --ignore-path .gitignore",
+    "lint": "eslint . --ignore-path .gitignore",
     "lint-fix": "npm run lint -- --fix",
     "format": "prettier --write ."
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
+  "prettier": "@imaginary-cloud/prettier-config",
   "browserslist": {
     "production": [
       ">0.2%",
