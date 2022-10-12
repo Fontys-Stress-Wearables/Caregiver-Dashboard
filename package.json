@@ -16,16 +16,11 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "lint": "eslint src/* --ignore-path .gitignore",
+    "lint": "eslint . --ignore-path .gitignore",
     "lint-fix": "npm run lint -- --fix",
     "format": "prettier --write ."
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
+  "prettier": "@imaginary-cloud/prettier-config",
   "browserslist": {
     "production": [
       ">0.2%",
@@ -44,15 +39,15 @@
     "@types/node": "^18.8.3",
     "@types/react": "^18.0.21",
     "@types/react-dom": "^18.0.6",
-    "@typescript-eslint/eslint-plugin": "^5.39.0",
-    "@typescript-eslint/parser": "^5.39.0",
+    "@typescript-eslint/eslint-plugin": "^5.40.0",
+    "@typescript-eslint/parser": "^5.40.0",
     "eslint": "^8.25.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.25.4",
     "eslint-plugin-jest": "^26.0.0",
     "eslint-plugin-jsx-a11y": "^6.5.1",
-    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-react": "^7.28.0",
     "eslint-plugin-react-hooks": "^4.3.0",
     "prettier": "^2.7.1",
