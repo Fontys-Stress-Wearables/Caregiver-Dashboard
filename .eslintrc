@@ -15,7 +15,6 @@
     "react/function-component-definition": "off",
     "@typescript-eslint/no-explicit-any": "off",
     "jsx-a11y/control-has-associated-label": "off",
-    "jsx-a11y/alt-text": "warn",
-    "prettier/prettier": ["error", { "endOfLine": "crlf" }]
+    "jsx-a11y/alt-text": "warn"
   }
 }
