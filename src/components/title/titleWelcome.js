@@ -1,7 +1,7 @@
 import React from 'react'
-import './title.css'
+import './titleWelcome.css'
 
-function Title() {
+function TitleWelcome() {
   return (
     <div className="Title">
       <h1>Caregiver Dashboard</h1>
@@ -10,4 +10,4 @@ function Title() {
   )
 }
 
-export default Title
+export default TitleWelcome
