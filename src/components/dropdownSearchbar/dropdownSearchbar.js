@@ -3,7 +3,7 @@ import Select from 'react-select'
 import './dropdownSearchbar.css'
 
 function DropdownSearchbar() {
-  const [selectedOption, setSelectedOption] = useState('none')
+  const [selectedOption, setSelectedOption] = useState('Select Patient Group')
 
   const aquaticCreatures = [
     { label: 'Shark', value: 'Shark' },
@@ -37,7 +37,7 @@ function DropdownSearchbar() {
             options={aquaticCreatures}
             onChange={handleTypeSelect}
             value={selectedOption}
-            placeholder={selectedOption ? 'currently' : 'not'}
+            placeholder={selectedOption}
             // placeholder="Select Patient Group"
           />
         </div>
