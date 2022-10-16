@@ -1,0 +1,12 @@
+.Container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background-color: rgb(232, 229, 229);
+}
+.ListContainer {
+  width: 70%;
+  display: flex;
+  justify-content: center;
+  background-color: rgb(232, 229, 229);
+}

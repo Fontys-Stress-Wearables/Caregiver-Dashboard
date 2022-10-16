@@ -1,0 +1,37 @@
+.Header {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  background-color: rgb(232, 229, 229);
+  color: rgb(0, 0, 0);
+  padding-bottom: 1px;
+}
+
+.OrganizationTitle {
+  width: 50%;
+  display: flex;
+  justify-content: left;
+  align-items: baseline;
+  margin-left: 2em;
+  background-color: rgb(232, 229, 229);
+  color: rgb(0, 0, 0);
+}
+
+.Login {
+  width: 50%;
+  display: flex;
+  justify-content: right;
+  align-items: baseline;
+  padding-right: 1%;
+  background-color: rgb(232, 229, 229);
+  color: rgb(0, 0, 0);
+}
+
+.Logo {
+  display: flex;
+  justify-content: right;
+  margin-right: 2em;
+  background-color: rgb(232, 229, 229);
+  color: rgb(0, 0, 0);
+}
