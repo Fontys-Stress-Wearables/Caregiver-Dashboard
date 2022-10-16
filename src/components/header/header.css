@@ -3,8 +3,6 @@
   display: flex;
   justify-content: center;
   align-items: baseline;
-  background-color: rgb(232, 229, 229);
-  color: rgb(0, 0, 0);
   padding-bottom: 1px;
 }
 
@@ -14,8 +12,6 @@
   justify-content: left;
   align-items: baseline;
   margin-left: 2em;
-  background-color: rgb(232, 229, 229);
-  color: rgb(0, 0, 0);
 }
 
 .Login {
@@ -24,14 +20,10 @@
   justify-content: right;
   align-items: baseline;
   padding-right: 1%;
-  background-color: rgb(232, 229, 229);
-  color: rgb(0, 0, 0);
 }
 
 .Logo {
   display: flex;
   justify-content: right;
   margin-right: 2em;
-  background-color: rgb(232, 229, 229);
-  color: rgb(0, 0, 0);
 }
