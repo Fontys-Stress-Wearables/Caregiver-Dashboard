@@ -1,5 +1,3 @@
-// To Do Style component
-
 function Loading() {
   return <div> Loading </div>
 }
