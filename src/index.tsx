@@ -3,7 +3,7 @@ import { BrowserRouter } from 'react-router-dom'
 import { PublicClientApplication, InteractionType } from '@azure/msal-browser'
 import { MsalProvider, MsalAuthenticationTemplate } from '@azure/msal-react'
 import { PUBLIC_URL } from './utils/environment'
-import { msalConfig, appRoles } from './utils/authentication/authConfig'
+import { msalConfig } from './utils/authentication/authConfig'
 import { AppGuard } from './utils/authentication/AppGuard'
 import Loading from './components/loading/loading'
 
@@ -16,7 +16,7 @@ ReactDOM.render(
         interactionType={InteractionType.Redirect}
         loadingComponent={Loading}
       >
-        <AppGuard exact roles={[appRoles.Caregiver]} />
+        <AppGuard />
       </MsalAuthenticationTemplate>
     </MsalProvider>
   </BrowserRouter>,
