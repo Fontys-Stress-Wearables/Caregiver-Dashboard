@@ -16,15 +16,7 @@ export const msalConfig = {
   },
 }
 
-// Add scopes here for ID token to be used at Microsoft identity platform endpoints.
-export const loginRequest = {
-  scopes: ['User.Read'],
-}
-
 export const appRoles = {
   Caregiver: 'Organization.Caregiver',
-}
-
-export const graphConfig = {
-  graphMeEndpoint: 'https://graph.microsoft.com/v1.0/me',
+  Admin: 'Organization.Admin',
 }
