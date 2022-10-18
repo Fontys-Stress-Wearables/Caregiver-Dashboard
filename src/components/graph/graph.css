@@ -5,8 +5,7 @@
   max-width: 300px;
   max-height: 300px;
 }
-
-.Container {
+.GraphContainer {
   width: 100%;
   display: flex;
   justify-content: center;

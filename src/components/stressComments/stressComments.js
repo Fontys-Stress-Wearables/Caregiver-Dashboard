@@ -11,9 +11,9 @@ import './stressComments.css'
 
 function StessComment() {
   return (
-    <div className="StessCommentContainer">
+    <div className="StressCommentsContainer">
       <h2> Data Info </h2>
-      <div className="Container">
+      <div className="CenterContainer">
         <div className="ListContainer">
           <List
             sx={{

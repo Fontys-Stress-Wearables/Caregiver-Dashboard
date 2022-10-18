@@ -7,7 +7,7 @@ import CreatePatientModal from '../../components/createPatientModal/createPatien
 
 function CaregiverDashboard() {
   return (
-    <div className="body">
+    <div className="BodyContainer">
       <Header />
       <Title />
       <DropdownSearchbar />

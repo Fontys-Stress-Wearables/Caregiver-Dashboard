@@ -1,10 +1,10 @@
-.StessCommentContainer {
+.StressCommentsContainer {
   background-color: rgb(232, 229, 229);
   padding-bottom: 1px;
   padding-top: 1px;
   color: rgb(0, 0, 0);
 }
-.Container {
+.CenterContainer {
   width: 100%;
   display: flex;
   justify-content: center;
@@ -16,7 +16,6 @@
   display: flex;
   justify-content: center;
 }
-
 .h2 {
   background-color: rgb(232, 229, 229);
   color: rgb(0, 0, 0);
