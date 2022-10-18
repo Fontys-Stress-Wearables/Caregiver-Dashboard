@@ -1,0 +1,21 @@
+.Header {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding-bottom: 1px;
+  padding-top: 2em;
+}
+
+.Logo {
+  width: 50%;
+  display: flex;
+  justify-content: left;
+  margin-left: 2rem;
+}
+
+.Logout {
+  width: 50%;
+  display: flex;
+  justify-content: right;
+  margin-right: 2em;
+}

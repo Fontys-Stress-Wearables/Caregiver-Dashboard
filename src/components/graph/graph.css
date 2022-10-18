@@ -1,0 +1,14 @@
+.Graph {
+  display: flex;
+  justify-content: right;
+  margin-right: 2em;
+  max-width: 300px;
+  max-height: 300px;
+}
+.GraphContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background-color: rgb(232, 229, 229);
+  color: rgb(0, 0, 0);
+}
