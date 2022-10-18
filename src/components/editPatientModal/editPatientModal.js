@@ -3,8 +3,7 @@ import Button from 'react-bootstrap/esm/Button'
 import Form from 'react-bootstrap/esm/Form'
 import Modal from 'react-bootstrap/esm/Modal'
 
-function CreatePatientModal(props) {
-  console.log(props)
+function EditPatientModal(props) {
   const [show, setShow] = useState(props)
   const [patient, setPatient] = useState()
   const handleClose = () => props.setPreviewShown(!props)
@@ -24,10 +23,6 @@ function CreatePatientModal(props) {
 
   const [date, setDate] = useState('')
 
-  const handleChangeDate = (event) => {
-    setDate(event.target.value)
-  }
-
   function handleSubmit() {
     const handlePatient = {
       firstName: firstname,
@@ -42,7 +37,6 @@ function CreatePatientModal(props) {
 
   return (
     <>
-      {/* <Button onClick={handleShow}>Add patient</Button> */}
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Edit patient in the system</Modal.Title>
@@ -67,16 +61,6 @@ function CreatePatientModal(props) {
                 onChange={handleChangeLastname}
               />
             </Form.Group>
-            {/* <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>Birthdate</Form.Label>
-              <Form.Control
-                type="date"
-                placeholder="Birthdate"
-                autoFocus
-                max={new Date().toISOString().split('T')[0]}
-                onChange={handleChangeDate}
-              />
-            </Form.Group> */}
           </Form>
         </Modal.Body>
         <Modal.Footer>
@@ -92,4 +76,4 @@ function CreatePatientModal(props) {
   )
 }
 
-export default CreatePatientModal
+export default EditPatientModal

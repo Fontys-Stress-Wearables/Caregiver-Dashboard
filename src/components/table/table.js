@@ -9,7 +9,7 @@ import EditIcon from '@mui/icons-material/Edit'
 import PersonIcon from '@mui/icons-material/Person'
 import BarChartIcon from '@mui/icons-material/BarChart'
 import IconButton from '@mui/material/IconButton'
-import CreatePatientModal from '../createPatientModal/createPatientModal'
+import EditPatientModal from '../editPatientModal/editPatientModal'
 import './table.css'
 import { useNavigate } from 'react-router-dom'
 
@@ -38,20 +38,14 @@ function Table() {
 
   const handlePreview = (e) => {
     e.preventDefault()
-    console.log('hi')
-    console.log(isPreviewShown)
-
     setPreviewShown(!isPreviewShown) // Here we change state
     console.log(isPreviewShown)
   }
+
   function handleToggleComplete(id) {
-    console.log(id)
-    console.log(updatePatientInfo)
     setUpdatePatientInfo(!updatePatientInfo)
-    console.log(updatePatientInfo)
     const newList = list.map((value) => {
       if (value.id === id) {
-        console.log(id)
         const updatedItem = {
           ...value,
           lastname: !value.lastname,
@@ -108,10 +102,8 @@ function Table() {
       </div>
       {isPreviewShown && (
         <div>
-          {console.log(isPreviewShown)}
-          <CreatePatientModal setPreviewShown={setPreviewShown} />
+          <EditPatientModal setPreviewShown={setPreviewShown} />
           {handlePreview}
-          {console.log(isPreviewShown)}
         </div>
       )}
     </div>
