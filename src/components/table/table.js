@@ -39,7 +39,6 @@ function Table() {
   const handlePreview = (e) => {
     e.preventDefault()
     setPreviewShown(!isPreviewShown) // Here we change state
-    console.log(isPreviewShown)
   }
 
   function handleToggleComplete(id) {
