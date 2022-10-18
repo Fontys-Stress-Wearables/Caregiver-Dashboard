@@ -8,3 +8,16 @@
   display: flex;
   justify-content: center;
 }
+.CaregiverDashboardContainer {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  padding: 16px;
+  width: 50%;
+}
+
+.CreatePatientModal {
+  margin-bottom: 16px;
+  max-width: 100%;
+  margin-left: auto;
+}

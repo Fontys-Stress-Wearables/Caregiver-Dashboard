@@ -7,7 +7,7 @@ import Avatar from '@mui/material/Avatar'
 import ImageIcon from '@mui/icons-material/Image'
 import EditIcon from '@mui/icons-material/Edit'
 import IconButton from '@mui/material/IconButton'
-import './stressComment.css'
+import './stressComments.css'
 
 function StessComment() {
   return (
@@ -27,7 +27,13 @@ function StessComment() {
                 key={value}
                 disableGutters
                 secondaryAction={
-                  <IconButton edge="end" aria-label="edit">
+                  <IconButton
+                    edge="end"
+                    aria-label="edit"
+                    onClick={() => {
+                      alert(`clicked edit icon ${value}`)
+                    }}
+                  >
                     <EditIcon />
                   </IconButton>
                 }

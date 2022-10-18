@@ -2,27 +2,19 @@
   width: 100%;
   display: flex;
   justify-content: center;
-  align-items: baseline;
   padding-bottom: 1px;
-}
-
-.OrganizationTitle {
-  width: 50%;
-  display: flex;
-  justify-content: left;
-  align-items: baseline;
-  margin-left: 2em;
-}
-
-.Login {
-  width: 50%;
-  display: flex;
-  justify-content: right;
-  align-items: baseline;
-  padding-right: 1%;
+  padding-top: 2em;
 }
 
 .Logo {
+  width: 50%;
+  display: flex;
+  justify-content: left;
+  margin-left: 2rem;
+}
+
+.Logout {
+  width: 50%;
   display: flex;
   justify-content: right;
   margin-right: 2em;

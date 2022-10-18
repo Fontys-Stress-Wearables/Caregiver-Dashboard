@@ -1,9 +1,8 @@
 import './App.css'
-// import { Routes, Route } from 'react-router-dom'
-// import { Routes, Route, Navigate } from 'react-router-dom'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
-import CaregiverDashboard from '../../layouts/caregiverDashboard/caregiverDashboard'
-import StressPatientDashboard from '../../layouts/stressPatientDashboard/stressPatientDashboard'
+import CaregiverDashboard from '../../pages/caregiverDashboard/caregiverDashboard'
+import StressPatientDashboard from '../../pages/stressPatientDashboard/stressPatientDashboard'
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 function App() {
   return (
