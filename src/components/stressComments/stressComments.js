@@ -42,11 +42,8 @@ function StessComment() {
   }
   return (
     <div className="StressCommentsContainer">
-      <h2> Data Info </h2>
-      <div className="createCommentContainer">
-        <div className="createStressCommentModal">
-          <CreateStressCommentModal />
-        </div>
+      <div className="createStressCommentModal">
+        <CreateStressCommentModal />
       </div>
       <div className="CenterContainer">
         <div className="ListContainer">
