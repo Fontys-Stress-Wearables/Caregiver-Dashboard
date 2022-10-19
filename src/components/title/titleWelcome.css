@@ -1,9 +1,9 @@
-.Title {
+.WelcomeTitle {
   box-sizing: border-box;
   display: 'flex';
   align-items: 'center';
   justify-content: 'center';
   width: 100%;
-  padding-bottom: 1px;
-  padding-top: 1px;
+  padding-bottom: 2em;
+  padding-top: 2em;
 }
