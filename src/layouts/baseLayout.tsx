@@ -6,7 +6,7 @@ type Props = {
 }
 
 const BaseLayout = ({ children }: Props) => (
-  <div className="BodyContainer">
+  <div className="BaseContainer">
     <Header />
     {children}
   </div>
