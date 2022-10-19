@@ -3,31 +3,20 @@ import Button from 'react-bootstrap/esm/Button'
 import Form from 'react-bootstrap/esm/Form'
 import Modal from 'react-bootstrap/esm/Modal'
 
-function EditPatientModal(props) {
+function EditStressComment(props) {
   const [show, setShow] = useState(props)
   const [patient, setPatient] = useState()
   const handleClose = () => props.setPreviewShown(!props)
-  const handleShow = () => props.setPreviewShown(!props)
 
-  const [firstname, setFirstname] = useState('')
+  const [comment, setComment] = useState('')
 
-  const handleChangeFirstname = (event) => {
-    setFirstname(event.target.value)
+  const handleChangeComment = (event) => {
+    setComment(event.target.value)
   }
-
-  const [lastname, setLastname] = useState('')
-
-  const handleChangeLastname = (event) => {
-    setLastname(event.target.value)
-  }
-
-  const [date, setDate] = useState('')
 
   function handleSubmit() {
     const handlePatient = {
-      firstName: firstname,
-      lastName: lastname,
-      birthdate: date,
+      comment: comment,
     }
 
     setPatient(handlePatient)
@@ -38,26 +27,17 @@ function EditPatientModal(props) {
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
-        <Modal.Title>Edit patient in the system</Modal.Title>
+        <Modal.Title>Edit stress comment in the system</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form>
           <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-            <Form.Label>First name</Form.Label>
+            <Form.Label>Comment</Form.Label>
             <Form.Control
               type="string"
-              placeholder="First name"
+              placeholder="Comment"
               autoFocus
-              onChange={handleChangeFirstname}
-            />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-            <Form.Label>Last name</Form.Label>
-            <Form.Control
-              type="string"
-              placeholder="Last name"
-              autoFocus
-              onChange={handleChangeLastname}
+              onChange={handleChangeComment}
             />
           </Form.Group>
         </Form>
@@ -67,11 +47,11 @@ function EditPatientModal(props) {
           Close
         </Button>
         <Button variant="primary" onClick={() => handleSubmit()}>
-          Edit Patient
+          Edit Comment
         </Button>
       </Modal.Footer>
     </Modal>
   )
 }
 
-export default EditPatientModal
+export default EditStressComment
