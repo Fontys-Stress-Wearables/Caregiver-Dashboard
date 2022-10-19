@@ -3,9 +3,9 @@ import Button from 'react-bootstrap/esm/Button'
 import Form from 'react-bootstrap/esm/Form'
 import Modal from 'react-bootstrap/esm/Modal'
 
-function EditStressComment(props) {
+function EditStressCommentModal(props) {
   const [show, setShow] = useState(props)
-  const [patient, setPatient] = useState()
+  const [stressComment, setStressComment] = useState()
   const handleClose = () => props.setPreviewShown(!props)
 
   const [comment, setComment] = useState('')
@@ -15,11 +15,11 @@ function EditStressComment(props) {
   }
 
   function handleSubmit() {
-    const handlePatient = {
+    const handleComment = {
       comment: comment,
     }
 
-    setPatient(handlePatient)
+    setStressComment(handleComment)
 
     handleClose()
   }
@@ -54,4 +54,4 @@ function EditStressComment(props) {
   )
 }
 
-export default EditStressComment
+export default EditStressCommentModal

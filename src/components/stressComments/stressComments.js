@@ -9,7 +9,8 @@ import Avatar from '@mui/material/Avatar'
 import ImageIcon from '@mui/icons-material/Image'
 import EditIcon from '@mui/icons-material/Edit'
 import IconButton from '@mui/material/IconButton'
-import EditStressComment from '../editStressComment/editStressComment'
+import EditStressCommentModal from '../editStressCommentModal/editStressCommentModal'
+import CreateStressCommentModal from '../createStressCommentModal/createStressCommentModal'
 import './stressComments.css'
 
 function StessComment() {
@@ -42,6 +43,11 @@ function StessComment() {
   return (
     <div className="StressCommentsContainer">
       <h2> Data Info </h2>
+      <div className="createCommentContainer">
+        <div className="createStressCommentModal">
+          <CreateStressCommentModal />
+        </div>
+      </div>
       <div className="CenterContainer">
         <div className="ListContainer">
           <List
@@ -77,7 +83,7 @@ function StessComment() {
       </div>
       {isPreviewShown && (
         <div>
-          <EditStressComment setPreviewShown={setPreviewShown} />
+          <EditStressCommentModal setPreviewShown={setPreviewShown} />
           {handlePreview}
         </div>
       )}
