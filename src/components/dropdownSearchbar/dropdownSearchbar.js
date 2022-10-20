@@ -30,7 +30,7 @@ function DropdownSearchbar() {
           padding: '1px',
         }}
       >
-        <div style={{ width: '50%' }}>
+        <div style={{ width: '20%', minWidth: '23rem' }}>
           <Select
             MenuPlacement="auto"
             MenuPosition="fixed"
@@ -42,7 +42,7 @@ function DropdownSearchbar() {
           />
         </div>
       </div>
-      <h2>{selectedOption}</h2>
+      <h2 className="SearchBarSelected">{selectedOption}</h2>
     </div>
   )
 }
