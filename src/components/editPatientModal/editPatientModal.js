@@ -36,43 +36,41 @@ function EditPatientModal(props) {
   }
 
   return (
-    <>
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Edit patient in the system</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>First name</Form.Label>
-              <Form.Control
-                type="string"
-                placeholder="First name"
-                autoFocus
-                onChange={handleChangeFirstname}
-              />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>Last name</Form.Label>
-              <Form.Control
-                type="string"
-                placeholder="Last name"
-                autoFocus
-                onChange={handleChangeLastname}
-              />
-            </Form.Group>
-          </Form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={() => handleSubmit()}>
-            Edit Patient
-          </Button>
-        </Modal.Footer>
-      </Modal>
-    </>
+    <Modal show={show} onHide={handleClose}>
+      <Modal.Header closeButton>
+        <Modal.Title>Edit patient in the system</Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <Form>
+          <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+            <Form.Label>First name</Form.Label>
+            <Form.Control
+              type="string"
+              placeholder="First name"
+              autoFocus
+              onChange={handleChangeFirstname}
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+            <Form.Label>Last name</Form.Label>
+            <Form.Control
+              type="string"
+              placeholder="Last name"
+              autoFocus
+              onChange={handleChangeLastname}
+            />
+          </Form.Group>
+        </Form>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button variant="secondary" onClick={handleClose}>
+          Close
+        </Button>
+        <Button variant="primary" onClick={() => handleSubmit()}>
+          Edit Patient
+        </Button>
+      </Modal.Footer>
+    </Modal>
   )
 }
 

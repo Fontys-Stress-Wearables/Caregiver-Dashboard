@@ -1,4 +1,6 @@
 import * as React from 'react'
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
 import ListItemText from '@mui/material/ListItemText'
@@ -7,12 +9,42 @@ import Avatar from '@mui/material/Avatar'
 import ImageIcon from '@mui/icons-material/Image'
 import EditIcon from '@mui/icons-material/Edit'
 import IconButton from '@mui/material/IconButton'
+import EditStressCommentModal from '../editStressCommentModal/editStressCommentModal'
+import CreateStressCommentModal from '../createStressCommentModal/createStressCommentModal'
 import './stressComments.css'
 
 function StessComment() {
+  const navigate = useNavigate()
+  const initialList = [
+    {
+      id: 0,
+      comment: 'Experienced number jumpscare from scary movie',
+      date: 'Jan 9, 2014 at a.m.',
+    },
+    {
+      id: 1,
+      comment: 'Experienced number jumpscare from scary movie',
+      date: 'Jan 9, 2014 at a.m.',
+    },
+    {
+      id: 3,
+      comment: 'Experienced number jumpscare from scary movie',
+      date: 'Jan 9, 2014 at a.m.',
+    },
+  ]
+  const [list, setList] = React.useState(initialList)
+  const [updatePatientInfo, setUpdatePatientInfo] = React.useState(false)
+  const [isPreviewShown, setPreviewShown] = useState(false)
+
+  const handlePreview = (e) => {
+    e.preventDefault()
+    setPreviewShown(!isPreviewShown) // Here we change state
+  }
   return (
     <div className="StressCommentsContainer">
-      <h2> Data Info </h2>
+      <div className="createStressCommentModal">
+        <CreateStressCommentModal />
+      </div>
       <div className="CenterContainer">
         <div className="ListContainer">
           <List
@@ -22,18 +54,12 @@ function StessComment() {
               backgroundColor: 'rgb(232, 229, 229)',
             }}
           >
-            {[1, 2, 3].map((value) => (
+            {list.map((value) => (
               <ListItem
                 key={value}
                 disableGutters
                 secondaryAction={
-                  <IconButton
-                    edge="end"
-                    aria-label="edit"
-                    onClick={() => {
-                      alert(`clicked edit icon ${value}`)
-                    }}
-                  >
+                  <IconButton aria-label="edit" onClick={handlePreview}>
                     <EditIcon />
                   </IconButton>
                 }
@@ -44,14 +70,20 @@ function StessComment() {
                   </Avatar>
                 </ListItemAvatar>
                 <ListItemText
-                  primary={`Experienced number ${value} jumpscare from scary movie`}
-                  secondary={`Jan 9, 2014 at ${value} a.m.`}
+                  primary={`${value.comment}`}
+                  secondary={value.date}
                 />
               </ListItem>
             ))}
           </List>
         </div>
       </div>
+      {isPreviewShown && (
+        <div>
+          <EditStressCommentModal setPreviewShown={setPreviewShown} />
+          {handlePreview}
+        </div>
+      )}
     </div>
   )
 }
