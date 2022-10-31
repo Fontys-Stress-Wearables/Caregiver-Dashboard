@@ -1,9 +1,14 @@
 version: '3.9'
 services:
-  web:
-    build: .
+  caregiver-dashboard:
+    build:
+      context: .
+      args:
+        - REACT_APP_ENVIRONMENT=development
+    volumes:
+      - './conf/nginx.dev.conf:/etc/nginx/nginx.conf'
     ports:
-      - '3000:3000'
+      - '3000:80'
 
 networks:
   default:
