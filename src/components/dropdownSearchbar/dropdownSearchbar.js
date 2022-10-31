@@ -7,16 +7,10 @@ import { getPatientGroupsForCaregiver } from '../../utils/api/calls'
 
 function DropdownSearchbar() {
   const [selectedOption, setSelectedOption] = useState('Select Patient Group')
+  const [updateTable, setUpdateTable] = useState(false)
   const { instance, accounts } = useMsal()
-
-  const aquaticCreatures = [
-    { label: 'Shark', value: 'Shark' },
-    { label: 'Dolphin', value: 'Dolphin' },
-    { label: 'Whale', value: 'Whale' },
-    { label: 'Octopus', value: 'Octopus' },
-    { label: 'Crab', value: 'Crab' },
-    { label: 'Lobster', value: 'Lobster' },
-  ]
+  const [error, setError] = useState(false)
+  const [patientGroups, setPatientGroups] = useState([])
 
   const request = {
     scopes: [AUTH_REQUEST_SCOPE_URL, 'User.Read'],
@@ -25,30 +19,30 @@ function DropdownSearchbar() {
 
   useEffect(() => {
     fetchPatientGroups()
-  })
+  }, [updateTable])
 
   const fetchPatientGroups = () => {
     instance
       .acquireTokenSilent(request)
       .then((res) => {
-        console.log(res)
         getPatientGroupsForCaregiver(res.accessToken, res.uniqueId)
           .then((response) => {
             if (response.error) {
-              console.log(response)
+              setError(true)
             } else {
-              const foundPatientGroups = response.response
-              console.log(foundPatientGroups)
-              // setError(false)
-              // setOrganizations([...foundOrganizations])
+              const fetchedPatientGroups = response.response
+              setError(false)
+              setPatientGroups(fetchedPatientGroups)
             }
           })
           .catch((err) => {
             console.error('Error occurred while fetching organizations', err)
+            setError(true)
           })
       })
       .catch((e) => {
         console.error('Error occurred while fetching patients', e)
+        setError(true)
       })
   }
 
@@ -56,9 +50,19 @@ function DropdownSearchbar() {
     setSelectedOption(e.value)
   }
 
+  const getPatientGroupNames = () => {
+    const nameList = []
+    patientGroups.forEach((element) => {
+      nameList.push({
+        label: element.groupName,
+        value: element.groupName,
+      })
+    })
+    return nameList
+  }
+
   return (
     <div className="SearchBar">
-      {console.log(instance.getActiveAccount())}
       <div
         style={{
           boxSizing: 'border-box',
@@ -73,11 +77,10 @@ function DropdownSearchbar() {
           <Select
             MenuPlacement="auto"
             MenuPosition="fixed"
-            options={aquaticCreatures}
+            options={getPatientGroupNames()}
             onChange={handleTypeSelect}
             value={selectedOption}
             placeholder={selectedOption}
-            // placeholder="Select Patient Group"
           />
         </div>
       </div>
