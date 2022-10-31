@@ -3,9 +3,16 @@ import './header.css'
 import { Link } from 'react-router-dom'
 import Button from '@mui/material/Button'
 import LogoutIcon from '@mui/icons-material/Logout'
+import { useMsal } from '@azure/msal-react'
 import SWSPLogo from '../../assets/swsp-logo.svg'
 
 function Header() {
+  const { instance } = useMsal()
+
+  function handleLogout(instance) {
+    instance.logoutRedirect().catch(console.error)
+  }
+
   return (
     <div className="Header-Container">
       <div className="Header">
@@ -18,9 +25,7 @@ function Header() {
             color="error"
             variant="contained"
             startIcon={<LogoutIcon />}
-            onClick={() => {
-              alert('clicked on LogOut')
-            }}
+            onClick={() => handleLogout(instance)}
           >
             Logout
           </Button>
