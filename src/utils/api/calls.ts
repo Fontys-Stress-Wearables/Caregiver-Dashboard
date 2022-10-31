@@ -89,11 +89,9 @@ const callApi = async ({ token, apiUrl, path, method, body }: ApiCalls) => {
     fetchOptions.body = typeof body === 'string' ? body : JSON.stringify(body)
 
   try {
-    console.log(url)
     const response = await fetch(url, fetchOptions)
     if (!response.ok) throw Error(`${response.status}|${response.statusText}`)
     const responseText = await response.text()
-    console.log(responseText)
     return {
       error: false,
       response:
@@ -108,16 +106,6 @@ const callApi = async ({ token, apiUrl, path, method, body }: ApiCalls) => {
 }
 
 export const getPatientGroupsForCaregiver = (
-  accessToken: string,
-  caregiverId: string,
-): Promise<PatientGroupsPropsResponse> =>
-  callApi({
-    token: accessToken,
-    path: `patient-groups/caregivers/${caregiverId}`,
-    method: 'GET',
-  })
-
-export const getCaregiverPatientGroups = (
   accessToken: string,
   caregiverId: string,
 ): Promise<PatientGroupsPropsResponse> =>
