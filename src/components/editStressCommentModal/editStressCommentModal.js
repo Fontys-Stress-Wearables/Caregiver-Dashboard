@@ -8,7 +8,7 @@ function EditStressCommentModal(props) {
   const [stressComment, setStressComment] = useState()
   const handleClose = () => props.setPreviewShown(!props)
 
-  const [comment, setComment] = useState('')
+  const [setComment] = useState('')
 
   const handleChangeComment = (event) => {
     setComment(event.target.value)
@@ -35,7 +35,8 @@ function EditStressCommentModal(props) {
             <Form.Label>Comment</Form.Label>
             <Form.Control
               type="string"
-              placeholder="Comment"
+              placeholder={props.comment}
+              value={props.comment}
               autoFocus
               onChange={handleChangeComment}
             />

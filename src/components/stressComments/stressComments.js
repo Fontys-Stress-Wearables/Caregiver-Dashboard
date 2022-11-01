@@ -11,9 +11,10 @@ import EditIcon from '@mui/icons-material/Edit'
 import IconButton from '@mui/material/IconButton'
 import EditStressCommentModal from '../editStressCommentModal/editStressCommentModal'
 import CreateStressCommentModal from '../createStressCommentModal/createStressCommentModal'
+import Button from 'react-bootstrap/esm/Button'
 import './stressComments.css'
 
-function StessComment() {
+function StressComment() {
   const navigate = useNavigate()
   const initialList = [
     {
@@ -34,16 +35,27 @@ function StessComment() {
   ]
   const [list, setList] = React.useState(initialList)
   const [updatePatientInfo, setUpdatePatientInfo] = React.useState(false)
-  const [isPreviewShown, setPreviewShown] = useState(false)
+  const [isPreviewShown, setPreviewShown] = useState(false) //edit comment 
+  const [isCreateCommentModalShown, setCreateCommentModalShown] = useState(false) //create comment 
+  const [state, setstate] = useState({comment: ""})
 
-  const handlePreview = (e) => {
+  //edit comment modal handler
+  const handlePreview = (e, comment) => {
     e.preventDefault()
+    setstate({comment: comment})
     setPreviewShown(!isPreviewShown) // Here we change state
   }
+   //create comment modal handler
+   const handleCreateCommentModalPreview = (e) => {
+    e.preventDefault()
+    setCreateCommentModalShown(!isCreateCommentModalShown) // Here we change state
+  }
+
   return (
     <div className="StressCommentsContainer">
       <div className="createStressCommentModal">
-        <CreateStressCommentModal />
+        <Button onClick={handleCreateCommentModalPreview}>Add comment</Button>
+        {/* <CreateStressCommentModal /> */}
       </div>
       <div className="CenterContainer">
         <div className="ListContainer">
@@ -56,10 +68,10 @@ function StessComment() {
           >
             {list.map((value) => (
               <ListItem
-                key={value}
+                key={value.id}
                 disableGutters
                 secondaryAction={
-                  <IconButton aria-label="edit" onClick={handlePreview}>
+                  <IconButton aria-label="edit" onClick={(e) => handlePreview(e, value.comment)}>
                     <EditIcon />
                   </IconButton>
                 }
@@ -78,14 +90,22 @@ function StessComment() {
           </List>
         </div>
       </div>
+      <div>
       {isPreviewShown && (
         <div>
-          <EditStressCommentModal setPreviewShown={setPreviewShown} />
-          {handlePreview}
+          <EditStressCommentModal comment={state.comment} setPreviewShown={setPreviewShown} />
         </div>
       )}
+      </div>
+      <div>
+        {isCreateCommentModalShown && (
+          <div>
+            <CreateStressCommentModal setCreateCommentModalShown={setCreateCommentModalShown} />
+          </div>
+        )}
+      </div>
     </div>
   )
 }
 
-export default StessComment
+export default StressComment

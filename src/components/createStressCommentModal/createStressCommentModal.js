@@ -3,11 +3,11 @@ import Button from 'react-bootstrap/esm/Button'
 import Form from 'react-bootstrap/esm/Form'
 import Modal from 'react-bootstrap/esm/Modal'
 
-function CreateStressCommentModal() {
-  const [show, setShow] = useState(false)
+function CreateStressCommentModal(props) {
+  const [show, setShow] = useState(props)
   const [stressComment, setStressComment] = useState()
-  const handleClose = () => setShow(false)
-  const handleShow = () => setShow(true)
+  const handleClose = () => props.setCreateCommentModalShown(!props)
+  // const handleShow = () => setShow(true)
 
   const [comment, setComment] = useState('')
 
@@ -33,8 +33,6 @@ function CreateStressCommentModal() {
   }
 
   return (
-    <>
-      <Button onClick={handleShow}>Add comment</Button>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Create a new comment in the system</Modal.Title>
@@ -54,7 +52,8 @@ function CreateStressCommentModal() {
               <Form.Label>Comment Date</Form.Label>
               <Form.Control
                 type="date"
-                placeholder="Comment Date"
+                // placeholder="Comment Date"
+                value={props.date}
                 autoFocus
                 max={new Date().toISOString().split('T')[0]}
                 onChange={handleChangeDate}
@@ -71,7 +70,6 @@ function CreateStressCommentModal() {
           </Button>
         </Modal.Footer>
       </Modal>
-    </>
   )
 }
 

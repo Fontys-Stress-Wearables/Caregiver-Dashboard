@@ -6,7 +6,8 @@
   max-height: 300px;
 }
 .GraphContainer {
-  width: 100%;
+  width: 70%;
+  margin: auto;
   display: flex;
   justify-content: center;
   background-color: rgb(232, 229, 229);
