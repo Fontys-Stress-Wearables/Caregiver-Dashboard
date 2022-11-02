@@ -79,7 +79,7 @@ function Table() {
                   </IconButton>
                   <IconButton
                     aria-label="barchart"
-                    onClick={() => navigate('/stress')}
+                    onClick={() => navigate(`/stress/${value.id}`)}
                   >
                     <BarChartIcon />
                   </IconButton>
