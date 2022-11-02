@@ -3,12 +3,7 @@ import Button from 'react-bootstrap/esm/Button'
 import Form from 'react-bootstrap/esm/Form'
 import Modal from 'react-bootstrap/esm/Modal'
 
-function EditPatientModal(props) {
-  const [show, setShow] = useState(props)
-  const [patient, setPatient] = useState()
-  const handleClose = () => props.setPreviewShown(!props)
-  const handleShow = () => props.setPreviewShown(!props)
-
+function EditPatientModal({ patient, show, closeModal }) {
   const [firstname, setFirstname] = useState('')
 
   const handleChangeFirstname = (event) => {
@@ -30,13 +25,13 @@ function EditPatientModal(props) {
       birthdate: date,
     }
 
-    setPatient(handlePatient)
+    // setPatient(handlePatient)
 
-    handleClose()
+    closeModal()
   }
 
   return (
-    <Modal show={show} onHide={handleClose}>
+    <Modal show={show} onHide={closeModal}>
       <Modal.Header closeButton>
         <Modal.Title>Edit patient in the system</Modal.Title>
       </Modal.Header>
@@ -63,7 +58,7 @@ function EditPatientModal(props) {
         </Form>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={handleClose}>
+        <Button variant="secondary" onClick={closeModal}>
           Close
         </Button>
         <Button variant="primary" onClick={() => handleSubmit()}>

@@ -8,6 +8,12 @@
   display: flex;
   justify-content: center;
 }
+
+.TableList {
+  width: 100%;
+  max-width: 360px;
+}
+
 .CaregiverDashboardContainer {
   display: flex;
   flex-direction: column;

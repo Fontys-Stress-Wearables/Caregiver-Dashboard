@@ -2,60 +2,66 @@ import React, { useEffect, useState } from 'react'
 import Select from 'react-select'
 import './dropdownSearchbar.css'
 import { useMsal } from '@azure/msal-react'
+import {
+  useAuthRequest,
+  getPatientGroupsForCaregiver,
+} from '../../utils/api/calls'
 import { AUTH_REQUEST_SCOPE_URL } from '../../utils/environment'
-import { getPatientGroupsForCaregiver } from '../../utils/api/calls'
 
-function DropdownSearchbar() {
-  const [selectedOption, setSelectedOption] = useState('Select Patient Group')
-  const [updateTable, setUpdateTable] = useState(false)
+function DropdownSearchbar({ selectedGroup, setSelectedGroup }) {
   const { instance, accounts } = useMsal()
-  const [error, setError] = useState(false)
-  const [patientGroups, setPatientGroups] = useState([])
 
+  const placeholderGroups = [
+    {
+      id: 1,
+      groupName: 'group 1',
+      description: 'description1',
+    },
+    {
+      id: 2,
+      groupName: 'group 2',
+      description: 'description2',
+    },
+  ]
   const request = {
     scopes: [AUTH_REQUEST_SCOPE_URL, 'User.Read'],
     account: accounts[0],
   }
+  const [patientGroups, setPatientGroups] = useState([])
+  const [error, setError] = useState(false)
 
   useEffect(() => {
     fetchPatientGroups()
-  }, [updateTable])
+  }, [])
 
   const fetchPatientGroups = () => {
-    instance
-      .acquireTokenSilent(request)
-      .then((res) => {
-        getPatientGroupsForCaregiver(res.accessToken, res.uniqueId)
-          .then((response) => {
-            if (response.error) {
-              setError(true)
-            } else {
-              const fetchedPatientGroups = response.response
-              setError(false)
-              setPatientGroups(fetchedPatientGroups)
-            }
-          })
-          .catch((err) => {
-            console.error('Error occurred while fetching organizations', err)
+    instance.acquireTokenSilent(request).then((res) => {
+      getPatientGroupsForCaregiver(res.accessToken, res.uniqueId).then(
+        (response) => {
+          if (response.error) {
             setError(true)
-          })
-      })
-      .catch((e) => {
-        console.error('Error occurred while fetching patients', e)
-        setError(true)
-      })
+          } else {
+            const fetchedPatientGroups = response.response
+            setError(false)
+            setPatientGroups(fetchedPatientGroups)
+          }
+        },
+      )
+    })
   }
 
-  const handleTypeSelect = (e) => {
-    setSelectedOption(e.value)
+  const handleGroupSelect = (e) => {
+    const group = patientGroups.find((g) => g.id === e.id)
+    setSelectedGroup(group)
   }
 
   const getPatientGroupNames = () => {
     const nameList = []
-    patientGroups.forEach((element) => {
+    patientGroups.forEach((group) => {
       nameList.push({
-        label: element.groupName,
-        value: element.groupName,
+        id: group.id,
+        value: group.groupName,
+        label: group.groupName,
       })
     })
     return nameList
@@ -78,13 +84,13 @@ function DropdownSearchbar() {
             MenuPlacement="auto"
             MenuPosition="fixed"
             options={getPatientGroupNames()}
-            onChange={handleTypeSelect}
-            value={selectedOption}
-            placeholder={selectedOption}
+            onChange={handleGroupSelect}
+            value={selectedGroup?.value}
+            placeholder="Select Patient Group"
           />
         </div>
       </div>
-      <h2 className="SearchBarSelected">{selectedOption}</h2>
+      <h2 className="SearchBarSelected">{selectedGroup?.groupName}</h2>
     </div>
   )
 }
