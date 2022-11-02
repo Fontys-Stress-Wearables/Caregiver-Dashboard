@@ -43,12 +43,10 @@ function Table({ selectedGroup }) {
         (response) => {
           if (response.error) {
             setError(true)
-            console.log(response)
           } else {
             const fetchedPatientGroups = response.response
             setError(false)
             setPatientList(fetchedPatientGroups)
-            console.log(response)
           }
         },
       )
