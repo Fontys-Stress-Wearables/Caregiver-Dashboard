@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
 import ListItemText from '@mui/material/ListItemText'
@@ -9,72 +9,67 @@ import EditIcon from '@mui/icons-material/Edit'
 import PersonIcon from '@mui/icons-material/Person'
 import BarChartIcon from '@mui/icons-material/BarChart'
 import IconButton from '@mui/material/IconButton'
+import { useMsal } from '@azure/msal-react'
 import EditPatientModal from '../editPatientModal/editPatientModal'
 import './table.css'
 import { useNavigate } from 'react-router-dom'
 
-function Table() {
+import {
+  getPatientsForPatientGroup,
+  useAuthRequest,
+} from '../../utils/api/calls'
+
+function Table({ selectedGroup }) {
   const navigate = useNavigate()
-  const initialList = [
-    {
-      id: 0,
-      name: 'Milan',
-      lastname: 'Koster van Groos',
-    },
-    {
-      id: 1,
-      name: 'Michael',
-      lastname: 'Osusomething',
-    },
-    {
-      id: 3,
-      name: 'Marinda',
-      lastname: 'Boshoff',
-    },
-  ]
-  const [list, setList] = React.useState(initialList)
-  const [updatePatientInfo, setUpdatePatientInfo] = React.useState(false)
-  const [isPreviewShown, setPreviewShown] = useState(false)
+  const { instance } = useMsal()
+  const request = useAuthRequest()
 
-  const handlePreview = (e) => {
-    e.preventDefault()
-    setPreviewShown(!isPreviewShown) // Here we change state
+  const [patientList, setPatientList] = useState([])
+  const [selectedPatient, setSelectedPatient] = useState()
+  const [showPatientModal, setShowPatientModal] = useState(false)
+  const [error, setError] = useState(false)
+
+  const openPatientModal = (patient) => {
+    setSelectedPatient(patient)
+    setShowPatientModal(true)
   }
 
-  function handleToggleComplete(id) {
-    setUpdatePatientInfo(!updatePatientInfo)
-    const newList = list.map((value) => {
-      if (value.id === id) {
-        const updatedItem = {
-          ...value,
-          lastname: !value.lastname,
-        }
+  useEffect(() => {
+    if (selectedGroup) {
+      fetchPatients()
+    }
+  }, [selectedGroup])
 
-        return updatedItem
-      }
-
-      return value
+  const fetchPatients = () => {
+    instance.acquireTokenSilent(request).then((res) => {
+      getPatientsForPatientGroup(res.accessToken, selectedGroup.id).then(
+        (response) => {
+          if (response.error) {
+            setError(true)
+          } else {
+            const fetchedPatientGroups = response.response
+            setError(false)
+            setPatientList(fetchedPatientGroups)
+          }
+        },
+      )
     })
-
-    setList(newList)
   }
+
   return (
     <div className="Container">
       <div className="ListContainer">
-        <List
-          sx={{
-            width: '100%',
-            maxWidth: 360,
-            backgroundColor: 'rgb(232, 229, 229)',
-          }}
-        >
-          {list.map((value) => (
+        <List className="TableList">
+          {patientList.map((patient) => (
             <ListItem
-              key={value.id}
+              key={patient}
               disableGutters
               secondaryAction={
                 <>
-                  <IconButton aria-label="edit" onClick={handlePreview}>
+                  <IconButton
+                    aria-label="edit"
+                    onClick={() => openPatientModal(patient)}
+                  >
                     <EditIcon />
                   </IconButton>
                   <IconButton
@@ -92,18 +87,18 @@ function Table() {
                 </Avatar>
               </ListItemAvatar>
               <ListItemText
-                primary={`Patient ${value.name}`}
-                secondary={`${value.lastname}`}
+                primary={`${patient.firstName}`}
+                secondary={`${patient.lastName}`}
               />
             </ListItem>
           ))}
         </List>
       </div>
-      {isPreviewShown && (
-        <div>
-          <EditPatientModal setPreviewShown={setPreviewShown} />
-        </div>
-      )}
+      <EditPatientModal
+        patient={selectedPatient}
+        show={showPatientModal}
+        closeModal={() => setShowPatientModal(false)}
+      />
     </div>
   )
 }
