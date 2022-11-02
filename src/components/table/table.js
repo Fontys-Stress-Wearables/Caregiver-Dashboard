@@ -12,12 +12,15 @@ import IconButton from '@mui/material/IconButton'
 import { useMsal } from '@azure/msal-react'
 import EditPatientModal from '../editPatientModal/editPatientModal'
 import './table.css'
+import { useNavigate } from 'react-router-dom'
+
 import {
   getPatientsForPatientGroup,
   useAuthRequest,
 } from '../../utils/api/calls'
 
 function Table({ selectedGroup }) {
+  const navigate = useNavigate()
   const { instance } = useMsal()
   const request = useAuthRequest()
 
@@ -71,7 +74,7 @@ function Table({ selectedGroup }) {
                   </IconButton>
                   <IconButton
                     aria-label="barchart"
-                    // onClick={() => navigate('/stress')}
+                    onClick={() => navigate('/stress')}
                   >
                     <BarChartIcon />
                   </IconButton>
