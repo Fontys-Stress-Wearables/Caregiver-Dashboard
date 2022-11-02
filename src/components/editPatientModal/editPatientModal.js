@@ -25,8 +25,6 @@ function EditPatientModal({ patient, show, closeModal }) {
       birthdate: date,
     }
 
-    // setPatient(handlePatient)
-
     closeModal()
   }
 
