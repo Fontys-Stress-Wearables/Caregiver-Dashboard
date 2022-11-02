@@ -3,7 +3,7 @@
 on:
   # run it on push to the default repository branch
   push:
-    branches: [main]
+    branches: [main, fix-pipeline-docker-push]
 
 env:
   REGISTRY: ghcr.io
