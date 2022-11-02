@@ -70,7 +70,7 @@ function Table() {
         >
           {list.map((value) => (
             <ListItem
-              key={value}
+              key={value.id}
               disableGutters
               secondaryAction={
                 <>
@@ -102,7 +102,6 @@ function Table() {
       {isPreviewShown && (
         <div>
           <EditPatientModal setPreviewShown={setPreviewShown} />
-          {handlePreview}
         </div>
       )}
     </div>
