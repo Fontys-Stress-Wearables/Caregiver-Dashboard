@@ -1,4 +1,5 @@
-import { API_URL } from '../environment'
+import { useMsal } from '@azure/msal-react'
+import { API_URL, AUTH_REQUEST_SCOPE_URL } from '../environment'
 
 interface ApiCalls {
   token?: string
@@ -20,7 +21,6 @@ export type PatientProps = {
   lastName: string
   birthdate: string
   isActive?: boolean
-  patientGroups?: PatientGroupProps[]
 }
 
 export type CaregiverProps = {
@@ -75,6 +75,15 @@ interface PatientGroupsPropsResponse extends BaseApiResponse {
 //   response: OrganizationProps
 // }
 
+export const useAuthRequest = () => {
+  const { accounts } = useMsal()
+
+  return {
+    scopes: [AUTH_REQUEST_SCOPE_URL, 'User.Read'],
+    account: accounts[0],
+  }
+}
+
 const callApi = async ({ token, apiUrl, path, method, body }: ApiCalls) => {
   const url = `${apiUrl || API_URL}/${path}`
 
@@ -99,11 +108,21 @@ const callApi = async ({ token, apiUrl, path, method, body }: ApiCalls) => {
     }
   } catch (e) {
     return {
-      error: true,
       response: e,
+      error: true,
     }
   }
 }
+
+export const getPatientsForPatientGroup = (
+  accessToken: string,
+  patientGroupId: string,
+): Promise<PatientsPropsResponse> =>
+  callApi({
+    token: accessToken,
+    path: `patient-groups/${patientGroupId}/patients`,
+    method: 'GET',
+  })
 
 export const getPatientGroupsForCaregiver = (
   accessToken: string,
