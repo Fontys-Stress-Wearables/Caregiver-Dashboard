@@ -9,9 +9,9 @@ import Avatar from '@mui/material/Avatar'
 import ImageIcon from '@mui/icons-material/Image'
 import EditIcon from '@mui/icons-material/Edit'
 import IconButton from '@mui/material/IconButton'
+import Button from 'react-bootstrap/esm/Button'
 import EditStressCommentModal from '../editStressCommentModal/editStressCommentModal'
 import CreateStressCommentModal from '../createStressCommentModal/createStressCommentModal'
-import Button from 'react-bootstrap/esm/Button'
 import './stressComments.css'
 
 function StressComment() {
@@ -35,18 +35,19 @@ function StressComment() {
   ]
   const [list, setList] = React.useState(initialList)
   const [updatePatientInfo, setUpdatePatientInfo] = React.useState(false)
-  const [isPreviewShown, setPreviewShown] = useState(false) //edit comment 
-  const [isCreateCommentModalShown, setCreateCommentModalShown] = useState(false) //create comment 
-  const [state, setstate] = useState({comment: ""})
+  const [isPreviewShown, setPreviewShown] = useState(false) // edit comment
+  const [isCreateCommentModalShown, setCreateCommentModalShown] =
+    useState(false) // create comment
+  const [state, setstate] = useState({ comment: '' })
 
-  //edit comment modal handler
+  // edit comment modal handler
   const handlePreview = (e, comment) => {
     e.preventDefault()
-    setstate({comment: comment})
+    setstate({ comment })
     setPreviewShown(!isPreviewShown) // Here we change state
   }
-   //create comment modal handler
-   const handleCreateCommentModalPreview = (e) => {
+  // create comment modal handler
+  const handleCreateCommentModalPreview = (e) => {
     e.preventDefault()
     setCreateCommentModalShown(!isCreateCommentModalShown) // Here we change state
   }
@@ -55,7 +56,6 @@ function StressComment() {
     <div className="StressCommentsContainer">
       <div className="createStressCommentModal">
         <Button onClick={handleCreateCommentModalPreview}>Add comment</Button>
-        {/* <CreateStressCommentModal /> */}
       </div>
       <div className="CenterContainer">
         <div className="ListContainer">
@@ -71,7 +71,10 @@ function StressComment() {
                 key={value.id}
                 disableGutters
                 secondaryAction={
-                  <IconButton aria-label="edit" onClick={(e) => handlePreview(e, value.comment)}>
+                  <IconButton
+                    aria-label="edit"
+                    onClick={(e) => handlePreview(e, value.comment)}
+                  >
                     <EditIcon />
                   </IconButton>
                 }
@@ -91,16 +94,21 @@ function StressComment() {
         </div>
       </div>
       <div>
-      {isPreviewShown && (
-        <div>
-          <EditStressCommentModal comment={state.comment} setPreviewShown={setPreviewShown} />
-        </div>
-      )}
+        {isPreviewShown && (
+          <div>
+            <EditStressCommentModal
+              comment={state.comment}
+              setPreviewShown={setPreviewShown}
+            />
+          </div>
+        )}
       </div>
       <div>
         {isCreateCommentModalShown && (
           <div>
-            <CreateStressCommentModal setCreateCommentModalShown={setCreateCommentModalShown} />
+            <CreateStressCommentModal
+              setCreateCommentModalShown={setCreateCommentModalShown}
+            />
           </div>
         )}
       </div>

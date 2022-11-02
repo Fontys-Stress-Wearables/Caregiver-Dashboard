@@ -1,12 +1,10 @@
 .Graph {
+  width: 60%;
+  margin: auto;
   display: flex;
-  justify-content: right;
-  margin-right: 2em;
-  max-width: 300px;
-  max-height: 300px;
 }
 .GraphContainer {
-  width: 70%;
+  width: 100%;
   margin: auto;
   display: flex;
   justify-content: center;

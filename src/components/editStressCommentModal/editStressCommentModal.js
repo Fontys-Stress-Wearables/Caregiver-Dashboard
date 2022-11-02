@@ -16,7 +16,7 @@ function EditStressCommentModal(props) {
 
   function handleSubmit() {
     const handleComment = {
-      comment: comment,
+      comment,
     }
 
     setStressComment(handleComment)
