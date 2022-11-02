@@ -93,7 +93,6 @@ function Table({ selectedGroup }) {
           ))}
         </List>
       </div>
-
       <EditPatientModal
         patient={selectedPatient}
         show={showPatientModal}
