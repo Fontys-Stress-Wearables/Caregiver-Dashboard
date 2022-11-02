@@ -6,27 +6,11 @@ import {
   useAuthRequest,
   getPatientGroupsForCaregiver,
 } from '../../utils/api/calls'
-import { AUTH_REQUEST_SCOPE_URL } from '../../utils/environment'
 
 function DropdownSearchbar({ selectedGroup, setSelectedGroup }) {
-  const { instance, accounts } = useMsal()
+  const { instance } = useMsal()
+  const request = useAuthRequest()
 
-  const placeholderGroups = [
-    {
-      id: 1,
-      groupName: 'group 1',
-      description: 'description1',
-    },
-    {
-      id: 2,
-      groupName: 'group 2',
-      description: 'description2',
-    },
-  ]
-  const request = {
-    scopes: [AUTH_REQUEST_SCOPE_URL, 'User.Read'],
-    account: accounts[0],
-  }
   const [patientGroups, setPatientGroups] = useState([])
   const [error, setError] = useState(false)
 

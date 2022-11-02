@@ -12,11 +12,15 @@ import IconButton from '@mui/material/IconButton'
 import { useMsal } from '@azure/msal-react'
 import EditPatientModal from '../editPatientModal/editPatientModal'
 import './table.css'
-import { getPatientsForPatientGroup } from '../../utils/api/calls'
-import { AUTH_REQUEST_SCOPE_URL } from '../../utils/environment'
+import {
+  getPatientsForPatientGroup,
+  useAuthRequest,
+} from '../../utils/api/calls'
 
 function Table({ selectedGroup }) {
-  const { instance, accounts } = useMsal()
+  const { instance } = useMsal()
+  const request = useAuthRequest()
+
   const [patientList, setPatientList] = useState([])
   const [selectedPatient, setSelectedPatient] = useState()
   const [showPatientModal, setShowPatientModal] = useState(false)
@@ -32,11 +36,6 @@ function Table({ selectedGroup }) {
       fetchPatients()
     }
   }, [selectedGroup])
-
-  const request = {
-    scopes: [AUTH_REQUEST_SCOPE_URL, 'User.Read'],
-    account: accounts[0],
-  }
 
   const fetchPatients = () => {
     instance.acquireTokenSilent(request).then((res) => {

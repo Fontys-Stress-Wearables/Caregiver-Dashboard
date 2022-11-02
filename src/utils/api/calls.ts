@@ -78,11 +78,10 @@ interface PatientGroupsPropsResponse extends BaseApiResponse {
 export const useAuthRequest = () => {
   const { accounts } = useMsal()
 
-  const request = {
+  return {
     scopes: [AUTH_REQUEST_SCOPE_URL, 'User.Read'],
     account: accounts[0],
   }
-  return request
 }
 
 const callApi = async ({ token, apiUrl, path, method, body }: ApiCalls) => {
