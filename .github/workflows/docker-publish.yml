@@ -3,7 +3,7 @@
 on:
   # run it on push to the default repository branch
   push:
-    branches: [main, rebuild-node-modules]
+    branches: [main]
 
 env:
   REGISTRY: ghcr.io
