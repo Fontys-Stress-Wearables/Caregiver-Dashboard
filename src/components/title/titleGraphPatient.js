@@ -1,12 +1,11 @@
 import React from 'react'
 import './titleGraphPatient.css'
 import { useMsal } from '@azure/msal-react'
-import
-  {
-    BrowserRouter as Router,
-    useLocation,
-    useParams
-  } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  useLocation,
+  useParams,
+} from 'react-router-dom'
 
 function TitleGraphPatient() {
   //authentication
@@ -14,7 +13,7 @@ function TitleGraphPatient() {
 
   // We can use the `useParams` hook here to access
   // the dynamic pieces of the URL.
-  let { id } = useParams();
+  let { id } = useParams()
 
   return (
     <div className="Title">

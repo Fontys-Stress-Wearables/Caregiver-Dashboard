@@ -74,7 +74,7 @@ function Table({ selectedGroup }) {
                   </IconButton>
                   <IconButton
                     aria-label="barchart"
-                    onClick={() => navigate(`/stress/${value.id}`)}
+                    onClick={() => navigate(`/stress/${patient.id}`)}
                   >
                     <BarChartIcon />
                   </IconButton>
