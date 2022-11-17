@@ -13,7 +13,7 @@ function TitlePatient() {
 
   return (
     <div className="TitlePatient">
-      <h1>Milan's Stress Data</h1>
+      <h1>Milan's Dashboard</h1>
     </div>
   )
 }
