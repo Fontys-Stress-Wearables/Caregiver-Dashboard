@@ -1,9 +1,9 @@
-import Title from '../../components/title/titleGraphPatient.js'
+import Title from '../../components/title/titlePatient.js'
 import StressComments from '../../components/stressComments/stressComments.js'
 import Graph from '../../components/graph/graph'
 import BaseLayout from '../../layouts/baseLayout'
 
-function StressPatientDashboard() {
+function PatientDashboard() {
   return (
     <BaseLayout>
       {/* eslint-disable-next-line react/style-prop-object */}
@@ -14,4 +14,4 @@ function StressPatientDashboard() {
   )
 }
 
-export default StressPatientDashboard
+export default PatientDashboard

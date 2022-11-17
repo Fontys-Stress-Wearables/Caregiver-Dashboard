@@ -10,8 +10,8 @@ import ImageIcon from '@mui/icons-material/Image'
 import EditIcon from '@mui/icons-material/Edit'
 import IconButton from '@mui/material/IconButton'
 import Button from 'react-bootstrap/esm/Button'
-import EditStressCommentModal from '../editStressCommentModal/editStressCommentModal'
-import CreateStressCommentModal from '../createStressCommentModal/createStressCommentModal'
+import EditStressCommentModal from '../modals/editStressCommentModal/editStressCommentModal'
+import CreateStressCommentModal from '../modals/createStressCommentModal/createStressCommentModal'
 import './stressComments.css'
 
 function StressComment() {
@@ -54,9 +54,6 @@ function StressComment() {
 
   return (
     <div className="StressCommentsContainer">
-      <div className="createStressCommentModal">
-        <Button onClick={handleCreateCommentModalPreview}>Add comment</Button>
-      </div>
       <div className="CenterContainer">
         <div className="ListContainer">
           <List

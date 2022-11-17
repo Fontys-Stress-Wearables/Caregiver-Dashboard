@@ -133,3 +133,14 @@ export const getPatientGroupsForCaregiver = (
     path: `patient-groups/caregivers/${caregiverId}`,
     method: 'GET',
   })
+
+export const updatePatient = (
+  accessToken: string,
+  patient: PatientProps,
+): Promise<PatientPropsResponse> =>
+  callApi({
+    token: accessToken,
+    path: `patients/${patient.id}`,
+    method: 'PUT',
+    body: patient,
+  })

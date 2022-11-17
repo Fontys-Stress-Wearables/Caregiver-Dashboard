@@ -16,8 +16,8 @@ import {
   TimeScale,
 } from 'chart.js'
 import { Line, getElementAtEvent } from 'react-chartjs-2'
-import CreateStressCommentModal from '../createStressCommentModal/createStressCommentModal'
-import EditStressCommentModal from '../editStressCommentModal/editStressCommentModal'
+import CreateStressCommentModal from '../modals/createStressCommentModal/createStressCommentModal'
+import EditStressCommentModal from '../modals/editStressCommentModal/editStressCommentModal'
 
 // when importing something from chart.js also add it here and vice versa
 ChartJS.register(
@@ -139,8 +139,8 @@ function Graph() {
   }
 
   return (
-    <div>
-      <h1>Graph</h1>
+    <div className="GraphWrapper">
+      <h3>Heart rate variability</h3>
       <div className="GraphContainer">
         <div className="Graph">
           <Line
