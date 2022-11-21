@@ -1,5 +1,6 @@
 import * as React from 'react'
 import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
 import ListItemText from '@mui/material/ListItemText'
@@ -12,7 +13,6 @@ import IconButton from '@mui/material/IconButton'
 import { useMsal } from '@azure/msal-react'
 import EditPatientModal from '../modals/editPatientModal/editPatientModal'
 import './table.css'
-import { useNavigate } from 'react-router-dom'
 
 import {
   getPatientsForPatientGroup,
@@ -23,19 +23,11 @@ function Table({ selectedGroup }) {
   const navigate = useNavigate()
   const { instance } = useMsal()
   const request = useAuthRequest()
-  const [error, setError] = useState(false)
 
-  const fakePatient = {
-    id: 1,
-    firstName: 'Milan',
-    lastName: 'Koster',
-    birthdate: '01-01-2000-14:12:12',
-    isActive: true,
-  }
-
-  const [patientList, setPatientList] = useState([fakePatient])
-  const [selectedPatient, setSelectedPatient] = useState(fakePatient)
+  const [patientList, setPatientList] = useState([])
+  const [selectedPatient, setSelectedPatient] = useState()
   const [showPatientModal, setShowPatientModal] = useState(false)
+  const [error, setError] = useState(false)
 
   const openPatientModal = (patient) => {
     setSelectedPatient(patient)
@@ -95,8 +87,8 @@ function Table({ selectedGroup }) {
                 </Avatar>
               </ListItemAvatar>
               <ListItemText
-                primary={`${patient.firstName}`}
-                secondary={`${patient.lastName}`}
+                primary={`${patient.firstName} ${patient.lastName}`}
+                secondary={`${patient.birthdate}`}
               />
             </ListItem>
           ))}

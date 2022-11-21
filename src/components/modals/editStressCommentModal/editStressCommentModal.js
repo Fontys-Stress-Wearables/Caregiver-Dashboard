@@ -3,29 +3,25 @@ import Button from 'react-bootstrap/esm/Button'
 import Form from 'react-bootstrap/esm/Form'
 import Modal from 'react-bootstrap/esm/Modal'
 
-function EditStressCommentModal(props) {
-  const [show, setShow] = useState(props)
-  const [stressComment, setStressComment] = useState()
-  const handleClose = () => props.setPreviewShown(!props)
+function EditStressCommentModal({ comment, show, closeModal }) {
+  const [commentForm, setCommentForm] = useState({
+    comment: comment || '',
+  })
 
-  const [setComment] = useState('')
-
-  const handleChangeComment = (event) => {
-    setComment(event.target.value)
+  const handleChange = (event) => {
+    setCommentForm({ ...commentForm, [event.target.name]: event.target.value })
   }
 
-  function handleSubmit() {
-    const handleComment = {
-      comment,
-    }
+  const handleSubmit = (event) => {
+    event.preventDefault()
 
-    setStressComment(handleComment)
+    // submitComment()
 
-    handleClose()
+    closeModal()
   }
 
   return (
-    <Modal show={show} onHide={handleClose}>
+    <Modal show={show} onHide={closeModal}>
       <Modal.Header closeButton>
         <Modal.Title>Edit stress comment in the system</Modal.Title>
       </Modal.Header>
@@ -34,20 +30,20 @@ function EditStressCommentModal(props) {
           <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
             <Form.Label>Comment</Form.Label>
             <Form.Control
-              type="string"
-              placeholder={props.comment}
-              value={props.comment}
-              autoFocus
-              onChange={handleChangeComment}
+              type="text"
+              name="comment"
+              placeholder="Comment"
+              defaultValue={commentForm.comment}
+              onChange={handleChange}
             />
           </Form.Group>
         </Form>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={handleClose}>
+        <Button variant="secondary" onClick={closeModal}>
           Close
         </Button>
-        <Button variant="primary" onClick={() => handleSubmit()}>
+        <Button variant="primary" onClick={handleSubmit}>
           Edit Comment
         </Button>
       </Modal.Footer>

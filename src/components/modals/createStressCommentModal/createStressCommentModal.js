@@ -3,10 +3,8 @@ import Button from 'react-bootstrap/esm/Button'
 import Form from 'react-bootstrap/esm/Form'
 import Modal from 'react-bootstrap/esm/Modal'
 
-function CreateStressCommentModal(props) {
-  const [show, setShow] = useState(props)
-  const [stressComment, setStressComment] = useState()
-  const handleClose = () => props.setCreateCommentModalShown(!props)
+function CreateStressCommentModal({ show, closeModal }) {
+  const [error, setError] = useState(false)
 
   const [comment, setComment] = useState('')
 

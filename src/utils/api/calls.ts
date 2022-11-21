@@ -114,6 +114,16 @@ const callApi = async ({ token, apiUrl, path, method, body }: ApiCalls) => {
   }
 }
 
+export const getPatient = (
+  accessToken: string,
+  patientId: string,
+): Promise<PatientPropsResponse> =>
+  callApi({
+    token: accessToken,
+    path: `patients/${patientId}`,
+    method: 'GET',
+  })
+
 export const getPatientsForPatientGroup = (
   accessToken: string,
   patientGroupId: string,

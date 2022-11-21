@@ -15,9 +15,9 @@ function EditPatientModal({ patient, show, closeModal }) {
   const [error, setError] = useState(false)
 
   const [patientForm, setPatientForm] = useState({
-    firstName: patient.firstName || '',
-    lastName: patient.lastName || '',
-    birthDate: patient.birthDate || '',
+    firstName: patient?.firstName || '',
+    lastName: patient?.lastName || '',
+    birthDate: patient?.birthdate || '',
   })
 
   const submitPatient = () => {
@@ -41,8 +41,6 @@ function EditPatientModal({ patient, show, closeModal }) {
     event.preventDefault()
 
     submitPatient()
-
-    console.log(patientForm)
 
     closeModal()
   }
