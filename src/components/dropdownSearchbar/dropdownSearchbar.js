@@ -28,6 +28,7 @@ function DropdownSearchbar({ selectedGroup, setSelectedGroup }) {
             const fetchedPatientGroups = response.response
             setError(false)
             setPatientGroups(fetchedPatientGroups)
+            setSelectedGroup(fetchedPatientGroups[0])
           }
         },
       )

@@ -19,7 +19,7 @@ export type PatientProps = {
   id?: string
   firstName: string
   lastName: string
-  birthdate: string
+  birthdate: Date
   isActive?: boolean
 }
 
@@ -71,9 +71,9 @@ interface PatientGroupsPropsResponse extends BaseApiResponse {
   response: PatientGroupProps[]
 }
 
-// interface OrganizationPropsResponse extends BaseApiResponse {
-//   response: OrganizationProps
-// }
+interface OrganizationPropsResponse extends BaseApiResponse {
+  response: OrganizationProps
+}
 
 export const useAuthRequest = () => {
   const { accounts } = useMsal()

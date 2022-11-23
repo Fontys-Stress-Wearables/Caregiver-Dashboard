@@ -5,13 +5,14 @@ ENV REACT_APP_ENVIRONMENT $REACT_APP_ENVIRONMENT
 
 WORKDIR /app
 
-# Copy dependencies
-COPY package.json /app
-COPY package-lock.json /app
+#copy any files that start with "package" and have a ".json" extension
+COPY  package*.json ./
+
+#install the node dependencies
 RUN npm install
 
-# Copy remaining files
-COPY  . .
+#copy the rest of the files from the frontend to the app folder
+COPY . .
 
 #build the frontend
 RUN npm run build

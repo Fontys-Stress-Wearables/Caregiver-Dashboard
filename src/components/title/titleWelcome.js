@@ -8,7 +8,7 @@ function TitleWelcome() {
   return (
     <div className="WelcomeTitle">
       <h1>Caregiver Dashboard</h1>
-      <h4>Welcome {instance.getActiveAccount().name}</h4>
+      <h4>Welcome {instance?.getActiveAccount()?.name}</h4>
     </div>
   )
 }
