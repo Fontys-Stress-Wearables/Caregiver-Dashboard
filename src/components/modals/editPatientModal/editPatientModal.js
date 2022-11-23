@@ -3,13 +3,9 @@ import Button from 'react-bootstrap/esm/Button'
 import Form from 'react-bootstrap/esm/Form'
 import Modal from 'react-bootstrap/esm/Modal'
 import { useMsal } from '@azure/msal-react'
-import {
-  getPatientsForPatientGroup,
-  updatePatient,
-  useAuthRequest,
-} from '../../../utils/api/calls'
+import { updatePatient, useAuthRequest } from '../../../utils/api/calls'
 
-function EditPatientModal({ patient, show, closeModal }) {
+function EditPatientModal({ patient, updatePatientList, show, closeModal }) {
   const { instance } = useMsal()
   const request = useAuthRequest()
   const [error, setError] = useState(false)
@@ -17,17 +13,24 @@ function EditPatientModal({ patient, show, closeModal }) {
   const [patientForm, setPatientForm] = useState({
     firstName: patient?.firstName || '',
     lastName: patient?.lastName || '',
-    birthDate: patient?.birthdate || '',
+    birthdate: patient?.birthdate || '',
   })
 
   const submitPatient = () => {
+    const handlePatient = {
+      id: patient.id,
+      firstName: patientForm.firstName,
+      lastName: patientForm.lastName,
+      birthdate: patientForm.birthdate,
+    }
+
     instance.acquireTokenSilent(request).then((res) => {
-      updatePatient(res.accessToken, patientForm).then((response) => {
+      updatePatient(res.accessToken, handlePatient).then((response) => {
         if (response.error) {
           setError(true)
           console.log(response)
         } else {
-          console.log(response)
+          updatePatientList(response.response)
         }
       })
     })
@@ -70,6 +73,17 @@ function EditPatientModal({ patient, show, closeModal }) {
               placeholder="Last name"
               defaultValue={patientForm.lastName}
               onChange={handleChange}
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+            <Form.Label>Birthdate</Form.Label>
+            <Form.Control
+              type="date"
+              name="birthdate"
+              placeholder="Date of Birth"
+              defaultValue={patientForm.birthdate}
+              onChange={handleChange}
+              max={new Date().toISOString().split('T')[0]}
             />
           </Form.Group>
         </Form>
