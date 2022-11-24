@@ -26,8 +26,7 @@ function StressComment() {
     },
     {
       id: 3,
-      comment:
-        'Experienced number jumpscare scary. Experienced number from scary movie. number jumpscare from scary movie',
+      comment: 'Experienced number jumpscare from scary movie',
       date: 'Jan 9, 2014 at a.m.',
     },
   ]
