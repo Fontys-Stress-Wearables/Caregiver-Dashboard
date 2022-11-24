@@ -5,15 +5,15 @@ import Modal from 'react-bootstrap/esm/Modal'
 import { useMsal } from '@azure/msal-react'
 import { updatePatient, useAuthRequest } from '../../../utils/api/calls'
 
-function EditPatientModal({ patient, updatePatientList, show, closeModal }) {
+function EditPatientModal({ patient, updatePatientList, show, hide }) {
   const { instance } = useMsal()
   const request = useAuthRequest()
   const [error, setError] = useState(false)
 
   const [patientForm, setPatientForm] = useState({
-    firstName: patient?.firstName || '',
-    lastName: patient?.lastName || '',
-    birthdate: patient?.birthdate || '',
+    firstName: patient?.firstName,
+    lastName: patient?.lastName,
+    birthdate: patient?.birthdate,
   })
 
   const submitPatient = () => {
@@ -28,7 +28,6 @@ function EditPatientModal({ patient, updatePatientList, show, closeModal }) {
       updatePatient(res.accessToken, handlePatient).then((response) => {
         if (response.error) {
           setError(true)
-          console.log(response)
         } else {
           updatePatientList(response.response)
         }
@@ -42,14 +41,12 @@ function EditPatientModal({ patient, updatePatientList, show, closeModal }) {
 
   const handleSubmit = (event) => {
     event.preventDefault()
-
     submitPatient()
-
-    closeModal()
+    hide()
   }
 
   return (
-    <Modal show={show} onHide={closeModal}>
+    <Modal show={show} onHide={hide}>
       <Modal.Header closeButton>
         <Modal.Title>Edit Patient</Modal.Title>
       </Modal.Header>
@@ -89,7 +86,7 @@ function EditPatientModal({ patient, updatePatientList, show, closeModal }) {
         </Form>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={closeModal}>
+        <Button variant="secondary" onClick={hide}>
           Close
         </Button>
         <Button variant="primary" onClick={handleSubmit}>

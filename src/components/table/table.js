@@ -32,7 +32,8 @@ function Table({ selectedGroup }) {
   const [error, setError] = useState(false)
 
   const openPatientModal = (patient) => {
-    setSelectedPatient(patient, () => setShowPatientModal(true))
+    setSelectedPatient(patient)
+    setShowPatientModal(true)
   }
 
   useEffect(() => {
@@ -109,7 +110,7 @@ function Table({ selectedGroup }) {
         patient={selectedPatient}
         updatePatientList={updatePatientList}
         show={showPatientModal}
-        closeModal={() => setShowPatientModal(false)}
+        hide={() => setShowPatientModal(false)}
       />
     </div>
   )
