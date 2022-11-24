@@ -1,13 +1,23 @@
-.Graph {
-  width: 60%;
-  margin: auto;
-  display: flex;
-}
 .GraphContainer {
+  padding-bottom: 2em;
+}
+
+.GraphWrapper {
+  max-width: 100rem;
   width: 100%;
   margin: auto;
   display: flex;
   justify-content: center;
-  background-color: rgb(232, 229, 229);
   color: rgb(0, 0, 0);
 }
+
+.Graph {
+  width: 60%;
+  margin: auto;
+  display: flex;
+
+  --commentDataPointColour: rgb(25,25,112, 0.8);
+  --dataPointColour: rgb(30, 144, 255, 0.5);
+  --graphColour: rgb(30, 144, 255);
+}
+

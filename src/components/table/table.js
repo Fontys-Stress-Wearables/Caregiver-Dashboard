@@ -1,5 +1,9 @@
 import * as React from 'react'
 import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useMsal } from '@azure/msal-react'
+import update from 'immutability-helper'
+import Moment from 'react-moment'
 import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
 import ListItemText from '@mui/material/ListItemText'
@@ -9,10 +13,8 @@ import EditIcon from '@mui/icons-material/Edit'
 import PersonIcon from '@mui/icons-material/Person'
 import BarChartIcon from '@mui/icons-material/BarChart'
 import IconButton from '@mui/material/IconButton'
-import { useMsal } from '@azure/msal-react'
-import EditPatientModal from '../editPatientModal/editPatientModal'
+import EditPatientModal from '../modals/editPatientModal/editPatientModal'
 import './table.css'
-import { useNavigate } from 'react-router-dom'
 
 import {
   getPatientsForPatientGroup,
@@ -56,6 +58,14 @@ function Table({ selectedGroup }) {
     })
   }
 
+  const updatePatientList = (patient) => {
+    const index = patientList.findIndex((p) => p.id === patient.id)
+    const updatedEmployees = update(patientList, {
+      $splice: [[index, 1, patient]],
+    })
+    setPatientList(updatedEmployees)
+  }
+
   return (
     <div className="Container">
       <div className="ListContainer">
@@ -87,8 +97,10 @@ function Table({ selectedGroup }) {
                 </Avatar>
               </ListItemAvatar>
               <ListItemText
-                primary={`${patient.firstName}`}
-                secondary={`${patient.lastName}`}
+                primary={`${patient.firstName} ${patient.lastName}`}
+                secondary={
+                  <Moment date={patient.birthdate} format="DD-MM-YYYY" />
+                }
               />
             </ListItem>
           ))}
@@ -96,8 +108,9 @@ function Table({ selectedGroup }) {
       </div>
       <EditPatientModal
         patient={selectedPatient}
+        updatePatientList={updatePatientList}
         show={showPatientModal}
-        closeModal={() => setShowPatientModal(false)}
+        hide={() => setShowPatientModal(false)}
       />
     </div>
   )

@@ -19,7 +19,7 @@ export type PatientProps = {
   id?: string
   firstName: string
   lastName: string
-  birthdate: string
+  birthdate: Date
   isActive?: boolean
 }
 
@@ -71,9 +71,9 @@ interface PatientGroupsPropsResponse extends BaseApiResponse {
   response: PatientGroupProps[]
 }
 
-// interface OrganizationPropsResponse extends BaseApiResponse {
-//   response: OrganizationProps
-// }
+interface OrganizationPropsResponse extends BaseApiResponse {
+  response: OrganizationProps
+}
 
 export const useAuthRequest = () => {
   const { accounts } = useMsal()
@@ -114,6 +114,16 @@ const callApi = async ({ token, apiUrl, path, method, body }: ApiCalls) => {
   }
 }
 
+export const getPatient = (
+  accessToken: string,
+  patientId: string,
+): Promise<PatientPropsResponse> =>
+  callApi({
+    token: accessToken,
+    path: `patients/${patientId}`,
+    method: 'GET',
+  })
+
 export const getPatientsForPatientGroup = (
   accessToken: string,
   patientGroupId: string,
@@ -132,4 +142,15 @@ export const getPatientGroupsForCaregiver = (
     token: accessToken,
     path: `patient-groups/caregivers/${caregiverId}`,
     method: 'GET',
+  })
+
+export const updatePatient = (
+  accessToken: string,
+  patient: PatientProps,
+): Promise<PatientPropsResponse> =>
+  callApi({
+    token: accessToken,
+    path: `patients/${patient.id}`,
+    method: 'PUT',
+    body: patient,
   })

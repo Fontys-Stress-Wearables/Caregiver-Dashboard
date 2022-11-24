@@ -1,6 +1,5 @@
 import * as React from 'react'
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 import List from '@mui/material/List'
 import ListItem from '@mui/material/ListItem'
 import ListItemText from '@mui/material/ListItemText'
@@ -9,13 +8,11 @@ import Avatar from '@mui/material/Avatar'
 import ImageIcon from '@mui/icons-material/Image'
 import EditIcon from '@mui/icons-material/Edit'
 import IconButton from '@mui/material/IconButton'
-import Button from 'react-bootstrap/esm/Button'
-import EditStressCommentModal from '../editStressCommentModal/editStressCommentModal'
-import CreateStressCommentModal from '../createStressCommentModal/createStressCommentModal'
-import './stressComments.css'
+import EditStressCommentModal from '../modals/editStressCommentModal/editStressCommentModal'
+import CreateStressCommentModal from '../modals/createStressCommentModal/createStressCommentModal'
+import './comments.css'
 
 function StressComment() {
-  const navigate = useNavigate()
   const initialList = [
     {
       id: 0,
@@ -46,26 +43,12 @@ function StressComment() {
     setstate({ comment })
     setPreviewShown(!isPreviewShown) // Here we change state
   }
-  // create comment modal handler
-  const handleCreateCommentModalPreview = (e) => {
-    e.preventDefault()
-    setCreateCommentModalShown(!isCreateCommentModalShown) // Here we change state
-  }
 
   return (
     <div className="StressCommentsContainer">
-      <div className="createStressCommentModal">
-        <Button onClick={handleCreateCommentModalPreview}>Add comment</Button>
-      </div>
       <div className="CenterContainer">
-        <div className="ListContainer">
-          <List
-            sx={{
-              width: '100%',
-              maxWidth: 360,
-              backgroundColor: 'rgb(232, 229, 229)',
-            }}
-          >
+        <div className="CommentListContainer">
+          <List className="CommentList">
             {list.map((value) => (
               <ListItem
                 key={value.id}

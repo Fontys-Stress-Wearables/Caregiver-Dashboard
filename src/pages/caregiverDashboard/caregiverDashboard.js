@@ -9,7 +9,6 @@ function CaregiverDashboard() {
 
   return (
     <BaseLayout>
-      {/* eslint-disable-next-line react/style-prop-object */}
       <Title />
       <DropdownSearchbar
         selectedGroup={selectedGroup}

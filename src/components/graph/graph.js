@@ -1,9 +1,9 @@
 import * as React from 'react'
-import 'chartjs-adapter-moment'
 import moment from 'moment'
-import { useRef, useState } from 'react'
+import 'chartjs-adapter-moment'
 import './graph.css'
-import './mockData.json'
+import { useRef, useState } from 'react'
+import { Line, getElementAtEvent } from 'react-chartjs-2'
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -15,10 +15,12 @@ import {
   Legend,
   TimeScale,
 } from 'chart.js'
-import { Line, getElementAtEvent } from 'react-chartjs-2'
-import CreateStressCommentModal from '../createStressCommentModal/createStressCommentModal'
-import EditStressCommentModal from '../editStressCommentModal/editStressCommentModal'
+import CreateFeedbackModal from '../modals/createStressCommentModal/createStressCommentModal'
+import EditFeedbackModal from '../modals/editStressCommentModal/editStressCommentModal'
+import graphOptions from './graphOptions'
 
+import mockData from './mockData.json'
+import EditPatientModal from '../modals/editPatientModal/editPatientModal'
 // when importing something from chart.js also add it here and vice versa
 ChartJS.register(
   CategoryScale,
@@ -32,141 +34,71 @@ ChartJS.register(
   TimeScale,
 )
 
-// mock json data - has to be ordered by date, chartjs does not order dates
-const mockData = require('./mockData.json')
-
-// graph colours
 const commentDataPointColour = 'rgb(25,25,112, 0.8)'
 const dataPointColour = 'rgb(30, 144, 255, 0.5)'
 const graphColour = 'rgb(30, 144, 255)'
-
-// custom footer of the tooltip popup for displaying comment
-const footer = (tooltipItems) => {
-  let comment = ''
-  tooltipItems.forEach((tooltipItem) => {
-    comment = tooltipItem.raw.comment
-  })
-  if (comment === '') {
-    return 'Comment: -'
-  }
-  return `Comment: ${comment}`
-}
-
-// React Chartjs chart options setup
-export const options = {
-  responsive: true,
-  plugins: {
-    legend: {
-      display: false, // set to false otherwise user can click graph away
-      position: 'top',
-    },
-    tooltip: {
-      callbacks: {
-        footer,
-      },
-    },
-  },
-  scales: {
-    x: {
-      type: 'time', // neccessary to make x axis time based
-      time: {
-        unit: 'day', // year, month, day, hour - should be updated based on the time filter a user chooses
-      },
-      displayFormats: {
-        month: 'MMM YYYY',
-      },
-    },
-  },
-  parsing: {
-    xAxisKey: 'date',
-    yAxisKey: 'stressLevel',
-  },
-}
-
-// function to higligh datapoints that have comments
-const highlightCommentDatapoint = (ctx) => {
-  if (ctx.raw) {
-    if (ctx.raw.comment) {
-      return commentDataPointColour
-    }
+const setBackgroundColor = (ctx) => {
+  if (ctx.raw && ctx.raw.comment) {
+    return commentDataPointColour
   }
   return dataPointColour
 }
-
-const bgColor = (ctx) => highlightCommentDatapoint(ctx)
 
 // datasets for graph
 export const data = {
   datasets: [
     {
-      data: mockData.data,
+      data: mockData,
       borderColor: graphColour,
-      backgroundColor: bgColor,
+      backgroundColor: setBackgroundColor,
       pointRadius: 6,
     },
   ],
 }
 
 function Graph() {
-  const [isPreviewShown, setPreviewShown] = useState(false) // edit comment
-  const [isCreateCommentModalShown, setCreateCommentModalShown] =
-    useState(false) // create comment
-  const [state, setstate] = useState({ comment: '', date: '' })
+  const [feedback, setFeedback] = useState({ comment: '' })
+  const [showCreateFeedbackModal, setShowCreateFeedbackModal] = useState(false) // create comment
+  const [showEditFeedbackModal, setShowEditFeedbackModal] = useState(false)
 
   // onchart clicks to get datapoint data
   const chartRef = useRef()
 
   const onClick = (event) => {
-    // check if a datapoint has been clicked
+    event.preventDefault()
+
     if (getElementAtEvent(chartRef.current, event)[0]) {
       const dataPointIndex = getElementAtEvent(chartRef.current, event)[0].index
       const dataPointData = data.datasets[0].data[dataPointIndex]
 
       if (dataPointData.comment === '') {
-        // create comment if no comment exist
-        event.preventDefault()
-        setstate({
-          date: moment(new Date(dataPointData.date)).format('YYYY-MM-DD'),
-        })
-        setCreateCommentModalShown(!isCreateCommentModalShown) // Here we change state
+        setShowEditFeedbackModal(true) // Here we change state
       } else {
-        // edit comment if comment exists
-        event.preventDefault()
-        setstate({ comment: dataPointData.comment })
-        setPreviewShown(!isPreviewShown) // Here we change state
+        setFeedback({ comment: dataPointData.comment })
+        setShowEditFeedbackModal(true) // Here we change state
       }
     }
   }
 
   return (
-    <div>
-      <h1>Graph</h1>
-      <div className="GraphContainer">
+    <div className="GraphContainer">
+      <h3>Heart rate variability</h3>
+      <div className="GraphWrapper">
         <div className="Graph">
           <Line
             ref={chartRef}
-            options={options}
+            options={graphOptions()}
             data={data}
             onClick={onClick}
           />
         </div>
       </div>
-      {isPreviewShown && (
-        <div>
-          <EditStressCommentModal
-            comment={state.comment}
-            setPreviewShown={setPreviewShown}
-          />
-        </div>
-      )}
-      {isCreateCommentModalShown && (
-        <div>
-          <CreateStressCommentModal
-            date={state.date}
-            setCreateCommentModalShown={setCreateCommentModalShown}
-          />
-        </div>
-      )}
+
+      <EditFeedbackModal
+        comment={feedback.comment}
+        show={showEditFeedbackModal}
+        closeModal={() => setShowEditFeedbackModal(false)}
+      />
     </div>
   )
 }
