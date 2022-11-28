@@ -16,8 +16,7 @@
   margin: auto;
   display: flex;
 
-  --commentDataPointColour: rgb(25,25,112, 0.8);
+  --commentDataPointColour: rgb(25, 25, 112, 0.8);
   --dataPointColour: rgb(30, 144, 255, 0.5);
   --graphColour: rgb(30, 144, 255);
 }
-
