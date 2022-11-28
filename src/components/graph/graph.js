@@ -1,5 +1,4 @@
 import * as React from 'react'
-import moment from 'moment'
 import 'chartjs-adapter-moment'
 import './graph.css'
 import { useRef, useState } from 'react'
@@ -15,12 +14,12 @@ import {
   Legend,
   TimeScale,
 } from 'chart.js'
-import CreateFeedbackModal from '../modals/createStressCommentModal/createStressCommentModal'
 import EditFeedbackModal from '../modals/editStressCommentModal/editStressCommentModal'
 import graphOptions from './graphOptions'
 
 import mockData from './mockData.json'
-import EditPatientModal from '../modals/editPatientModal/editPatientModal'
+import aiMockData from './hr.json'
+
 // when importing something from chart.js also add it here and vice versa
 ChartJS.register(
   CategoryScale,
@@ -44,11 +43,28 @@ const setBackgroundColor = (ctx) => {
   return dataPointColour
 }
 
+// Convert aiMockdata to Array of Json
+const mockValues = []
+let latestDate = new Date(1970, 1, 1)
+const sampleTimeMs = 3600000
+
+Object.entries(aiMockData.value).forEach(([key, value]) => {
+  const entryDate = new Date(parseInt(key, 10))
+  if (entryDate - latestDate > sampleTimeMs) {
+    mockValues.push({
+      stressLevel: value,
+      date: entryDate.toLocaleString('zh-Hans-CN').replace(',', ''),
+      comment: '',
+    })
+    latestDate = entryDate
+  }
+})
+
 // datasets for graph
 export const data = {
   datasets: [
     {
-      data: mockData,
+      data: mockValues,
       borderColor: graphColour,
       backgroundColor: setBackgroundColor,
       pointRadius: 6,
@@ -58,7 +74,6 @@ export const data = {
 
 function Graph() {
   const [feedback, setFeedback] = useState({ comment: '' })
-  const [showCreateFeedbackModal, setShowCreateFeedbackModal] = useState(false) // create comment
   const [showEditFeedbackModal, setShowEditFeedbackModal] = useState(false)
 
   // onchart clicks to get datapoint data
