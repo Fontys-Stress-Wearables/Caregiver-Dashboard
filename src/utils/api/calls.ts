@@ -124,16 +124,27 @@ export const getPatient = (
     method: 'GET',
   })
 
-// user service test endpoint
+// original endpoint
 export const getPatientsForPatientGroup = (
   accessToken: string,
   patientGroupID: string,
 ): Promise<PatientsPropsResponse> =>
   callApi({
     token: accessToken,
-    path: `patientgroups/${patientGroupID}/patients`,
+    path: `patient-groups/${patientGroupID}/patients`,
     method: 'GET',
   })
+
+// user service test endpoint
+// export const getPatientsForPatientGroup = (
+//   accessToken: string,
+//   patientGroupID: string,
+// ): Promise<PatientsPropsResponse> =>
+//   callApi({
+//     token: accessToken,
+//     path: `patientgroups/${patientGroupID}/patients`,
+//     method: 'GET',
+//   })
 
 export const getPatientGroupsForCaregiver = (
   accessToken: string,
