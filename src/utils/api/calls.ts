@@ -127,11 +127,11 @@ export const getPatient = (
 // original endpoint
 export const getPatientsForPatientGroup = (
   accessToken: string,
-  patientGroupID: string,
+  patientGroupId: string,
 ): Promise<PatientsPropsResponse> =>
   callApi({
     token: accessToken,
-    path: `patient-groups/${patientGroupID}/patients`,
+    path: `patient-groups/${patientGroupId}/patients`,
     method: 'GET',
   })
 
