@@ -70,7 +70,7 @@ function DropdownSearchbar({ selectedGroup, setSelectedGroup }) {
             MenuPosition="fixed"
             options={getPatientGroupNames()}
             onChange={handleGroupSelect}
-            value={selectedGroup?.value}
+            value={selectedGroup}
             placeholder="Select Patient Group"
           />
         </div>
