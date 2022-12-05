@@ -52,6 +52,12 @@ function DropdownSearchbar({ selectedGroup, setSelectedGroup }) {
     return nameList
   }
 
+  const getSelectedGroup = () => ({
+    id: selectedGroup?.id,
+    value: selectedGroup?.groupName,
+    label: selectedGroup?.groupName,
+  })
+
   return (
     <div className="SearchBar">
       <div
@@ -68,9 +74,9 @@ function DropdownSearchbar({ selectedGroup, setSelectedGroup }) {
           <Select
             MenuPlacement="auto"
             MenuPosition="fixed"
+            value={getSelectedGroup()}
             options={getPatientGroupNames()}
             onChange={handleGroupSelect}
-            value={selectedGroup}
             placeholder="Select Patient Group"
           />
         </div>
