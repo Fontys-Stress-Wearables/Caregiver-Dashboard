@@ -14,26 +14,37 @@ import PersonIcon from '@mui/icons-material/Person'
 import BarChartIcon from '@mui/icons-material/BarChart'
 import IconButton from '@mui/material/IconButton'
 import EditPatientModal from '../modals/editPatientModal/editPatientModal'
-import './table.css'
+import './patientList.css'
 
 import {
   getPatientsForPatientGroup,
   useAuthRequest,
 } from '../../utils/api/calls'
 
-function Table({ selectedGroup }) {
-  const navigate = useNavigate()
+function PatientList({ selectedGroup }) {
   const { instance } = useMsal()
+  const navigate = useNavigate()
   const request = useAuthRequest()
 
-  const [patientList, setPatientList] = useState([])
-  const [selectedPatient, setSelectedPatient] = useState()
-  const [showPatientModal, setShowPatientModal] = useState(false)
   const [error, setError] = useState(false)
+  const [showPatientModal, setShowPatientModal] = useState(false)
+  const [patientList, setPatientList] = useState([])
+  const [patientForm, setPatientForm] = useState({
+    id: null,
+    firstName: null,
+    lastName: null,
+    birthdate: null,
+  })
 
   const openPatientModal = (patient) => {
-    setSelectedPatient(patient)
     setShowPatientModal(true)
+    const patientInfo = {
+      id: patient.id,
+      firstName: patient.firstName,
+      lastName: patient.lastName,
+      birthdate: patient.birthdate.split('T')[0],
+    }
+    setPatientForm(patientInfo)
   }
 
   useEffect(() => {
@@ -107,7 +118,8 @@ function Table({ selectedGroup }) {
         </List>
       </div>
       <EditPatientModal
-        patient={selectedPatient}
+        patientForm={patientForm}
+        setPatientForm={setPatientForm}
         updatePatientList={updatePatientList}
         show={showPatientModal}
         hide={() => setShowPatientModal(false)}
@@ -116,4 +128,4 @@ function Table({ selectedGroup }) {
   )
 }
 
-export default Table
+export default PatientList

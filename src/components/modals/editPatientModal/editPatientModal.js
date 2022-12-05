@@ -5,20 +5,20 @@ import Modal from 'react-bootstrap/esm/Modal'
 import { useMsal } from '@azure/msal-react'
 import { updatePatient, useAuthRequest } from '../../../utils/api/calls'
 
-function EditPatientModal({ patient, updatePatientList, show, hide }) {
+function EditPatientModal({
+  patientForm,
+  setPatientForm,
+  updatePatientList,
+  show,
+  hide,
+}) {
   const { instance } = useMsal()
   const request = useAuthRequest()
   const [error, setError] = useState(false)
 
-  const [patientForm, setPatientForm] = useState({
-    firstName: patient?.firstName,
-    lastName: patient?.lastName,
-    birthdate: patient?.birthdate,
-  })
-
   const submitPatient = () => {
     const handlePatient = {
-      id: patient.id,
+      id: patientForm.id,
       firstName: patientForm.firstName,
       lastName: patientForm.lastName,
       birthdate: patientForm.birthdate,
