@@ -19,8 +19,8 @@ jobs:
           # The node version can be hard-coded 
           node-version: 12
        
-      - name: Install package dependencies
-        run: npm install
+      # - name: Install package dependencies
+        # run: npm install
         
         # for typescript
       - name: Run latest react-dom
