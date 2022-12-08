@@ -9,11 +9,11 @@ import ImageIcon from '@mui/icons-material/Image'
 import EditIcon from '@mui/icons-material/Edit'
 import IconButton from '@mui/material/IconButton'
 import CommentModal from '../../../components/Modals/CommentModal/CommentModal'
-import styles from './Comments.module.scss'
+import styles from './CommentList.module.scss'
 import { MockComments } from './MockComments'
 import { FeedbackProps } from '../../../utils/api/calls'
 
-const Comments = () => {
+const CommentList = () => {
   const [list] = useState(MockComments)
   const [showCommentEditModal, setShowCommentEditModal] = useState(false)
   const [commentForm, setCommentForm] = useState<FeedbackProps>({ id: '', comment: '', date: '' })
@@ -60,4 +60,4 @@ const Comments = () => {
   )
 }
 
-export default Comments
+export default CommentList

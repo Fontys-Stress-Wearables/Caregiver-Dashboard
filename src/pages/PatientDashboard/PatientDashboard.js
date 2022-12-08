@@ -1,5 +1,5 @@
 import Title from './Title/Title.tsx'
-import Comments from './Comments/Comments.tsx'
+import CommentList from './CommentList/CommentList.tsx'
 import Graph from '../../components/graph/graph'
 import BaseLayout from '../../layouts/BaseLayout'
 
@@ -8,7 +8,7 @@ const PatientDashboard = () => {
     <BaseLayout>
       <Title />
       <Graph />
-      <Comments />
+      <CommentList />
     </BaseLayout>
   )
 }
