@@ -2,7 +2,7 @@ name: ci-cd-flow
 
 on:
   push:
-    branches: [main, git-actions]
+    branches: [main]
     tags: ['v*.*.*']
 env:
   REGISTRY: ghcr.io
