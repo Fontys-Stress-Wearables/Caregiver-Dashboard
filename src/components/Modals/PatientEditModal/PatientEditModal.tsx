@@ -1,13 +1,23 @@
-import React, { useState } from 'react'
+import React, { Dispatch, SetStateAction, useState } from 'react'
 import Button from 'react-bootstrap/esm/Button'
 import Form from 'react-bootstrap/esm/Form'
 import Modal from 'react-bootstrap/esm/Modal'
 import { useMsal } from '@azure/msal-react'
-import { updatePatient, useAuthRequest } from '../../../utils/api/calls'
+import { PatientProps, updatePatient, useAuthRequest } from '../../../utils/api/calls'
 
-function PatientEditModal({ patientForm, setPatientForm, updatePatientList, show, hide }) {
+type Props = {
+  patientForm: PatientProps
+  setPatientForm: Dispatch<SetStateAction<PatientProps>>
+  updatePatientList: (patient: PatientProps) => void
+  show: boolean
+  hide: () => void
+}
+
+function PatientEditModal({ patientForm, setPatientForm, updatePatientList, show, hide }: Props) {
   const { instance } = useMsal()
   const request = useAuthRequest()
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [error, setError] = useState(false)
 
   const submitPatient = () => {
@@ -29,11 +39,11 @@ function PatientEditModal({ patientForm, setPatientForm, updatePatientList, show
     })
   }
 
-  const handleChange = (event) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setPatientForm({ ...patientForm, [event.target.name]: event.target.value })
   }
 
-  const handleSubmit = (event) => {
+  const handleSubmit = (event: React.MouseEvent<HTMLElement>) => {
     event.preventDefault()
     submitPatient()
     hide()

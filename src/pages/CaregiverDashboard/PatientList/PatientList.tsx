@@ -27,7 +27,12 @@ const PatientList = ({ patientGroup }: Props) => {
   const [error, setError] = useState(false)
   const [showPatientModal, setShowPatientModal] = useState(false)
   const [patientList, setPatientList] = useState<PatientProps[]>([])
-  const [patientForm, setPatientForm] = useState({})
+  const [patientForm, setPatientForm] = useState<PatientProps>({
+    id: '',
+    firstName: '',
+    lastName: '',
+    birthdate: '',
+  })
 
   useEffect(() => {
     if (patientGroup) {
