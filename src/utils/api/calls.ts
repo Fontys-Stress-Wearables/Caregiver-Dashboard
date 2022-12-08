@@ -19,7 +19,7 @@ export type PatientProps = {
   id?: string
   firstName: string
   lastName: string
-  birthdate: Date
+  birthdate: string
   isActive?: boolean
 }
 

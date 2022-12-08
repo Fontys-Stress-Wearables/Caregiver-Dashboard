@@ -1,11 +1,14 @@
 import { useState } from 'react'
 import DropdownSearchbar from '../../components/dropdownSearchbar/dropdownSearchbar.js'
-import PatientList from '../../components/patientList/patientList'
+import PatientList from './PatientList/PatientList'
 import BaseLayout from '../../layouts/baseLayout'
 import Title from './Title/Title'
+import { PatientGroupProps } from '../../utils/api/calls'
 
 function CaregiverDashboard() {
-  const [selectedGroup, setSelectedGroup] = useState()
+  const [selectedGroup, setSelectedGroup] = useState<
+    PatientGroupProps | undefined
+  >()
 
   return (
     <BaseLayout>
@@ -15,7 +18,7 @@ function CaregiverDashboard() {
           selectedGroup={selectedGroup}
           setSelectedGroup={setSelectedGroup}
         />
-        <PatientList selectedGroup={selectedGroup} />
+        <PatientList patientGroup={selectedGroup} />
       </div>
     </BaseLayout>
   )
