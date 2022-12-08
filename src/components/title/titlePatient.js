@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import './titlePatient.css'
 import { useMsal } from '@azure/msal-react'
 import { useParams } from 'react-router-dom'
-import { getPatient, useAuthRequest } from '../../utils/api/calls'
+import { getPatient, getPatientFeedbackById, useAuthRequest } from '../../utils/api/calls'
 
 function TitlePatient() {
   const { instance } = useMsal()
@@ -10,11 +10,14 @@ function TitlePatient() {
   const request = useAuthRequest()
 
   const [patient, setPatient] = useState()
+  const [feedback, setFeedback] = useState()
   const [error, setError] = useState(false)
 
   useEffect(() => {
+    
     if (id) {
       fetchPatientInfo()
+      getPatientFeedback()
     }
   }, [])
 
@@ -30,6 +33,23 @@ function TitlePatient() {
         }
       })
     })
+  }
+
+  const getPatientFeedback = () => {
+    console.log("getPatientFeedback")
+    getPatientFeedbackById(id).then((response) => {
+        if (response.error) {
+          console.log(response)
+          setError(true)
+        } else {
+          console.log("no error")
+          console.log(response)
+          const fetchedPatientFeedback = response.response
+          console.log(fetchedPatientFeedback)
+          setError(false)
+          setFeedback(fetchedPatientFeedback)
+        }
+      })
   }
 
   return (

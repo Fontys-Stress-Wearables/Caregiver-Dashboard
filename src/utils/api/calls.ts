@@ -6,7 +6,7 @@ interface ApiCalls {
   apiUrl?: string
   path: string
   method: 'POST' | 'GET' | 'PUT' | 'DELETE'
-  body?: string | PatientProps | OrganizationProps | PatientGroupProps
+  body?: string | PatientProps | OrganizationProps | PatientGroupProps | FeedbackProps
 }
 
 interface BaseApiResponse {
@@ -15,11 +15,21 @@ interface BaseApiResponse {
   errorMessage?: string
 }
 
+export type FeedbackProps = {
+  id?: string
+  patientId: string
+  authorId: string
+  stressMeassurementId: string
+  comment : string
+  createdCommentDate : string
+  createdStressMeasurementDate: string
+}
+
 export type PatientProps = {
   id?: string
   firstName: string
   lastName: string
-  birthdate: Date
+  stressMeassurementId: string
   isActive?: boolean
 }
 
@@ -63,6 +73,11 @@ interface PatientsPropsResponse extends BaseApiResponse {
 interface PatientPropsResponse extends BaseApiResponse {
   response: PatientProps
 }
+
+interface FeedbackPropsResponse extends BaseApiResponse {
+  response: FeedbackProps
+} 
+
 interface PatientGroupPropsResponse extends BaseApiResponse {
   response: PatientGroupProps
 }
@@ -135,17 +150,6 @@ export const getPatientsForPatientGroup = (
     method: 'GET',
   })
 
-// user service test endpoint
-// export const getPatientsForPatientGroup = (
-//   accessToken: string,
-//   patientGroupID: string,
-// ): Promise<PatientsPropsResponse> =>
-//   callApi({
-//     token: accessToken,
-//     path: `patientgroups/${patientGroupID}/patients`,
-//     method: 'GET',
-//   })
-
 export const getPatientGroupsForCaregiver = (
   accessToken: string,
   caregiverId: string,
@@ -165,4 +169,12 @@ export const updatePatient = (
     path: `patients/${patient.id}`,
     method: 'PUT',
     body: patient,
+  })
+
+export const getPatientFeedbackById = (
+  patientId: string,
+): Promise<FeedbackPropsResponse> =>
+  callApi({
+    path: `patient/${patientId}`,
+    method: 'GET',
   })

@@ -9,7 +9,7 @@ WORKDIR /app
 COPY  package*.json ./
 
 #install the node dependencies
-RUN npm install
+RUN npm install --legacy-peer-deps
 
 #copy the rest of the files from the frontend to the app folder
 COPY . .
@@ -24,7 +24,3 @@ COPY ./conf/nginx.conf /etc/nginx/nginx.conf
 
 #copy the build output from the build step to the hosting folder of nginx
 COPY --from=build /app/build /usr/share/nginx/html
-
-
-
-

@@ -16,7 +16,8 @@ import {
 } from 'chart.js'
 import EditFeedbackModal from '../modals/editStressCommentModal/editStressCommentModal'
 import graphOptions from './graphOptions'
-
+import Form from 'react-bootstrap/esm/Form'
+import Button from 'react-bootstrap/esm/Button'
 import mockData from './mockData.json'
 import aiMockData from './hr.json'
 
@@ -95,9 +96,51 @@ function Graph() {
     }
   }
 
+  const [error, setError] = useState(false)
+  const [dateForm, setDateForm] = useState({
+    startdate: new Date().toISOString().split('T')[0],
+    enddate: new Date().toISOString().split('T')[0],
+  })
+
+  const handleChange = (event) => {
+    console.log(event.target.value)
+    setDateForm({ ...dateForm, [event.target.name]: event.target.value })
+  }
+
+  const handleSubmit = (event) => {
+    event.preventDefault()
+  }
+
   return (
     <div className="GraphContainer">
-      <h3>Heart rate variability</h3>
+      <h3>Heart Rate</h3>
+      <Form>            
+          <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+            <Form.Label>Start Date</Form.Label>
+            <Form.Control
+              type="date"
+              name="startdate"
+              placeholder="Start Date"
+              defaultValue={new Date().toISOString().split('T')[0]}
+              onChange={handleChange}
+              max={new Date().toISOString().split('T')[0]}
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+            <Form.Label>End Date</Form.Label>
+            <Form.Control
+              type="date"
+              name="enddate"
+              placeholder="End Date"
+              defaultValue={new Date().toISOString().split('T')[0]}
+              onChange={handleChange}
+              max={new Date().toISOString().split('T')[0]}
+            />
+          </Form.Group>
+        </Form>
+        <Button variant="primary" onClick={handleSubmit}>
+          Apply filter
+        </Button>
       <div className="GraphWrapper">
         <div className="Graph">
           <Line
