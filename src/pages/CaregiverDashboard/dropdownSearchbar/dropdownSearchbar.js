@@ -2,10 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Select from 'react-select'
 import './dropdownSearchbar.css'
 import { useMsal } from '@azure/msal-react'
-import {
-  useAuthRequest,
-  getPatientGroupsForCaregiver,
-} from '../../utils/api/calls'
+import { useAuthRequest, getPatientGroupsForCaregiver } from '../../../utils/api/calls'
 
 function DropdownSearchbar({ selectedGroup, setSelectedGroup }) {
   const { instance } = useMsal()
@@ -20,18 +17,16 @@ function DropdownSearchbar({ selectedGroup, setSelectedGroup }) {
 
   const fetchPatientGroups = () => {
     instance.acquireTokenSilent(request).then((res) => {
-      getPatientGroupsForCaregiver(res.accessToken, res.uniqueId).then(
-        (response) => {
-          if (response.error) {
-            setError(true)
-          } else {
-            const fetchedPatientGroups = response.response
-            setError(false)
-            setPatientGroups(fetchedPatientGroups)
-            setSelectedGroup(fetchedPatientGroups[0])
-          }
-        },
-      )
+      getPatientGroupsForCaregiver(res.accessToken, res.uniqueId).then((response) => {
+        if (response.error) {
+          setError(true)
+        } else {
+          const fetchedPatientGroups = response.response
+          setError(false)
+          setPatientGroups(fetchedPatientGroups)
+          setSelectedGroup(fetchedPatientGroups[0])
+        }
+      })
     })
   }
 
@@ -59,7 +54,7 @@ function DropdownSearchbar({ selectedGroup, setSelectedGroup }) {
   })
 
   return (
-    <div className="SearchBar">
+    <div className='SearchBar'>
       <div
         style={{
           boxSizing: 'border-box',
@@ -72,16 +67,16 @@ function DropdownSearchbar({ selectedGroup, setSelectedGroup }) {
       >
         <div style={{ width: '20%', minWidth: '23rem' }}>
           <Select
-            MenuPlacement="auto"
-            MenuPosition="fixed"
+            MenuPlacement='auto'
+            MenuPosition='fixed'
             value={getSelectedGroup()}
             options={getPatientGroupNames()}
             onChange={handleGroupSelect}
-            placeholder="Select Patient Group"
+            placeholder='Select Patient Group'
           />
         </div>
       </div>
-      <h2 className="SearchBarSelected">{selectedGroup?.groupName}</h2>
+      <h2 className='SearchBarSelected'>{selectedGroup?.groupName}</h2>
     </div>
   )
 }
