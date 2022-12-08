@@ -30,4 +30,5 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: caregiver-dashboard-artifact
-          path: /Caregiver-Dashboard/release/
+          path: ./Caregiver-Dashboard
+
