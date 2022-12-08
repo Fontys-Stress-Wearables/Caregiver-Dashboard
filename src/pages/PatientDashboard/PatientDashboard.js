@@ -1,4 +1,4 @@
-import Title from '../../components/title/titlePatient.js'
+import Title from './Title/Title.tsx'
 import StressComments from '../../components/comments/comments.js'
 import Graph from '../../components/graph/graph'
 import BaseLayout from '../../layouts/BaseLayout'
