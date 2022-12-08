@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import Title from '../../components/title/titleWelcome.js'
+import Title from './title/title.jsx'
 import DropdownSearchbar from '../../components/dropdownSearchbar/dropdownSearchbar.js'
 import PatientList from '../../components/patientList/patientList'
 import BaseLayout from '../../layouts/baseLayout'

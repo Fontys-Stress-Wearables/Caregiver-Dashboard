@@ -1,16 +1,16 @@
 import React from 'react'
-import './titleWelcome.css'
 import { useMsal } from '@azure/msal-react'
+import styles from './title.module.scss'
 
-function TitleWelcome() {
+function Title() {
   const { instance } = useMsal()
 
   return (
-    <div className="WelcomeTitle">
+    <div className={styles.Title}>
       <h1>Caregiver Dashboard</h1>
       <h4>Welcome {instance?.getActiveAccount()?.name}</h4>
     </div>
   )
 }
 
-export default TitleWelcome
+export default Title
