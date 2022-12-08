@@ -1,13 +1,9 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Button from 'react-bootstrap/esm/Button'
 import Form from 'react-bootstrap/esm/Form'
 import Modal from 'react-bootstrap/esm/Modal'
 
-function EditStressCommentModal({ comment, show, closeModal }) {
-  const [commentForm, setCommentForm] = useState({
-    comment: comment || '',
-  })
-
+function EditStressCommentModal({ commentForm, setCommentForm, show, hide }) {
   const handleChange = (event) => {
     setCommentForm({ ...commentForm, [event.target.name]: event.target.value })
   }
@@ -17,22 +13,22 @@ function EditStressCommentModal({ comment, show, closeModal }) {
 
     // submitComment()
 
-    closeModal()
+    hide()
   }
 
   return (
-    <Modal show={show} onHide={closeModal}>
+    <Modal show={show} onHide={hide}>
       <Modal.Header closeButton>
         <Modal.Title>Edit stress comment in the system</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form>
-          <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+          <Form.Group className='mb-3' controlId='exampleForm.ControlInput1'>
             <Form.Label>Comment</Form.Label>
             <Form.Control
-              type="text"
-              name="comment"
-              placeholder="Comment"
+              type='text'
+              name='comment'
+              placeholder='Comment'
               defaultValue={commentForm.comment}
               onChange={handleChange}
             />
@@ -40,10 +36,10 @@ function EditStressCommentModal({ comment, show, closeModal }) {
         </Form>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={closeModal}>
+        <Button variant='secondary' onClick={hide}>
           Close
         </Button>
-        <Button variant="primary" onClick={handleSubmit}>
+        <Button variant='primary' onClick={handleSubmit}>
           Edit Comment
         </Button>
       </Modal.Footer>

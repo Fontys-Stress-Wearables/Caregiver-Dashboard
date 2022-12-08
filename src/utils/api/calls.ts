@@ -48,6 +48,12 @@ export type OrganizationProps = {
   name: string
 }
 
+export type FeedbackProps = {
+  id: string
+  comment: string
+  date: string
+}
+
 interface PatientsPropsResponse extends BaseApiResponse {
   response: PatientProps[]
 }
@@ -79,8 +85,7 @@ const callApi = async ({ token, apiUrl, path, method, body }: ApiCalls) => {
       Authorization: `Bearer ${token}`,
     },
   }
-  if (body)
-    fetchOptions.body = typeof body === 'string' ? body : JSON.stringify(body)
+  if (body) fetchOptions.body = typeof body === 'string' ? body : JSON.stringify(body)
 
   const response = await fetch(url, fetchOptions)
   if (!response.ok) {
@@ -92,16 +97,12 @@ const callApi = async ({ token, apiUrl, path, method, body }: ApiCalls) => {
 
   const responseText = await response.text()
   return {
-    response:
-      responseText && responseText.length > 0 ? JSON.parse(responseText) : {},
+    response: responseText && responseText.length > 0 ? JSON.parse(responseText) : {},
     error: false,
   }
 }
 
-export const getPatient = (
-  accessToken: string,
-  patientId: string,
-): Promise<PatientPropsResponse> =>
+export const getPatient = (accessToken: string, patientId: string): Promise<PatientPropsResponse> =>
   callApi({
     token: accessToken,
     path: `patients/${patientId}`,

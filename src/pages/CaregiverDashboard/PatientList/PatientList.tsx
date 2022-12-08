@@ -60,7 +60,6 @@ const PatientList = ({ patientGroup }: Props) => {
   }
 
   const openPatientModal = (patient: PatientProps) => {
-    setShowPatientModal(true)
     const patientInfo = {
       id: patient.id,
       firstName: patient.firstName,
@@ -68,6 +67,7 @@ const PatientList = ({ patientGroup }: Props) => {
       birthdate: patient.birthdate.split('T')[0],
     }
     setPatientForm(patientInfo)
+    setShowPatientModal(true)
   }
 
   return (
