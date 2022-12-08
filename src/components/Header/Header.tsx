@@ -7,7 +7,7 @@ import SWSPLogo from '../../assets/swsp-logo.svg'
 import styles from './Header.module.scss'
 import { IPublicClientApplication } from '@azure/msal-browser'
 
-function Header() {
+const Header = () => {
   const { instance } = useMsal()
 
   function handleLogout(instance: IPublicClientApplication) {

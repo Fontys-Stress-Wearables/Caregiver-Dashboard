@@ -4,7 +4,7 @@ import { useMsal } from '@azure/msal-react'
 import { useParams } from 'react-router-dom'
 import './Title.module.scss'
 
-function TitlePatient() {
+const TitlePatient = () => {
   const { instance } = useMsal()
   const { id } = useParams()
   const request = useAuthRequest()

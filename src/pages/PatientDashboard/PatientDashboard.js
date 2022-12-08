@@ -1,9 +1,9 @@
 import Title from './Title/Title.tsx'
-import StressComments from '../../components/Comments/Comments.tsx'
+import StressComments from './Comments/Comments.tsx'
 import Graph from '../../components/graph/graph'
 import BaseLayout from '../../layouts/BaseLayout'
 
-function PatientDashboard() {
+const PatientDashboard = () => {
   return (
     <BaseLayout>
       <Title />
