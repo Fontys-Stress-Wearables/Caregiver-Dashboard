@@ -2,7 +2,7 @@ type Props = {
   logout: () => void
 }
 
-function Unauthorised({ logout }: Props) {
+const Unauthorised = ({ logout }: Props) => {
   return (
     <div>
       <p>You are not authorized to view this page. Please contact your administrator.</p>

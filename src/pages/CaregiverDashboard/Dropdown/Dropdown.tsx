@@ -13,7 +13,7 @@ type Props = {
   setSelectedGroup: Dispatch<SetStateAction<PatientGroupProps | undefined>>
 }
 
-function Dropdown({ selectedGroup, setSelectedGroup }: Props) {
+const Dropdown = ({ selectedGroup, setSelectedGroup }: Props) => {
   const { instance } = useMsal()
   const request = useAuthRequest()
 

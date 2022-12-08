@@ -5,13 +5,13 @@ import CaregiverDashboard from '../../pages/CaregiverDashboard/CaregiverDashboar
 import PatientDashboard from '../../pages/PatientDashboard/PatientDashboard'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
+    <div className='App'>
       <Routes>
-        <Route path="*" element={<Navigate to="/" replace />} />
-        <Route path="/" element={<CaregiverDashboard />} />
-        <Route path="/patient/:id" element={<PatientDashboard />} />
+        <Route path='*' element={<Navigate to='/' replace />} />
+        <Route path='/' element={<CaregiverDashboard />} />
+        <Route path='/patient/:id' element={<PatientDashboard />} />
       </Routes>
     </div>
   )

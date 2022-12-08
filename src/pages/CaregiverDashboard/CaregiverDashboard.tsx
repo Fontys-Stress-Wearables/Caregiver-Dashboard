@@ -1,20 +1,18 @@
 import { useState } from 'react'
 import Dropdown from './Dropdown/Dropdown.js'
 import PatientList from './PatientList/PatientList'
-import BaseLayout from '../../layouts/baseLayout'
 import Title from './Title/Title'
 import { PatientGroupProps } from '../../utils/api/calls'
+import BaseLayout from '../../layouts/BaseLayout'
 
-function CaregiverDashboard() {
+const CaregiverDashboard = () => {
   const [selectedGroup, setSelectedGroup] = useState<PatientGroupProps | undefined>()
 
   return (
     <BaseLayout>
-      <div>
-        <Title />
-        <Dropdown selectedGroup={selectedGroup} setSelectedGroup={setSelectedGroup} />
-        <PatientList patientGroup={selectedGroup} />
-      </div>
+      <Title />
+      <Dropdown selectedGroup={selectedGroup} setSelectedGroup={setSelectedGroup} />
+      <PatientList patientGroup={selectedGroup} />
     </BaseLayout>
   )
 }

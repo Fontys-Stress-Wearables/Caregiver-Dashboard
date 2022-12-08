@@ -1,12 +1,12 @@
 ﻿import Header from '../components/header/header'
-import './baseLayout.scss'
+import styles from './BaseLayout.module.scss'
 
 type Props = {
-  children: JSX.Element
+  children: JSX.Element | JSX.Element[]
 }
 
 const BaseLayout = ({ children }: Props) => (
-  <div className="BaseContainer">
+  <div className={styles.Container}>
     <Header />
     {children}
   </div>
