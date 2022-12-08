@@ -19,12 +19,8 @@ jobs:
           # The node version can be hard-coded 
           node-version: 12
           
-        # for typescript
-      - name: Run latest react-dom
-        run: npm install --save-dev @types/react@latest @types/react-dom@latest
-      
-      - name: Run latest react-dom
-        run: npm install react@latest react-dom@latest
+      - name: Install package dependencies
+        run: npm install
       
       - name: Check linting and formatting
         # Custom script for checking the linting and formatting being in place
