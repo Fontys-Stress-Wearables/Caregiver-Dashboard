@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import DropdownSearchbar from './dropdownSearchbar/dropdownSearchbar.js'
+import Dropdown from './Dropdown/Dropdown.js'
 import PatientList from './PatientList/PatientList'
 import BaseLayout from '../../layouts/baseLayout'
 import Title from './Title/Title'
@@ -12,7 +12,7 @@ function CaregiverDashboard() {
     <BaseLayout>
       <div>
         <Title />
-        <DropdownSearchbar selectedGroup={selectedGroup} setSelectedGroup={setSelectedGroup} />
+        <Dropdown selectedGroup={selectedGroup} setSelectedGroup={setSelectedGroup} />
         <PatientList patientGroup={selectedGroup} />
       </div>
     </BaseLayout>

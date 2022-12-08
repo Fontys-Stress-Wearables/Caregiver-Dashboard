@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import Select from 'react-select'
-import './dropdownSearchbar.css'
+import './Dropdown.css'
 import { useMsal } from '@azure/msal-react'
 import { useAuthRequest, getPatientGroupsForCaregiver } from '../../../utils/api/calls'
 
-function DropdownSearchbar({ selectedGroup, setSelectedGroup }) {
+function Dropdown({ selectedGroup, setSelectedGroup }) {
   const { instance } = useMsal()
   const request = useAuthRequest()
 
@@ -81,4 +81,4 @@ function DropdownSearchbar({ selectedGroup, setSelectedGroup }) {
   )
 }
 
-export default DropdownSearchbar
+export default Dropdown
