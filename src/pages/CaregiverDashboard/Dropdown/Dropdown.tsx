@@ -9,8 +9,8 @@ import {
 import styles from './Dropdown.module.scss'
 
 type Props = {
-  selectedGroup: PatientGroupProps
-  setSelectedGroup: Dispatch<SetStateAction<PatientGroupProps>>
+  selectedGroup: PatientGroupProps | undefined
+  setSelectedGroup: Dispatch<SetStateAction<PatientGroupProps | undefined>>
 }
 
 function Dropdown({ selectedGroup, setSelectedGroup }: Props) {

@@ -2,7 +2,7 @@ import { useMsal } from '@azure/msal-react'
 import { useEffect, useState } from 'react'
 import App from '../../root/App/App'
 import { appRoles } from './authConfig'
-import { Unauthorised } from '../../root/unauthorised'
+import Unauthorised from '../../root/Unauthorised/Unauthorised'
 
 export const AppGuard = () => {
   const { instance } = useMsal()
@@ -37,5 +37,5 @@ export const AppGuard = () => {
   }, [instance])
 
   if (isAuthorized) return <App />
-  return <Unauthorised handleLogout={handleLogout} />
+  return <Unauthorised logout={handleLogout} />
 }
