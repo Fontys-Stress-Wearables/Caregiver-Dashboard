@@ -30,4 +30,4 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: caregiver-dashboard-artifact
-          path: /home/runner/work/Caregiver-Dashboard/Caregiver-Dashboard/release/
+          path: /home/runner/work/Caregiver-Dashboard/release/
