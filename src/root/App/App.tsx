@@ -9,9 +9,9 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route exact path="*" element={<Navigate to="/" replace />} />
-        <Route exact path="/" element={<CaregiverDashboard />} />
-        <Route exact path="/stress/:id" element={<PatientDashboard />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+        <Route path="/" element={<CaregiverDashboard />} />
+        <Route path="/stress/:id" element={<PatientDashboard />} />
       </Routes>
     </div>
   )
