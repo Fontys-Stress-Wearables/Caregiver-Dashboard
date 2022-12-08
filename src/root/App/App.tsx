@@ -1,8 +1,8 @@
 import './App.css'
 import { Navigate, Route, Routes } from 'react-router-dom'
 
-import CaregiverDashboard from '../../pages/caregiver_dashboard/caregiverDashboard'
-import PatientDashboard from '../../pages/patient_dashboard/patientDashboard'
+import CaregiverDashboard from '../../pages/CaregiverDashboard/CaregiverDashboard'
+import PatientDashboard from '../../pages/PatientDashboard/PatientDashboard'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 function App() {

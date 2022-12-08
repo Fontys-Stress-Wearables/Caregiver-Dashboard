@@ -1,6 +1,6 @@
 import React from 'react'
 import { useMsal } from '@azure/msal-react'
-import styles from './title.module.scss'
+import styles from './Title.module.scss'
 
 function Title() {
   const { instance } = useMsal()

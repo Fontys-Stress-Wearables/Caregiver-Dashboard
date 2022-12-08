@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import Title from './title/title.jsx'
 import DropdownSearchbar from '../../components/dropdownSearchbar/dropdownSearchbar.js'
 import PatientList from '../../components/patientList/patientList'
 import BaseLayout from '../../layouts/baseLayout'
+import Title from './Title/Title'
 
 function CaregiverDashboard() {
   const [selectedGroup, setSelectedGroup] = useState()
