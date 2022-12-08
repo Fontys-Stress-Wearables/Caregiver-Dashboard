@@ -1,15 +1,25 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, Dispatch, SetStateAction } from 'react'
 import Select from 'react-select'
-import './Dropdown.css'
 import { useMsal } from '@azure/msal-react'
-import { useAuthRequest, getPatientGroupsForCaregiver } from '../../../utils/api/calls'
+import {
+  useAuthRequest,
+  getPatientGroupsForCaregiver,
+  PatientGroupProps,
+} from '../../../utils/api/calls'
+import styles from './Dropdown.module.scss'
 
-function Dropdown({ selectedGroup, setSelectedGroup }) {
+type Props = {
+  selectedGroup: PatientGroupProps
+  setSelectedGroup: Dispatch<SetStateAction<PatientGroupProps>>
+}
+
+function Dropdown({ selectedGroup, setSelectedGroup }: Props) {
   const { instance } = useMsal()
   const request = useAuthRequest()
 
-  const [patientGroups, setPatientGroups] = useState([])
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [error, setError] = useState(false)
+  const [patientGroups, setPatientGroups] = useState<PatientGroupProps[] | []>([])
 
   useEffect(() => {
     fetchPatientGroups()
@@ -30,13 +40,14 @@ function Dropdown({ selectedGroup, setSelectedGroup }) {
     })
   }
 
-  const handleGroupSelect = (e) => {
-    const group = patientGroups.find((g) => g.id === e.id)
-    setSelectedGroup(group)
+  const handleGroupSelect = (id: string | undefined) => {
+    if (!id) return
+    const group = patientGroups.find((g) => g.id === id)
+    if (group) setSelectedGroup(group)
   }
 
   const getPatientGroupNames = () => {
-    const nameList = []
+    const nameList: { id: string | undefined; value: string; label: string }[] = []
     patientGroups.forEach((group) => {
       nameList.push({
         id: group.id,
@@ -54,29 +65,18 @@ function Dropdown({ selectedGroup, setSelectedGroup }) {
   })
 
   return (
-    <div className='SearchBar'>
-      <div
-        style={{
-          boxSizing: 'border-box',
-          width: '100%',
-          justifyContent: 'center',
-          backgroundColor: 'rgb(229, 229, 229)',
-          display: 'flex',
-          padding: '1px',
-        }}
-      >
-        <div style={{ width: '20%', minWidth: '23rem' }}>
+    <div className={styles.Container}>
+      <div className={styles.Dropdown}>
+        <div className={styles.Selection}>
           <Select
-            MenuPlacement='auto'
-            MenuPosition='fixed'
             value={getSelectedGroup()}
             options={getPatientGroupNames()}
-            onChange={handleGroupSelect}
+            onChange={(option) => handleGroupSelect(option?.id)}
             placeholder='Select Patient Group'
           />
         </div>
       </div>
-      <h2 className='SearchBarSelected'>{selectedGroup?.groupName}</h2>
+      <h2 className={styles.Selected}>{selectedGroup?.groupName}</h2>
     </div>
   )
 }

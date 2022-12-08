@@ -1,0 +1,26 @@
+.Container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  width: 100%;
+  padding-bottom: 1px;
+}
+
+.Dropdown {
+  display: flex;
+  box-sizing: border-box;
+  justify-content: center;
+  width: 100%;
+  background-color: rgb(229, 229, 229);
+  padding: 1px;
+}
+
+.Selection {
+  width: 20%;
+  min-width: 23rem;
+}
+
+.Selected {
+  padding-top: 20px;
+}
