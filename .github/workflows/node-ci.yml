@@ -17,7 +17,7 @@ jobs:
           # Reads the node version from the .nvmrc file itself 
           # node-version-file: '.nvmrc'
           # The node version can be hard-coded 
-          node-version: 17
+          node-version: 12
        
       - name: Install package dependencies
         run: npm install
