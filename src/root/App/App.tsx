@@ -11,7 +11,7 @@ function App() {
       <Routes>
         <Route path="*" element={<Navigate to="/" replace />} />
         <Route path="/" element={<CaregiverDashboard />} />
-        <Route path="/stress/:id" element={<PatientDashboard />} />
+        <Route path="/patient/:id" element={<PatientDashboard />} />
       </Routes>
     </div>
   )

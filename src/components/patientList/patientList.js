@@ -95,7 +95,7 @@ function PatientList({ selectedGroup }) {
                   </IconButton>
                   <IconButton
                     aria-label="barchart"
-                    onClick={() => navigate(`/stress/${patient.id}`)}
+                    onClick={() => navigate(`/patient/${patient.id}`)}
                   >
                     <BarChartIcon />
                   </IconButton>
