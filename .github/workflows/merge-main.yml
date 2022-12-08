@@ -33,7 +33,7 @@ jobs:
       - name: Persist workflow data as artifact
         uses: actions/upload-artifact@v3
         with:
-          name: caregiver-dashboard-artifact
+          name: caregiver-dashboard-merge-artifact
           path: ./build
 
   # define job to build and publish docker image
