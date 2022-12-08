@@ -8,13 +8,13 @@ import Avatar from '@mui/material/Avatar'
 import ImageIcon from '@mui/icons-material/Image'
 import EditIcon from '@mui/icons-material/Edit'
 import IconButton from '@mui/material/IconButton'
-import EditStressCommentModal from '../modals/editStressCommentModal/editStressCommentModal'
-import CreateStressCommentModal from '../modals/createStressCommentModal/createStressCommentModal'
+import EditStressCommentModal from '../../../components/modals/editStressCommentModal/editStressCommentModal'
+import CreateStressCommentModal from '../../../components/modals/createStressCommentModal/createStressCommentModal'
 import styles from './Comments.module.scss'
 import { MockComments } from './MockComments'
-import { FeedbackProps } from '../../utils/api/calls'
+import { FeedbackProps } from '../../../utils/api/calls'
 
-function StressComment() {
+const StressComment = () => {
   const [list] = useState(MockComments)
   const [showCommentModal, setShowCommentModal] = useState(false)
   const [showCommentEditModal, setShowCommentEditModal] = useState(false)
