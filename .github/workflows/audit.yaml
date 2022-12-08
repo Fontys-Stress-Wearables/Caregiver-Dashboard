@@ -52,3 +52,9 @@ jobs:
       - name: Check linting and formatting
         # Custom script for checking the linting and formatting being in place
         run: npm run lint
+
+      - name: Persist workflow data as artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: caregiver-dashboard-audit-artifact
+          path: ./build
