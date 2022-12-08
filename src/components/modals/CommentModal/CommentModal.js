@@ -3,23 +3,21 @@ import Button from 'react-bootstrap/esm/Button'
 import Form from 'react-bootstrap/esm/Form'
 import Modal from 'react-bootstrap/esm/Modal'
 
-function EditStressCommentModal({ commentForm, setCommentForm, show, hide }) {
+function CommentModal({ commentForm, setCommentForm, show, hide }) {
   const handleChange = (event) => {
     setCommentForm({ ...commentForm, [event.target.name]: event.target.value })
   }
 
   const handleSubmit = (event) => {
     event.preventDefault()
-
     // submitComment()
-
     hide()
   }
 
   return (
     <Modal show={show} onHide={hide}>
       <Modal.Header closeButton>
-        <Modal.Title>Edit stress comment in the system</Modal.Title>
+        <Modal.Title>Edit Comment</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form>
@@ -47,4 +45,4 @@ function EditStressCommentModal({ commentForm, setCommentForm, show, hide }) {
   )
 }
 
-export default EditStressCommentModal
+export default CommentModal

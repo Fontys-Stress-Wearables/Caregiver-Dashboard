@@ -8,15 +8,13 @@ import Avatar from '@mui/material/Avatar'
 import ImageIcon from '@mui/icons-material/Image'
 import EditIcon from '@mui/icons-material/Edit'
 import IconButton from '@mui/material/IconButton'
-import EditStressCommentModal from '../../../components/modals/editStressCommentModal/editStressCommentModal'
-import CreateStressCommentModal from '../../../components/modals/createStressCommentModal/createStressCommentModal'
+import CommentModal from '../../../components/modals/CommentModal/CommentModal'
 import styles from './Comments.module.scss'
 import { MockComments } from './MockComments'
 import { FeedbackProps } from '../../../utils/api/calls'
 
-const StressComment = () => {
+const Comments = () => {
   const [list] = useState(MockComments)
-  const [showCommentModal, setShowCommentModal] = useState(false)
   const [showCommentEditModal, setShowCommentEditModal] = useState(false)
   const [commentForm, setCommentForm] = useState({})
 
@@ -57,15 +55,14 @@ const StressComment = () => {
         </div>
       </div>
 
-      <EditStressCommentModal
+      <CommentModal
         commentForm={commentForm}
         setCommentForm={setCommentForm}
         show={showCommentEditModal}
         hide={() => setShowCommentEditModal(false)}
       />
-      <CreateStressCommentModal show={showCommentModal} hide={() => setShowCommentModal(false)} />
     </React.Fragment>
   )
 }
 
-export default StressComment
+export default Comments

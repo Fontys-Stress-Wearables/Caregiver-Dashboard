@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { useMsal } from '@azure/msal-react'
 import update from 'immutability-helper'
 import Mui from '../../../utils/Mui'
-import EditPatientModal from '../../../components/modals/editPatientModal/editPatientModal'
+import PatientEditModal from '../../../components/modals/PatientEditModal/PatientEditModal'
 import styles from './PatientList.module.scss'
 
 import {
@@ -79,7 +79,7 @@ const PatientList = ({ patientGroup }: Props) => {
           ))}
         </Mui.List>
       </div>
-      <EditPatientModal
+      <PatientEditModal
         patientForm={patientForm}
         setPatientForm={setPatientForm}
         updatePatientList={updatePatientList}

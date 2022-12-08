@@ -14,7 +14,7 @@ import {
   Legend,
   TimeScale,
 } from 'chart.js'
-import EditFeedbackModal from '../modals/editStressCommentModal/editStressCommentModal'
+import CommentModal from '../modals/CommentModal/CommentModal'
 import graphOptions from './graphOptions'
 
 import mockData from './mockData.json'
@@ -75,6 +75,7 @@ export const data = {
 function Graph() {
   const [feedback, setFeedback] = useState({ comment: '' })
   const [showEditFeedbackModal, setShowEditFeedbackModal] = useState(false)
+  const [commentForm, setCommentForm] = useState({})
 
   // onchart clicks to get datapoint data
   const chartRef = useRef()
@@ -96,21 +97,17 @@ function Graph() {
   }
 
   return (
-    <div className="GraphContainer">
+    <div className='GraphContainer'>
       <h3>Heart rate variability</h3>
-      <div className="GraphWrapper">
-        <div className="Graph">
-          <Line
-            ref={chartRef}
-            options={graphOptions()}
-            data={data}
-            onClick={onClick}
-          />
+      <div className='GraphWrapper'>
+        <div className='Graph'>
+          <Line ref={chartRef} options={graphOptions()} data={data} onClick={onClick} />
         </div>
       </div>
 
-      <EditFeedbackModal
-        comment={feedback.comment}
+      <CommentModal
+        commentForm={commentForm}
+        setCommentForm={setCommentForm}
         show={showEditFeedbackModal}
         closeModal={() => setShowEditFeedbackModal(false)}
       />
