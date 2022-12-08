@@ -2,7 +2,7 @@ import { useMsal } from '@azure/msal-react'
 import { useEffect, useState } from 'react'
 import App from '../../root/App/App'
 import { appRoles } from './authConfig'
-import { Unauthorised } from '../../components/unauthorised'
+import { Unauthorised } from '../../root/unauthorised'
 
 export const AppGuard = () => {
   const { instance } = useMsal()
@@ -23,8 +23,8 @@ export const AppGuard = () => {
       const currentAccount = instance.getActiveAccount()
 
       if (currentAccount && currentAccount.idTokenClaims.roles) {
-        const intersection = [appRoles.Admin, appRoles.Caregiver].filter(
-          (role) => currentAccount.idTokenClaims.roles.includes(role),
+        const intersection = [appRoles.Admin, appRoles.Caregiver].filter((role) =>
+          currentAccount.idTokenClaims.roles.includes(role),
         )
 
         if (intersection.length > 0) {
