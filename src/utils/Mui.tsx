@@ -7,6 +7,7 @@ import EditIcon from '@mui/icons-material/Edit'
 import PersonIcon from '@mui/icons-material/Person'
 import BarChartIcon from '@mui/icons-material/BarChart'
 import IconButton from '@mui/material/IconButton'
+import ImageIcon from '@mui/icons-material/Image'
 
 export default {
   List,
@@ -18,4 +19,5 @@ export default {
   PersonIcon,
   BarChartIcon,
   IconButton,
+  ImageIcon,
 }

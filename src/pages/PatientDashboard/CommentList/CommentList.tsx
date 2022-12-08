@@ -1,17 +1,11 @@
 import * as React from 'react'
 import { useState } from 'react'
-import List from '@mui/material/List'
-import ListItem from '@mui/material/ListItem'
-import ListItemText from '@mui/material/ListItemText'
-import ListItemAvatar from '@mui/material/ListItemAvatar'
-import Avatar from '@mui/material/Avatar'
-import ImageIcon from '@mui/icons-material/Image'
-import EditIcon from '@mui/icons-material/Edit'
-import IconButton from '@mui/material/IconButton'
-import CommentModal from '../../../components/Modals/CommentModal/CommentModal'
-import styles from './CommentList.module.scss'
-import { MockComments } from './MockComments'
 import { FeedbackProps } from '../../../utils/api/calls'
+import { MockComments } from './MockComments'
+import Comment from './Comment/Comment'
+import CommentModal from '../../../components/Modals/CommentModal/CommentModal'
+import List from '@mui/material/List'
+import styles from './CommentList.module.scss'
 
 const CommentList = () => {
   const [list] = useState(MockComments)
@@ -29,22 +23,11 @@ const CommentList = () => {
         <div className={styles.CommentListContainer}>
           <List>
             {list.map((value) => (
-              <ListItem
+              <Comment
                 key={value.id}
-                disableGutters
-                secondaryAction={
-                  <IconButton aria-label='edit' onClick={() => openCommentEditModal(value)}>
-                    <EditIcon />
-                  </IconButton>
-                }
-              >
-                <ListItemAvatar>
-                  <Avatar>
-                    <ImageIcon />
-                  </Avatar>
-                </ListItemAvatar>
-                <ListItemText primary={`${value.comment}`} secondary={value.date} />
-              </ListItem>
+                comment={value}
+                openModal={() => openCommentEditModal(value)}
+              />
             ))}
           </List>
         </div>
