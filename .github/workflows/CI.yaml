@@ -29,6 +29,7 @@ jobs:
         uses: github/codeql-action/analyze@v2
   build:
     name: Build with Node ${{ matrix.node_version }}
+    needs: [ audit ]
     runs-on: ubuntu-latest
     strategy:
       matrix:
