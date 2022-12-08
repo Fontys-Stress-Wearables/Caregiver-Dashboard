@@ -29,7 +29,6 @@ jobs:
         uses: github/codeql-action/analyze@v2
   build:
     name: Build with Node ${{ matrix.node_version }}
-    needs: [ audit ]
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -41,8 +40,11 @@ jobs:
           - 17
           - 18
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v2
       - id: build
         uses: ./.github/actions/build
         with:
           node_version: ${{ matrix.node_version }}
+
+      - run: npm install
+      - run: npm run build --if-present
