@@ -16,7 +16,7 @@ export const AppGuard = () => {
     onLoad()
   }, [instance])
 
-  const onLoad = async () => {
+  const onLoad = () => {
     const accounts = instance.getAllAccounts()
 
     if (accounts.length > 0) {
