@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { getPatient, PatientProps, useAuthRequest } from '../../../utils/api/calls'
 import { useMsal } from '@azure/msal-react'
 import { useParams } from 'react-router-dom'
-import './Title.module.scss'
+import styles from './Title.module.scss'
 
 const TitlePatient = () => {
   const { instance } = useMsal()
@@ -35,7 +35,7 @@ const TitlePatient = () => {
   }, [id])
 
   return (
-    <div className='TitlePatient'>
+    <div className={styles.Title}>
       <h1>
         {patient?.firstName} {patient?.lastName}
       </h1>
