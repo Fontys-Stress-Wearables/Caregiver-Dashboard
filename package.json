@@ -38,15 +38,11 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "dotenv -e .env.${REACT_APP_ENVIRONMENT} react-scripts build",
+    "test": "jest --verbose",
     "eject": "react-scripts eject",
     "lint": "eslint . --ignore-path .gitignore",
     "lint-fix": "npm run lint -- --fix",
     "format": "prettier --write ."
-    "audit-security": "audit-ci --config ./audit-ci.json",
-    "test": "jest --verbose",
-    "check-copy:cspell": "cspell --config=.cspell.json **/*.md",
-    "check-copy:language": "write-good *.md --no-passive",
-    "check-copy": "run-p check-copy:*"
   },
   "prettier": "@imaginary-cloud/prettier-config",
   "browserslist": {
