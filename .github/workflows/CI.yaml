@@ -32,16 +32,13 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node_version:
-          - 14
-          - 16
-          - 17
+        node-version: [14.x]
     steps:
-      - uses: actions/checkout@v2
-      - id: build
-        uses: ./.github/actions/build
+      - uses: actions/setup-node@v1
         with:
-          node_version: ${{ matrix.node_version }}
-
+          node-version: ${{ matrix.node-version }}
       - run: npm install
       - run: npm run build --if-present
+
+      - name: Run ESLint
+        run: npm run lint
