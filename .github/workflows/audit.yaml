@@ -1,6 +1,6 @@
-name: CI
+name: audit
 
-on: [pull_request] # we want the workflow to trigger on commits to PRs only
+on: [pull_request] 
 
 jobs:
   audit:
@@ -32,7 +32,7 @@ jobs:
         uses: github/codeql-action/analyze@v2
         
   build:
-    name: Build with Node ${{ matrix.node_version }}
+    name: Build with Node
     runs-on: ubuntu-latest
     steps:
       - name: Development Code
