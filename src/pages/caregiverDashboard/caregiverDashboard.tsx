@@ -9,12 +9,14 @@ function CaregiverDashboard() {
 
   return (
     <BaseLayout>
-      <Title />
-      <DropdownSearchbar
-        selectedGroup={selectedGroup}
-        setSelectedGroup={setSelectedGroup}
-      />
-      <PatientList selectedGroup={selectedGroup} />
+      <div>
+        <Title />
+        <DropdownSearchbar
+          selectedGroup={selectedGroup}
+          setSelectedGroup={setSelectedGroup}
+        />
+        <PatientList selectedGroup={selectedGroup} />
+      </div>
     </BaseLayout>
   )
 }
