@@ -8,7 +8,7 @@ import Avatar from '@mui/material/Avatar'
 import ImageIcon from '@mui/icons-material/Image'
 import EditIcon from '@mui/icons-material/Edit'
 import IconButton from '@mui/material/IconButton'
-import CommentModal from '../../../components/modals/CommentModal/CommentModal'
+import CommentModal from '../../../components/Modals/CommentModal/CommentModal'
 import styles from './Comments.module.scss'
 import { MockComments } from './MockComments'
 import { FeedbackProps } from '../../../utils/api/calls'
@@ -16,15 +16,10 @@ import { FeedbackProps } from '../../../utils/api/calls'
 const Comments = () => {
   const [list] = useState(MockComments)
   const [showCommentEditModal, setShowCommentEditModal] = useState(false)
-  const [commentForm, setCommentForm] = useState({})
+  const [commentForm, setCommentForm] = useState<FeedbackProps>({ id: '', comment: '', date: '' })
 
   const openCommentEditModal = (feedback: FeedbackProps) => {
-    const commentInfo = {
-      id: feedback.id,
-      comment: feedback.comment,
-      feedback: feedback.date,
-    }
-    setCommentForm(commentInfo)
+    setCommentForm(feedback)
     setShowCommentEditModal(true)
   }
 

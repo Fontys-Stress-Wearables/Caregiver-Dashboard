@@ -1,15 +1,22 @@
-import React from 'react'
+import React, { Dispatch, SetStateAction } from 'react'
 import Button from 'react-bootstrap/esm/Button'
 import Form from 'react-bootstrap/esm/Form'
 import Modal from 'react-bootstrap/esm/Modal'
+import { FeedbackProps } from '../../../utils/api/calls'
 
-function CommentModal({ commentForm, setCommentForm, show, hide }) {
-  const handleChange = (event) => {
+type Props = {
+  commentForm: FeedbackProps
+  setCommentForm: Dispatch<SetStateAction<FeedbackProps>>
+  show: boolean
+  hide: () => void
+}
+
+const CommentModal = ({ commentForm, setCommentForm, show, hide }: Props) => {
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setCommentForm({ ...commentForm, [event.target.name]: event.target.value })
   }
 
-  const handleSubmit = (event) => {
-    event.preventDefault()
+  const handleSubmit = () => {
     // submitComment()
     hide()
   }
@@ -27,7 +34,7 @@ function CommentModal({ commentForm, setCommentForm, show, hide }) {
               type='text'
               name='comment'
               placeholder='Comment'
-              defaultValue={commentForm.comment}
+              defaultValue={commentForm?.comment}
               onChange={handleChange}
             />
           </Form.Group>
@@ -37,7 +44,7 @@ function CommentModal({ commentForm, setCommentForm, show, hide }) {
         <Button variant='secondary' onClick={hide}>
           Close
         </Button>
-        <Button variant='primary' onClick={handleSubmit}>
+        <Button variant='primary' onClick={() => handleSubmit}>
           Edit Comment
         </Button>
       </Modal.Footer>

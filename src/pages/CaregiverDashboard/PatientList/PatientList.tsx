@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { useMsal } from '@azure/msal-react'
 import update from 'immutability-helper'
 import Mui from '../../../utils/Mui'
-import PatientEditModal from '../../../components/modals/PatientEditModal/PatientEditModal'
+import PatientEditModal from '../../../components/Modals/PatientEditModal/PatientEditModal'
 import styles from './PatientList.module.scss'
 
 import {

@@ -14,7 +14,7 @@ import {
   Legend,
   TimeScale,
 } from 'chart.js'
-import CommentModal from '../modals/CommentModal/CommentModal'
+import CommentModal from '../Modals/CommentModal/CommentModal'
 import graphOptions from './graphOptions'
 
 import mockData from './mockData.json'
