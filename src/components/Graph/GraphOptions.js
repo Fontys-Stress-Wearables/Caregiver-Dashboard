@@ -1,12 +1,12 @@
-﻿const commentDataPointColour = 'rgb(25,25,112, 0.8)'
-const dataPointColour = 'rgb(30, 144, 255, 0.5)'
-const graphColour = 'rgb(30, 144, 255)'
+﻿const commentDataPointColor = 'rgb(25,25,112, 0.8)'
+const dataPointColor = 'rgb(30, 144, 255, 0.5)'
+const graphColor = 'rgb(30, 144, 255)'
 
 const setBackgroundColor = (ctx) => {
   if (ctx.raw && ctx.raw.comment) {
-    return commentDataPointColour
+    return commentDataPointColor
   }
-  return dataPointColour
+  return dataPointColor
 }
 
 // datasets for graph
@@ -15,7 +15,7 @@ export function getGraphData(data) {
     datasets: [
       {
         data: data,
-        borderColor: graphColour,
+        borderColor: graphColor,
         backgroundColor: setBackgroundColor,
         pointRadius: 6,
       },
