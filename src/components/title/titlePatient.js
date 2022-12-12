@@ -52,19 +52,6 @@ function TitlePatient() {
         }
       })
     })
-    // getPatientFeedbackById(id).then((response) => {
-    //     if (response.error) {
-    //       console.log(response)
-    //       setError(true)
-    //     } else {
-    //       console.log("no error")
-    //       console.log(response)
-    //       const fetchedPatientFeedback = response.response
-    //       console.log(fetchedPatientFeedback)
-    //       setError(false)
-    //       setFeedback(fetchedPatientFeedback)
-    //     }
-    //   })
   }
 
   return (

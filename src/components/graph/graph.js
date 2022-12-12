@@ -114,30 +114,32 @@ function Graph() {
   return (
     <div className="GraphContainer">
       <h3>Heart Rate</h3>
-      <Form>            
-          <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-            <Form.Label>Start Date</Form.Label>
-            <Form.Control
-              type="date"
-              name="startdate"
-              placeholder="Start Date"
-              defaultValue={new Date().toISOString().split('T')[0]}
-              onChange={handleChange}
-              max={new Date().toISOString().split('T')[0]}
-            />
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-            <Form.Label>End Date</Form.Label>
-            <Form.Control
-              type="date"
-              name="enddate"
-              placeholder="End Date"
-              defaultValue={new Date().toISOString().split('T')[0]}
-              onChange={handleChange}
-              max={new Date().toISOString().split('T')[0]}
-            />
-          </Form.Group>
-        </Form>
+      <div className="DateForm">
+        <Form>            
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Label>Start Date</Form.Label>
+              <Form.Control
+                type="date"
+                name="startdate"
+                placeholder="Start Date"
+                defaultValue={new Date().toISOString().split('T')[0]}
+                onChange={handleChange}
+                max={new Date().toISOString().split('T')[0]}
+              />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Label>End Date</Form.Label>
+              <Form.Control
+                type="date"
+                name="enddate"
+                placeholder="End Date"
+                defaultValue={new Date().toISOString().split('T')[0]}
+                onChange={handleChange}
+                max={new Date().toISOString().split('T')[0]}
+              />
+            </Form.Group>
+          </Form>
+        </div>
         <Button variant="primary" onClick={handleSubmit}>
           Apply filter
         </Button>

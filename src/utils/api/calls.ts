@@ -74,6 +74,10 @@ interface PatientPropsResponse extends BaseApiResponse {
   response: PatientProps
 }
 
+interface FeedbackEditPropsResponse extends BaseApiResponse {
+  response: []
+} 
+
 interface FeedbackPropsResponse extends BaseApiResponse {
   response: FeedbackProps
 } 
@@ -179,4 +183,15 @@ export const getPatientFeedbackById = (
     token: accessToken,
     path: `feedback/patient/${patientId}`,
     method: 'GET',
+  })
+
+export const editPatientFeedbackByFeedbackId = (
+  accessToken: string,
+  feedback: FeedbackProps,
+): Promise<FeedbackPropsResponse> =>
+  callApi({
+    token: accessToken,
+    path: `feedback/${feedback.id}`,
+    method: 'PUT',
+    body: feedback,
   })
