@@ -38,7 +38,7 @@ export function graphOptions() {
       },
     },
     scales: {
-      x: {
+      xAxis: {
         type: 'time', // neccessary to make x axis time based
         time: {
           unit: 'day', // year, month, day, hour - should be updated based on the time filter a user chooses
