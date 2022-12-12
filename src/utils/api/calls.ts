@@ -101,7 +101,7 @@ export const useAuthRequest = () => {
 
 const callApi = async ({ token, apiUrl, path, method, body }: ApiCalls) => {
   const url = `${apiUrl || API_URL}/${path}`
-
+  console.log("url " + url)
   const fetchOptions: RequestInit = {
     method,
     headers: {
@@ -172,9 +172,11 @@ export const updatePatient = (
   })
 
 export const getPatientFeedbackById = (
+  accessToken: string,
   patientId: string,
 ): Promise<FeedbackPropsResponse> =>
   callApi({
-    path: `patient/${patientId}`,
+    token: accessToken,
+    path: `feedback/patient/${patientId}`,
     method: 'GET',
   })
