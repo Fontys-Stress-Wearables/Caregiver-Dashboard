@@ -1,8 +1,4 @@
-import {
-  AUTH_AUTHORITY,
-  AUTH_CLIENT_ID,
-  AUTH_REDIRECT_URI,
-} from '../environment'
+import { AUTH_AUTHORITY, AUTH_CLIENT_ID, AUTH_REDIRECT_URI } from '../environment'
 
 export const msalConfig = {
   auth: {

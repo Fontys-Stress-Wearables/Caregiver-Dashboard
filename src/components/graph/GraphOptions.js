@@ -1,4 +1,29 @@
-﻿export default function graphOptions(configuration) {
+﻿const commentDataPointColour = 'rgb(25,25,112, 0.8)'
+const dataPointColour = 'rgb(30, 144, 255, 0.5)'
+const graphColour = 'rgb(30, 144, 255)'
+
+const setBackgroundColor = (ctx) => {
+  if (ctx.raw && ctx.raw.comment) {
+    return commentDataPointColour
+  }
+  return dataPointColour
+}
+
+// datasets for graph
+export function getGraphData(data) {
+  return {
+    datasets: [
+      {
+        data: data,
+        borderColor: graphColour,
+        backgroundColor: setBackgroundColor,
+        pointRadius: 6,
+      },
+    ],
+  }
+}
+
+export function graphOptions() {
   return {
     responsive: true,
     plugins: {

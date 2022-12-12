@@ -17,16 +17,10 @@ const Patient = ({ patient, openPatientModal }: Props) => {
       disableGutters
       secondaryAction={
         <div>
-          <Mui.IconButton
-            aria-label="edit"
-            onClick={() => openPatientModal(patient)}
-          >
+          <Mui.IconButton aria-label='edit' onClick={() => openPatientModal(patient)}>
             <Mui.EditIcon />
           </Mui.IconButton>
-          <Mui.IconButton
-            aria-label="barchart"
-            onClick={() => navigate(`/patient/${patient.id}`)}
-          >
+          <Mui.IconButton aria-label='barchart' onClick={() => navigate(`/patient/${patient.id}`)}>
             <Mui.BarChartIcon />
           </Mui.IconButton>
         </div>
