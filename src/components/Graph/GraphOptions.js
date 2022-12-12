@@ -1,4 +1,29 @@
-﻿export default function graphOptions(configuration) {
+﻿const commentDataPointColor = 'rgb(25,25,112, 0.8)'
+const dataPointColor = 'rgb(30, 144, 255, 0.5)'
+const graphColor = 'rgb(30, 144, 255)'
+
+const setBackgroundColor = (ctx) => {
+  if (ctx.raw && ctx.raw.comment) {
+    return commentDataPointColor
+  }
+  return dataPointColor
+}
+
+// datasets for graph
+export function getGraphData(data) {
+  return {
+    datasets: [
+      {
+        data: data,
+        borderColor: graphColor,
+        backgroundColor: setBackgroundColor,
+        pointRadius: 6,
+      },
+    ],
+  }
+}
+
+export function graphOptions() {
   return {
     responsive: true,
     plugins: {
@@ -13,7 +38,7 @@
       },
     },
     scales: {
-      x: {
+      xAxis: {
         type: 'time', // neccessary to make x axis time based
         time: {
           unit: 'day', // year, month, day, hour - should be updated based on the time filter a user chooses

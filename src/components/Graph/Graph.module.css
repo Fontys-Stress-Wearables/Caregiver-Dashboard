@@ -1,8 +1,8 @@
-.GraphContainer {
+.Container {
   padding-bottom: 2em;
 }
 
-.GraphWrapper {
+.Wrapper {
   max-width: 100rem;
   width: 100%;
   margin: auto;

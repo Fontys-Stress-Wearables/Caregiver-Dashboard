@@ -1,7 +1,7 @@
-import Title from './Title/Title.tsx'
-import CommentList from './CommentList/CommentList.tsx'
-import Graph from '../../components/graph/graph'
+import Graph from '../../components/Graph/Graph'
 import BaseLayout from '../../layouts/BaseLayout'
+import Title from './Title/Title'
+import CommentList from './CommentList/CommentList'
 
 const PatientDashboard = () => {
   return (
