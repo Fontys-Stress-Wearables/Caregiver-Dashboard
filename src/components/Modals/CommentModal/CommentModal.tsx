@@ -24,7 +24,7 @@ const CommentModal = ({ commentForm, setCommentForm, show, hide }: Props) => {
   return (
     <Modal show={show} onHide={hide}>
       <Modal.Header closeButton>
-        <Modal.Title>Edit Comment</Modal.Title>
+        <Modal.Title>Feedback</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form>
@@ -34,7 +34,7 @@ const CommentModal = ({ commentForm, setCommentForm, show, hide }: Props) => {
               type='text'
               name='comment'
               placeholder='Comment'
-              defaultValue={commentForm?.comment}
+              defaultValue={commentForm.comment}
               onChange={handleChange}
             />
           </Form.Group>
@@ -45,7 +45,7 @@ const CommentModal = ({ commentForm, setCommentForm, show, hide }: Props) => {
           Close
         </Button>
         <Button variant='primary' onClick={() => handleSubmit}>
-          Edit Comment
+          Save Comment
         </Button>
       </Modal.Footer>
     </Modal>
