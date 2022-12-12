@@ -1,13 +1,13 @@
 import * as React from 'react'
 import 'chartjs-adapter-moment'
 import CommentModal from '../Modals/CommentModal/CommentModal'
-import { mockHr } from './MockData/hrData'
-import mockData from './MockData/mockData.json'
+import { MockHr } from './MockData/HrData'
 import { graphOptions, getGraphData } from './GraphOptions'
 import { useRef, useState } from 'react'
 import { Line, getElementAtEvent } from 'react-chartjs-2'
 import { Chart as ChartJS, CategoryScale, LinearScale } from 'chart.js'
 import { PointElement, LineElement, Title, Tooltip, Legend, TimeScale } from 'chart.js'
+import mockData from './MockData/mockData.json'
 import styles from './Graph.module.css'
 import { FeedbackProps } from '../../utils/api/calls'
 
@@ -22,7 +22,7 @@ function Graph() {
 
   // UseRef tracks clicks on Graph
   const chartRef = useRef()
-  const data = getGraphData(mockData)
+  const data = getGraphData(MockHr)
 
   const onGraphClick = (event: React.MouseEvent<HTMLCanvasElement, MouseEvent>) => {
     console.log('click')

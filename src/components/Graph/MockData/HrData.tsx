@@ -1,6 +1,6 @@
 ﻿import aiMockData from './hr.json'
 
-export const mockHr = () => {
+export const MockHr = () => {
   const mockValues: { stressLevel: number; date: string; comment: string }[] = []
   let latestDate = new Date(1970, 1, 1)
   const sampleTimeMs = 3600000

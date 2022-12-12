@@ -1,4 +1,4 @@
-import Graph from '../../components/Graph/graph'
+import Graph from '../../components/Graph/Graph'
 import BaseLayout from '../../layouts/BaseLayout'
 import Title from './Title/Title'
 import CommentList from './CommentList/CommentList'
