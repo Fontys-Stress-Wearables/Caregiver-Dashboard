@@ -1,20 +1,60 @@
 import * as React from 'react'
-import { useState } from 'react'
-import { FeedbackProps } from '../../../utils/api/calls'
-import MockComments from './MockComments.json'
+import { useState, useEffect } from 'react'
+import { useMsal } from '@azure/msal-react'
+import { useParams } from 'react-router-dom'
+import { FeedbackProps, getFeedbackByPatientId, useAuthRequest } from '../../../utils/api/calls'
 import Comment from './Comment/Comment'
 import CommentModal from '../../../components/Modals/CommentModal/CommentModal'
 import List from '@mui/material/List'
 import styles from './CommentList.module.scss'
 
 const CommentList = () => {
-  const [list] = useState(MockComments)
-  const [showCommentEditModal, setShowCommentEditModal] = useState(false)
-  const [commentForm, setCommentForm] = useState<FeedbackProps>({ id: '', comment: '', date: '' })
+  const { id } = useParams()
+  const { instance } = useMsal()
+  const request = useAuthRequest()
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [error, setError] = useState<boolean>(false)
+  const [comments, setComments] = React.useState<FeedbackProps[]>([])
+  const [showCommentEditModal, setShowCommentEditModal] = useState<boolean>(false)
+  const [commentForm, setCommentForm] = useState<FeedbackProps>({
+    id: '',
+    patientId: '',
+    authorId: '',
+    stressMeasurementId: '',
+    comment: '',
+    createdCommentDate: '',
+    createdStressMeasurementDate: '',
+  })
+
+  useEffect(() => {
+    getPatientFeedback()
+  }, [id])
+
+  const getPatientFeedback = () => {
+    if (id == undefined) return
+
+    instance.acquireTokenSilent(request).then((res) => {
+      getFeedbackByPatientId(res.accessToken, id).then((response) => {
+        if (response.error) {
+          setError(true)
+        } else {
+          setError(false)
+          const fetchedPatientFeedback = response.response
+          setComments(fetchedPatientFeedback)
+        }
+      })
+    })
+  }
 
   const openCommentEditModal = (feedback: FeedbackProps) => {
     setCommentForm(feedback)
     setShowCommentEditModal(true)
+  }
+
+  const updateFeedback = () => {
+    // ToDo this should mutate comments first
+    getPatientFeedback()
   }
 
   return (
@@ -22,11 +62,11 @@ const CommentList = () => {
       <div className={styles.Container}>
         <div className={styles.CommentListContainer}>
           <List>
-            {list.map((value) => (
+            {comments.map((comment) => (
               <Comment
-                key={value.id}
-                comment={value}
-                openModal={() => openCommentEditModal(value)}
+                key={comment.id}
+                comment={comment}
+                openModal={() => openCommentEditModal(comment)}
               />
             ))}
           </List>
@@ -36,6 +76,7 @@ const CommentList = () => {
       <CommentModal
         commentForm={commentForm}
         setCommentForm={setCommentForm}
+        updateFeedback={updateFeedback}
         show={showCommentEditModal}
         hide={() => setShowCommentEditModal(false)}
       />

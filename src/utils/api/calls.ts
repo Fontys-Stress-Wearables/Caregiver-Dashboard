@@ -6,7 +6,7 @@ interface ApiCalls {
   apiUrl?: string
   path: string
   method: 'POST' | 'GET' | 'PUT' | 'DELETE'
-  body?: string | PatientProps | OrganizationProps | PatientGroupProps
+  body?: string | PatientProps | OrganizationProps | PatientGroupProps | FeedbackProps
 }
 
 interface BaseApiResponse {
@@ -50,8 +50,12 @@ export type OrganizationProps = {
 
 export type FeedbackProps = {
   id: string
+  patientId: string
+  authorId: string
+  stressMeasurementId: string
   comment: string
-  date: string
+  createdCommentDate: string
+  createdStressMeasurementDate: string
 }
 
 interface PatientsPropsResponse extends BaseApiResponse {
@@ -64,6 +68,14 @@ interface PatientPropsResponse extends BaseApiResponse {
 
 interface PatientGroupsPropsResponse extends BaseApiResponse {
   response: PatientGroupProps[]
+}
+
+interface FeedbackPropsResponse extends BaseApiResponse {
+  response: FeedbackProps[]
+}
+
+interface FeedbackEditPropsResponse extends BaseApiResponse {
+  response: FeedbackProps
 }
 
 export const useAuthRequest = () => {
@@ -138,4 +150,25 @@ export const updatePatient = (
     path: `patients/${patient.id}`,
     method: 'PUT',
     body: patient,
+  })
+
+export const getFeedbackByPatientId = (
+  accessToken: string,
+  patientId: string,
+): Promise<FeedbackPropsResponse> =>
+  callApi({
+    token: accessToken,
+    path: `feedback/patient/${patientId}`,
+    method: 'GET',
+  })
+
+export const editFeedbackById = (
+  accessToken: string,
+  feedback: FeedbackProps,
+): Promise<FeedbackEditPropsResponse> =>
+  callApi({
+    token: accessToken,
+    path: `feedback/${feedback.id}`,
+    method: 'PUT',
+    body: feedback,
   })

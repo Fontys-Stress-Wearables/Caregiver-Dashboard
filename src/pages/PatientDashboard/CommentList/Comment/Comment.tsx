@@ -22,7 +22,7 @@ function Comment({ comment, openModal }: Props) {
           <Mui.ImageIcon />
         </Mui.Avatar>
       </Mui.ListItemAvatar>
-      <Mui.ListItemText primary={`${comment.comment}`} secondary={comment.date} />
+      <Mui.ListItemText primary={`${comment.comment}`} secondary={comment.createdCommentDate} />
     </Mui.ListItem>
   )
 }
