@@ -1,12 +1,16 @@
 import * as React from 'react'
 import 'chartjs-adapter-moment'
 import Form from 'react-bootstrap/esm/Form'
-import Button from 'react-bootstrap/esm/Button'
-import CommentModal from '../Modals/CommentModal/CommentModal'
-import { FeedbackProps } from '../../utils/api/calls'
-import { MockHr } from './MockData/HrData'
+import CommentModal from '../../../components/Modals/CommentModal/CommentModal'
+import {
+  FeedbackProps,
+  getStressDataByPatientIdAndTimespan,
+  useAuthRequest,
+} from '../../../utils/api/calls'
+import { useEffect, useRef, useState } from 'react'
+import { useParams } from 'react-router-dom'
+import { useMsal } from '@azure/msal-react'
 import { graphOptions, getGraphData } from './GraphOptions'
-import { useRef, useState } from 'react'
 import { Line, getElementAtEvent } from 'react-chartjs-2'
 import { Chart as ChartJS, CategoryScale, LinearScale } from 'chart.js'
 import { PointElement, LineElement, Title, Tooltip, Legend, TimeScale } from 'chart.js'
@@ -28,26 +32,55 @@ const emptyComment = {
 
 const Graph = () => {
   const [error, setError] = useState(false)
+  const [graphData, setGraphData] = useState(getGraphData([]))
+  // const [graphData, setGraphData] = useState(getGraphData(MockHr())) // Mock HR Data
+
   const [showFeedbackModal, setShowFeedbackModal] = useState(false)
   const [commentForm, setCommentForm] = useState<FeedbackProps>(emptyComment)
+
+  const yesterday = new Date(new Date().setDate(new Date().getDate() - 1))
   const [dateForm, setDateForm] = useState({
-    startDate: new Date().toISOString().split('T')[0],
+    startDate: yesterday.toISOString().split('T')[0],
     endDate: new Date().toISOString().split('T')[0],
   })
 
+  const { id } = useParams()
+  const { instance } = useMsal()
+  const request = useAuthRequest()
   const chartRef = useRef() // UseRef tracks clicks on Graph
-  const data = getGraphData(MockHr)
+
+  useEffect(() => {
+    getStressData()
+  }, [dateForm, id])
+
+  const getStressData = () => {
+    if (id == undefined) return
+
+    instance.acquireTokenSilent(request).then((res) => {
+      getStressDataByPatientIdAndTimespan(
+        res.accessToken,
+        id,
+        dateForm.startDate + 'T00:00:00.00',
+        dateForm.endDate + 'T23:59:59.99',
+      ).then((response) => {
+        if (response.error) {
+          setError(true)
+        } else {
+          setError(false)
+          const fetchedStressData = response.response
+          const newGraphData = getGraphData(fetchedStressData)
+          setGraphData(newGraphData)
+        }
+      })
+    })
+  }
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
     setDateForm({ ...dateForm, [event.target.name]: event.target.value })
   }
 
-  const handleSubmit = (event: React.MouseEvent<HTMLElement>) => {
-    event.preventDefault()
-  }
-
   const updateFeedback = () => {
-    // To Do
+    // ToDo Method of updating feedback after clicking it through graph
   }
 
   const onGraphClick = (event: React.MouseEvent<HTMLCanvasElement, MouseEvent>) => {
@@ -55,7 +88,7 @@ const Graph = () => {
 
     if (getElementAtEvent(chartRef.current, event)[0]) {
       const dataPointIndex = getElementAtEvent(chartRef.current, event)[0].index
-      const dataPointData = data.datasets[0].data[dataPointIndex]
+      const dataPointData = graphData.datasets[0].data[dataPointIndex]
 
       if (dataPointData.comment === '') {
         setCommentForm(emptyComment)
@@ -94,12 +127,14 @@ const Graph = () => {
           </Form.Group>
         </Form>
       </div>
-      <Button variant='primary' onClick={handleSubmit}>
-        Apply filter
-      </Button>
       <div className={styles.Wrapper}>
         <div className={styles.Graph}>
-          <Line ref={chartRef} options={graphOptions() as any} data={data} onClick={onGraphClick} />
+          <Line
+            ref={chartRef}
+            options={graphOptions() as any}
+            data={graphData}
+            onClick={onGraphClick}
+          />
         </div>
       </div>
 
