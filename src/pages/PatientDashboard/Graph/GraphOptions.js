@@ -11,10 +11,14 @@ const setBackgroundColor = (ctx) => {
 
 // datasets for graph
 export function getGraphData(data) {
+  const sortedData = data.sort(function (a, b) {
+    return new Date(a.timeStamp).getTime() - new Date(b.timeStamp).getTime()
+  })
+
   return {
     datasets: [
       {
-        data: data,
+        data: sortedData,
         borderColor: graphColor,
         backgroundColor: setBackgroundColor,
         pointRadius: 6,
@@ -49,8 +53,8 @@ export function graphOptions() {
       },
     },
     parsing: {
-      xAxisKey: 'date',
-      yAxisKey: 'stressLevel',
+      xAxisKey: 'timeStamp',
+      yAxisKey: 'heartRateVariability',
     },
   }
 }

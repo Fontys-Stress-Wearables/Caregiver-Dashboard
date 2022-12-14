@@ -1,7 +1,7 @@
 ﻿import aiMockData from './hr.json'
 
 export const MockHr = () => {
-  const mockValues: { stressLevel: number; date: string; comment: string }[] = []
+  const mockValues: { heartRateVariability: number; timeStamp: string; comment: string }[] = []
   let latestDate = new Date(1970, 1, 1)
   const sampleTimeMs = 3600000
 
@@ -9,8 +9,8 @@ export const MockHr = () => {
     const entryDate = new Date(parseInt(key, 10))
     if (entryDate.getTime() - latestDate.getTime() > sampleTimeMs) {
       mockValues.push({
-        stressLevel: value,
-        date: entryDate.toLocaleString('zh-Hans-CN').replace(',', ''),
+        heartRateVariability: value,
+        timeStamp: entryDate.toLocaleString('zh-Hans-CN').replace(',', ''),
         comment: '',
       })
       latestDate = entryDate

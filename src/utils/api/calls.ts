@@ -6,7 +6,13 @@ interface ApiCalls {
   apiUrl?: string
   path: string
   method: 'POST' | 'GET' | 'PUT' | 'DELETE'
-  body?: string | PatientProps | OrganizationProps | PatientGroupProps | FeedbackProps
+  body?:
+    | string
+    | PatientProps
+    | OrganizationProps
+    | PatientGroupProps
+    | FeedbackProps
+    | StressDataProps
 }
 
 interface BaseApiResponse {
@@ -48,6 +54,14 @@ export type OrganizationProps = {
   name: string
 }
 
+export type StressDataProps = {
+  id: string
+  patientId: string
+  wearableId: string | undefined
+  timeStamp: string
+  heartRateVariability: string
+}
+
 export type FeedbackProps = {
   id: string
   patientId: string
@@ -76,6 +90,10 @@ interface FeedbackPropsResponse extends BaseApiResponse {
 
 interface FeedbackEditPropsResponse extends BaseApiResponse {
   response: FeedbackProps
+}
+
+interface StressDataPropsResponse extends BaseApiResponse {
+  response: StressDataProps[]
 }
 
 export const useAuthRequest = () => {
@@ -171,4 +189,14 @@ export const editFeedbackById = (
     path: `feedback/${feedback.id}`,
     method: 'PUT',
     body: feedback,
+  })
+
+export const getStressDataByPatientId = (
+  accessToken: string,
+  patientId: string,
+): Promise<StressDataPropsResponse> =>
+  callApi({
+    token: accessToken,
+    path: `HrvMeasurements/patient/${patientId}`,
+    method: 'GET',
   })
