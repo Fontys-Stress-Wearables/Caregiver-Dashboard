@@ -191,12 +191,14 @@ export const editFeedbackById = (
     body: feedback,
   })
 
-export const getStressDataByPatientId = (
+export const getStressDataByPatientIdAndTimespan = (
   accessToken: string,
   patientId: string,
+  startTime: string,
+  endTime: string,
 ): Promise<StressDataPropsResponse> =>
   callApi({
     token: accessToken,
-    path: `HrvMeasurements/patient/${patientId}`,
+    path: `HrvMeasurements/date/${patientId}/timespan?startTime=${startTime}&endTime=${endTime}`,
     method: 'GET',
   })
