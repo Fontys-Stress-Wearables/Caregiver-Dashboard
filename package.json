@@ -43,7 +43,7 @@
     "lint": "eslint src/**/*.{js,jsx,ts,tsx,json}",
     "lint-fix": "eslint --fix src/**/*.{js,jsx,ts,tsx,json}",
     "format": "prettier --write src/**/*.{js,jsx,ts,tsx,css,scss,md,json} --config ./.prettierrc",
-    "audit-security": "audit-ci --config ./audit-ci.json",
+    "audit-security": "audit-ci --config ./audit-ci.json"
   },
   "browserslist": {
     "production": [
