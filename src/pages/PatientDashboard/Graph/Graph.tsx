@@ -14,8 +14,8 @@ import { graphOptions, getGraphData } from './GraphOptions'
 import { Line, getElementAtEvent } from 'react-chartjs-2'
 import { Chart as ChartJS, CategoryScale, LinearScale } from 'chart.js'
 import { PointElement, LineElement, Title, Tooltip, Legend, TimeScale } from 'chart.js'
-
 import styles from './Graph.module.css'
+
 // ChartJS imports must be registered here
 ChartJS.register(CategoryScale, LinearScale, TimeScale)
 ChartJS.register(PointElement, LineElement, Title, Tooltip, Legend, TimeScale)
