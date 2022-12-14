@@ -6,6 +6,7 @@ import Avatar from '@mui/material/Avatar'
 import EditIcon from '@mui/icons-material/Edit'
 import PersonIcon from '@mui/icons-material/Person'
 import BarChartIcon from '@mui/icons-material/BarChart'
+import DeleteIcon from '@mui/icons-material/Delete'
 import IconButton from '@mui/material/IconButton'
 import ImageIcon from '@mui/icons-material/Image'
 
@@ -20,4 +21,5 @@ export default {
   BarChartIcon,
   IconButton,
   ImageIcon,
+  DeleteIcon,
 }

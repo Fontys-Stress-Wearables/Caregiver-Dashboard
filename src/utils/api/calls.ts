@@ -72,6 +72,8 @@ export type FeedbackProps = {
   createdStressMeasurementDate: string
 }
 
+export type VoidProps = {}
+
 interface PatientsPropsResponse extends BaseApiResponse {
   response: PatientProps[]
 }
@@ -90,6 +92,14 @@ interface FeedbackPropsResponse extends BaseApiResponse {
 
 interface FeedbackEditPropsResponse extends BaseApiResponse {
   response: FeedbackProps
+}
+
+interface FeedbackEditPropsResponse extends BaseApiResponse {
+  response: FeedbackProps
+}
+
+interface VoidResponse extends BaseApiResponse {
+  response: VoidProps
 }
 
 interface StressDataPropsResponse extends BaseApiResponse {
@@ -183,12 +193,33 @@ export const getFeedbackByPatientId = (
 export const editFeedbackById = (
   accessToken: string,
   feedback: FeedbackProps,
-): Promise<FeedbackEditPropsResponse> =>
+): Promise<FeedbackPropsResponse> =>
   callApi({
     token: accessToken,
     path: `feedback/${feedback.id}`,
     method: 'PUT',
     body: feedback,
+  })
+
+export const createFeedback = (
+  accessToken: string,
+  feedback: FeedbackProps,
+): Promise<FeedbackPropsResponse> =>
+  callApi({
+    token: accessToken,
+    path: `feedback`,
+    method: 'POST',
+    body: feedback,
+  })  
+
+export const deleteFeedbackById = (
+  accessToken: string,
+  feedbackId: string,
+): Promise<VoidResponse> =>
+  callApi({
+    token: accessToken,
+    path: `feedback/${feedbackId}`,
+    method: 'DELETE',
   })
 
 export const getStressDataByPatientIdAndTimespan = (
