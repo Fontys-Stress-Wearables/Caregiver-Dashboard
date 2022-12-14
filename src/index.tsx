@@ -5,7 +5,7 @@ import { MsalProvider, MsalAuthenticationTemplate } from '@azure/msal-react'
 import { PUBLIC_URL } from './utils/environment'
 import { msalConfig } from './utils/authentication/authConfig'
 import { AppGuard } from './utils/authentication/AppGuard'
-import Loading from './components/loading/loading'
+import Loading from './components/Loading/Loading'
 import './index.scss'
 
 const msalInstance = new PublicClientApplication(msalConfig)

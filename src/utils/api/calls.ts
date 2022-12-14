@@ -6,7 +6,7 @@ interface ApiCalls {
   apiUrl?: string
   path: string
   method: 'POST' | 'GET' | 'PUT' | 'DELETE'
-  body?: string | PatientProps | OrganizationProps | PatientGroupProps
+  body?: string | PatientProps | OrganizationProps | PatientGroupProps | FeedbackProps
 }
 
 interface BaseApiResponse {
@@ -19,7 +19,7 @@ export type PatientProps = {
   id?: string
   firstName: string
   lastName: string
-  birthdate: Date
+  birthdate: string
   isActive?: boolean
 }
 
@@ -48,12 +48,14 @@ export type OrganizationProps = {
   name: string
 }
 
-interface OrganizationsPropsResponse extends BaseApiResponse {
-  response: OrganizationProps[]
-}
-
-interface CaregiversPropsResponse extends BaseApiResponse {
-  response: CaregiverProps[]
+export type FeedbackProps = {
+  id: string
+  patientId: string
+  authorId: string
+  stressMeasurementId: string
+  comment: string
+  createdCommentDate: string
+  createdStressMeasurementDate: string
 }
 
 interface PatientsPropsResponse extends BaseApiResponse {
@@ -63,16 +65,17 @@ interface PatientsPropsResponse extends BaseApiResponse {
 interface PatientPropsResponse extends BaseApiResponse {
   response: PatientProps
 }
-interface PatientGroupPropsResponse extends BaseApiResponse {
-  response: PatientGroupProps
-}
 
 interface PatientGroupsPropsResponse extends BaseApiResponse {
   response: PatientGroupProps[]
 }
 
-interface OrganizationPropsResponse extends BaseApiResponse {
-  response: OrganizationProps
+interface FeedbackPropsResponse extends BaseApiResponse {
+  response: FeedbackProps[]
+}
+
+interface FeedbackEditPropsResponse extends BaseApiResponse {
+  response: FeedbackProps
 }
 
 export const useAuthRequest = () => {
@@ -94,37 +97,30 @@ const callApi = async ({ token, apiUrl, path, method, body }: ApiCalls) => {
       Authorization: `Bearer ${token}`,
     },
   }
-  if (body)
-    fetchOptions.body = typeof body === 'string' ? body : JSON.stringify(body)
+  if (body) fetchOptions.body = typeof body === 'string' ? body : JSON.stringify(body)
 
-  try {
-    const response = await fetch(url, fetchOptions)
-    if (!response.ok) throw Error(`${response.status}|${response.statusText}`)
-    const responseText = await response.text()
+  const response = await fetch(url, fetchOptions)
+  if (!response.ok) {
     return {
-      error: false,
-      response:
-        responseText && responseText.length > 0 ? JSON.parse(responseText) : {},
-    }
-  } catch (e) {
-    return {
-      response: e,
+      response: `${response.status}|${response.statusText}`,
       error: true,
     }
   }
+
+  const responseText = await response.text()
+  return {
+    response: responseText && responseText.length > 0 ? JSON.parse(responseText) : {},
+    error: false,
+  }
 }
 
-export const getPatient = (
-  accessToken: string,
-  patientId: string,
-): Promise<PatientPropsResponse> =>
+export const getPatient = (accessToken: string, patientId: string): Promise<PatientPropsResponse> =>
   callApi({
     token: accessToken,
     path: `patients/${patientId}`,
     method: 'GET',
   })
 
-// original endpoint
 export const getPatientsForPatientGroup = (
   accessToken: string,
   patientGroupId: string,
@@ -134,17 +130,6 @@ export const getPatientsForPatientGroup = (
     path: `patient-groups/${patientGroupId}/patients`,
     method: 'GET',
   })
-
-// user service test endpoint
-// export const getPatientsForPatientGroup = (
-//   accessToken: string,
-//   patientGroupID: string,
-// ): Promise<PatientsPropsResponse> =>
-//   callApi({
-//     token: accessToken,
-//     path: `patientgroups/${patientGroupID}/patients`,
-//     method: 'GET',
-//   })
 
 export const getPatientGroupsForCaregiver = (
   accessToken: string,
@@ -165,4 +150,25 @@ export const updatePatient = (
     path: `patients/${patient.id}`,
     method: 'PUT',
     body: patient,
+  })
+
+export const getFeedbackByPatientId = (
+  accessToken: string,
+  patientId: string,
+): Promise<FeedbackPropsResponse> =>
+  callApi({
+    token: accessToken,
+    path: `feedback/patient/${patientId}`,
+    method: 'GET',
+  })
+
+export const editFeedbackById = (
+  accessToken: string,
+  feedback: FeedbackProps,
+): Promise<FeedbackEditPropsResponse> =>
+  callApi({
+    token: accessToken,
+    path: `feedback/${feedback.id}`,
+    method: 'PUT',
+    body: feedback,
   })

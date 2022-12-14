@@ -1,0 +1,27 @@
+.Container {
+  padding-bottom: 2em;
+}
+
+.Wrapper {
+  max-width: 100rem;
+  width: 100%;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  color: rgb(0, 0, 0);
+}
+
+.Graph {
+  width: 60%;
+  margin: auto;
+  display: flex;
+
+  --commentDataPointColour: rgb(25, 25, 112, 0.8);
+  --dataPointColour: rgb(30, 144, 255, 0.5);
+  --graphColour: rgb(30, 144, 255);
+}
+
+.DateForm {
+  width: 60%;
+  margin: 0 auto;
+}
