@@ -32,8 +32,8 @@ jobs:
           name: caregiver-dashboard-artifact
           path: ./build
     
-  analyze:
-    name: Analyze with CodeQL
+  codeQL-analyse:
+    name: CodeQL-Analyse
     runs-on: ubuntu-latest
     permissions:
       actions: read
