@@ -20,3 +20,8 @@
   --dataPointColour: rgb(30, 144, 255, 0.5);
   --graphColour: rgb(30, 144, 255);
 }
+
+.DateForm {
+  width: 60%;
+  margin: 0 auto;
+}
