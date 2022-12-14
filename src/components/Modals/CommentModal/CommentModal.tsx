@@ -60,7 +60,7 @@ const CommentModal = ({ commentForm, setCommentForm, updateFeedback, show, hide 
         <Button variant='secondary' onClick={hide}>
           Close
         </Button>
-        <Button variant='primary' onClick={() => handleSubmit}>
+        <Button variant='primary' onClick={handleSubmit}>
           Save Comment
         </Button>
       </Modal.Footer>
