@@ -20,8 +20,6 @@ function Comment({ comment, openModal, deleteComment }: Props) {
           <Mui.IconButton aria-label='barchart' onClick={deleteComment}>
             <Mui.DeleteIcon />
           </Mui.IconButton>
-        
-        
         </div>
       }
     >
@@ -30,7 +28,10 @@ function Comment({ comment, openModal, deleteComment }: Props) {
           <Mui.ImageIcon />
         </Mui.Avatar>
       </Mui.ListItemAvatar>
-      <Mui.ListItemText primary={`${comment.comment}`} secondary={comment.createdCommentDate} />
+      <Mui.ListItemText
+        primary={`${comment.comment}`}
+        secondary={comment.createdCommentDate.split('T')[0]}
+      />
     </Mui.ListItem>
   )
 }

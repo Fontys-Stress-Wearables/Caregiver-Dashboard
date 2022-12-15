@@ -186,6 +186,18 @@ export const getFeedbackByPatientId = (
     method: 'GET',
   })
 
+export const getFeedbackByPatientIdAndTimespan = (
+  accessToken: string,
+  patientId: string,
+  startTime: string,
+  endTime: string,
+): Promise<FeedbackPropsResponse> =>
+  callApi({
+    token: accessToken,
+    path: `feedback/timespan/${patientId}?startTime=${startTime}&endTime=${endTime}`,
+    method: 'GET',
+  })
+
 export const editFeedbackById = (
   accessToken: string,
   feedback: FeedbackProps,

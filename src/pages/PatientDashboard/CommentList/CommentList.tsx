@@ -8,13 +8,18 @@ import {
   deleteFeedbackById,
   useAuthRequest,
   createFeedback,
+  getFeedbackByPatientIdAndTimespan,
 } from '../../../utils/api/calls'
 import Comment from './Comment/Comment'
 import CommentModal from '../../../components/Modals/CommentModal/CommentModal'
 import List from '@mui/material/List'
 import styles from './CommentList.module.scss'
 
-const CommentList = () => {
+type Props = {
+  dateForm: { startDate: string; endDate: string }
+}
+
+const CommentList = ({ dateForm }: Props) => {
   const { id } = useParams()
   const { instance } = useMsal()
   const request = useAuthRequest()
@@ -34,20 +39,33 @@ const CommentList = () => {
   })
 
   useEffect(() => {
-    getPatientFeedback()
-  }, [id])
+    getPatientFeedbackByTimespan()
+  }, [id, dateForm])
 
-  const getPatientFeedback = () => {
+  const getPatientFeedbackByTimespan = () => {
     if (id == undefined) return
 
     instance.acquireTokenSilent(request).then((res) => {
-      getFeedbackByPatientId(res.accessToken, id).then((response) => {
+      getFeedbackByPatientIdAndTimespan(
+        res.accessToken,
+        id,
+        dateForm.startDate + 'T00:00:00.00',
+        dateForm.endDate + 'T23:59:59.99',
+      ).then((response) => {
         if (response.error) {
           setError(true)
         } else {
           setError(false)
           const fetchedPatientFeedback = response.response
-          setComments(fetchedPatientFeedback)
+
+          const sortedFeedback = fetchedPatientFeedback.sort(function (a, b) {
+            return (
+              new Date(a.createdStressMeasurementDate).getTime() -
+              new Date(b.createdStressMeasurementDate).getTime()
+            )
+          })
+
+          setComments(sortedFeedback)
         }
       })
     })
@@ -91,7 +109,7 @@ const CommentList = () => {
 
   const updateFeedback = () => {
     // ToDo this should mutate comments first
-    getPatientFeedback()
+    getPatientFeedbackByTimespan()
   }
 
   return (
