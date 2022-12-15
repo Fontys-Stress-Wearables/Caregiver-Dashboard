@@ -2,7 +2,13 @@ import * as React from 'react'
 import { useState, useEffect } from 'react'
 import { useMsal } from '@azure/msal-react'
 import { useParams } from 'react-router-dom'
-import { FeedbackProps, getFeedbackByPatientId, useAuthRequest } from '../../../utils/api/calls'
+import {
+  FeedbackProps,
+  getFeedbackByPatientId,
+  deleteFeedbackById,
+  useAuthRequest,
+  createFeedback,
+} from '../../../utils/api/calls'
 import Comment from './Comment/Comment'
 import CommentModal from '../../../components/Modals/CommentModal/CommentModal'
 import List from '@mui/material/List'
@@ -52,35 +58,70 @@ const CommentList = () => {
     setShowCommentEditModal(true)
   }
 
+  const deleteFeedback = (id: string) => {
+    if (id == undefined) return
+
+    instance.acquireTokenSilent(request).then((res) => {
+      deleteFeedbackById(res.accessToken, id).then((response) => {
+        if (response.error) {
+          setError(true)
+        } else {
+          setError(false)
+          updateFeedback()
+        }
+      })
+    })
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const createComment = (feedback: FeedbackProps) => {
+    if (feedback == undefined) return
+
+    instance.acquireTokenSilent(request).then((res) => {
+      createFeedback(res.accessToken, feedback).then((response) => {
+        if (response.error) {
+          setError(true)
+        } else {
+          setError(false)
+          updateFeedback()
+        }
+      })
+    })
+  }
+
   const updateFeedback = () => {
     // ToDo this should mutate comments first
     getPatientFeedback()
   }
 
   return (
-    <React.Fragment>
-      <div className={styles.Container}>
-        <div className={styles.CommentListContainer}>
-          <List>
-            {comments.map((comment) => (
-              <Comment
-                key={comment.id}
-                comment={comment}
-                openModal={() => openCommentEditModal(comment)}
-              />
-            ))}
-          </List>
+    <div>
+      {/* <Button variant='primary' onClick={() => openCommentModal()}>Create Comment</Button> */}
+      <React.Fragment>
+        <div className={styles.Container}>
+          <div className={styles.CommentListContainer}>
+            <List>
+              {comments.map((comment) => (
+                <Comment
+                  key={comment.id}
+                  comment={comment}
+                  openModal={() => openCommentEditModal(comment)}
+                  deleteComment={() => deleteFeedback(comment.id)}
+                />
+              ))}
+            </List>
+          </div>
         </div>
-      </div>
 
-      <CommentModal
-        commentForm={commentForm}
-        setCommentForm={setCommentForm}
-        updateFeedback={updateFeedback}
-        show={showCommentEditModal}
-        hide={() => setShowCommentEditModal(false)}
-      />
-    </React.Fragment>
+        <CommentModal
+          commentForm={commentForm}
+          setCommentForm={setCommentForm}
+          updateFeedback={updateFeedback}
+          show={showCommentEditModal}
+          hide={() => setShowCommentEditModal(false)}
+        />
+      </React.Fragment>
+    </div>
   )
 }
 

@@ -31,6 +31,7 @@ const emptyComment = {
 }
 
 const Graph = () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [error, setError] = useState(false)
   const [graphData, setGraphData] = useState(getGraphData([]))
   // const [graphData, setGraphData] = useState(getGraphData(MockHr())) // Mock HR Data
