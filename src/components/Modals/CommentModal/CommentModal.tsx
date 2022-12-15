@@ -16,6 +16,7 @@ type Props = {
 const CommentModal = ({ commentForm, setCommentForm, updateFeedback, show, hide }: Props) => {
   const { instance } = useMsal()
   const request = useAuthRequest()
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [error, setError] = useState(false)
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
