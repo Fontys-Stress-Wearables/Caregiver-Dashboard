@@ -8,7 +8,7 @@ import { editFeedbackById, useAuthRequest, FeedbackProps } from '../../../utils/
 type Props = {
   commentForm: FeedbackProps
   setCommentForm: Dispatch<SetStateAction<FeedbackProps>>
-  updateFeedback: (feedback: FeedbackProps) => void
+  updateFeedback: (feedback: FeedbackProps[]) => void
   show: boolean
   hide: () => void
 }
