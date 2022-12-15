@@ -72,7 +72,7 @@ export type FeedbackProps = {
   createdStressMeasurementDate: string
 }
 
-export type VoidProps = {}
+export type VoidProps = object
 
 interface PatientsPropsResponse extends BaseApiResponse {
   response: PatientProps[]
@@ -88,14 +88,6 @@ interface PatientGroupsPropsResponse extends BaseApiResponse {
 
 interface FeedbackPropsResponse extends BaseApiResponse {
   response: FeedbackProps[]
-}
-
-interface FeedbackEditPropsResponse extends BaseApiResponse {
-  response: FeedbackProps
-}
-
-interface FeedbackEditPropsResponse extends BaseApiResponse {
-  response: FeedbackProps
 }
 
 interface VoidResponse extends BaseApiResponse {
@@ -210,7 +202,7 @@ export const createFeedback = (
     path: `feedback`,
     method: 'POST',
     body: feedback,
-  })  
+  })
 
 export const deleteFeedbackById = (
   accessToken: string,
