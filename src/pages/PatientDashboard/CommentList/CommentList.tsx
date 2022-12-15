@@ -53,7 +53,12 @@ const CommentList = () => {
     })
   }
 
-  const deletePatientFeedback = (id: string) => {
+  const openCommentEditModal = (feedback: FeedbackProps) => {
+    setCommentForm(feedback)
+    setShowCommentEditModal(true)
+  }
+
+  const deleteFeedback = (id: string) => {
     if (id == undefined) return
 
     instance.acquireTokenSilent(request).then((res) => {
@@ -66,15 +71,6 @@ const CommentList = () => {
         }
       })
     })
-  }
-
-  const openCommentEditModal = (feedback: FeedbackProps) => {
-    setCommentForm(feedback)
-    setShowCommentEditModal(true)
-  }
-
-  const deleteComment = (id: string) => {
-    deletePatientFeedback(id)
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -110,7 +106,7 @@ const CommentList = () => {
                   key={comment.id}
                   comment={comment}
                   openModal={() => openCommentEditModal(comment)}
-                  deleteComment={() => deleteComment(comment.id)}
+                  deleteComment={() => deleteFeedback(comment.id)}
                 />
               ))}
             </List>
