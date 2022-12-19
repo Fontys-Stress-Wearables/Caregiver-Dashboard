@@ -138,10 +138,10 @@ const callApi = async ({ token, apiUrl, path, method, body }: ApiCalls) => {
   }
 }
 
-export const getPatient = (accessToken: string, patientId: string): Promise<PatientPropsResponse> =>
+export const getPatient = (accessToken: string, id: string): Promise<PatientPropsResponse> =>
   callApi({
     token: accessToken,
-    path: `patients/${patientId}`,
+    path: `users/${id}`,
     method: 'GET',
   })
 
@@ -157,11 +157,11 @@ export const getPatientsForPatientGroup = (
 
 export const getPatientGroupsForCaregiver = (
   accessToken: string,
-  caregiverId: string,
+  userId: string,
 ): Promise<PatientGroupsPropsResponse> =>
   callApi({
     token: accessToken,
-    path: `patient-groups/caregivers/${caregiverId}`,
+    path: `patient-groups/caregivers/${userId}`,
     method: 'GET',
   })
 
@@ -171,7 +171,7 @@ export const updatePatient = (
 ): Promise<PatientPropsResponse> =>
   callApi({
     token: accessToken,
-    path: `patients/${patient.id}`,
+    path: `users/${patient.id}`,
     method: 'PUT',
     body: patient,
   })
