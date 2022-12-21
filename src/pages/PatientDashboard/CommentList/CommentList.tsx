@@ -4,7 +4,6 @@ import { useMsal } from '@azure/msal-react'
 import { useParams } from 'react-router-dom'
 import {
   FeedbackProps,
-  getFeedbackByPatientId,
   deleteFeedbackById,
   useAuthRequest,
   createFeedback,
