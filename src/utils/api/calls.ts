@@ -94,6 +94,10 @@ interface FeedbackPropsResponse extends BaseApiResponse {
   response: FeedbackProps[]
 }
 
+interface FeedbackCreatePropsResponse extends BaseApiResponse {
+  response: FeedbackProps
+}
+
 interface VoidResponse extends BaseApiResponse {
   response: VoidProps
 }
@@ -113,6 +117,7 @@ export const useAuthRequest = () => {
 
 const callApi = async ({ token, apiUrl, path, method, body }: ApiCalls) => {
   const url = `${apiUrl || API_URL}/${path}`
+  console.log(url)
 
   const fetchOptions: RequestInit = {
     method,
@@ -132,6 +137,8 @@ const callApi = async ({ token, apiUrl, path, method, body }: ApiCalls) => {
   }
 
   const responseText = await response.text()
+  console.log("responseText")
+  console.log(responseText)
   return {
     response: responseText && responseText.length > 0 ? JSON.parse(responseText) : {},
     error: false,
@@ -186,6 +193,28 @@ export const getFeedbackByPatientId = (
     method: 'GET',
   })
 
+export const getFeedbackById = (
+  accessToken: string,
+  feedbackId: string,
+): Promise<FeedbackEditPropsResponse> =>
+  callApi({
+    token: accessToken,
+    path: `feedback/${feedbackId}`,
+    method: 'GET',
+  })
+
+export const getFeedbackByIdTimespan = (
+  accessToken: string,
+  patientId: string,
+  startTime: string,
+  endTime: string,
+): Promise<FeedbackPropsResponse> =>
+  callApi({
+    token: accessToken,
+    path: `feedback/timespan/${patientId}?startTime=${startTime}&endTime=${endTime}`,
+    method: 'GET',
+  })
+
 export const editFeedbackById = (
   accessToken: string,
   feedback: FeedbackProps,
@@ -200,7 +229,7 @@ export const editFeedbackById = (
 export const createFeedback = (
   accessToken: string,
   feedback: FeedbackProps,
-): Promise<FeedbackPropsResponse> =>
+): Promise<FeedbackCreatePropsResponse> =>
   callApi({
     token: accessToken,
     path: `feedback`,

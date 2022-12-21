@@ -6,6 +6,7 @@ import {
   FeedbackProps,
   getStressDataByPatientIdAndTimespan,
   useAuthRequest,
+  getFeedbackById,
 } from '../../../utils/api/calls'
 import { useEffect, useRef, useState } from 'react'
 import { useParams } from 'react-router-dom'
@@ -15,6 +16,8 @@ import { Line, getElementAtEvent } from 'react-chartjs-2'
 import { Chart as ChartJS, CategoryScale, LinearScale } from 'chart.js'
 import { PointElement, LineElement, Title, Tooltip, Legend, TimeScale } from 'chart.js'
 import styles from './Graph.module.css'
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { DEFAULT_IFRAME_TIMEOUT_MS } from '@azure/msal-browser'
 
 // ChartJS imports must be registered here
 ChartJS.register(CategoryScale, LinearScale, TimeScale)
@@ -27,7 +30,7 @@ const emptyComment = {
   stressMeasurementId: '',
   comment: '',
   createdCommentDate: '',
-  createdStressMeasurementDate: '',
+  createdStressMeasurementDate:'',
 }
 
 const Graph = () => {
@@ -38,6 +41,7 @@ const Graph = () => {
 
   const [showFeedbackModal, setShowFeedbackModal] = useState(false)
   const [commentForm, setCommentForm] = useState<FeedbackProps>(emptyComment)
+  const [feedback, setFeedack] = useState<FeedbackProps>()
 
   const yesterday = new Date(new Date().setDate(new Date().getDate() - 1))
   const [dateForm, setDateForm] = useState({
@@ -74,6 +78,7 @@ const Graph = () => {
         }
       })
     })
+    
   }
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
@@ -84,19 +89,50 @@ const Graph = () => {
     // ToDo Method of updating feedback after clicking it through graph
   }
 
+  const getFeedback = (feedbackId: string) => {
+    if (feedbackId == undefined) return
+
+    instance.acquireTokenSilent(request).then((res) => {
+      getFeedbackById(res.accessToken, feedbackId).then((response) => {
+        if (response.error) {
+          setError(true)
+        } else {
+          setError(false)
+          const fetchedFeedback = response.response
+          console.log(fetchedFeedback)
+          setFeedack(fetchedFeedback)
+        }
+      })
+    })
+  }
+
   const onGraphClick = (event: React.MouseEvent<HTMLCanvasElement, MouseEvent>) => {
     if (chartRef == undefined || chartRef.current == undefined) return
 
     if (getElementAtEvent(chartRef.current, event)[0]) {
       const dataPointIndex = getElementAtEvent(chartRef.current, event)[0].index
       const dataPointData = graphData.datasets[0].data[dataPointIndex]
-
-      if (dataPointData.comment === '') {
-        setCommentForm(emptyComment)
+      console.log(dataPointData.comment)
+      if (dataPointData.comment == undefined || dataPointData.comment === "") {
+        console.log("empty comment")
+        const initialComment = {
+          id: '',
+          patientId: dataPointData.patientId,
+          authorId: '00000000-0000-0000-0000-000000000000',
+          stressMeasurementId: dataPointData.id,
+          comment: '',
+          createdCommentDate: JSON.stringify(new Date()),
+          createdStressMeasurementDate: dataPointData.timeStamp,
+        }
+        setCommentForm(initialComment)
         setShowFeedbackModal(true) // Here we change state
       } else {
-        setCommentForm(dataPointData)
-        setShowFeedbackModal(true) // Here we change state
+        if (dataPointData.commentId == undefined) return 
+        getFeedback(dataPointData.commentId)
+        if (feedback != undefined) {
+          setCommentForm(feedback)
+          setShowFeedbackModal(true) // Here we change state
+        }
       }
     }
   }

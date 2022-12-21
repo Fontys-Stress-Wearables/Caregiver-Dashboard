@@ -3,12 +3,12 @@ import Button from 'react-bootstrap/esm/Button'
 import Form from 'react-bootstrap/esm/Form'
 import Modal from 'react-bootstrap/esm/Modal'
 import { useMsal } from '@azure/msal-react'
-import { editFeedbackById, useAuthRequest, FeedbackProps } from '../../../utils/api/calls'
+import { editFeedbackById, createFeedback, useAuthRequest, FeedbackProps } from '../../../utils/api/calls'
 
 type Props = {
   commentForm: FeedbackProps
   setCommentForm: Dispatch<SetStateAction<FeedbackProps>>
-  updateFeedback: (feedback: FeedbackProps) => void
+  updateFeedback: () => void
   show: boolean
   hide: () => void
 }
@@ -24,17 +24,32 @@ const CommentModal = ({ commentForm, setCommentForm, updateFeedback, show, hide 
   }
 
   const handleSubmit = () => {
-    instance.acquireTokenSilent(request).then((res) => {
-      editFeedbackById(res.accessToken, commentForm).then((response) => {
-        if (response.error) {
-          setError(true)
-        } else {
-          const editedFeedback = response.response
-          updateFeedback(editedFeedback)
-        }
+    console.log(commentForm)
+    console.log(commentForm.id)
+    console.log(commentForm.id === '')
+    if (commentForm.id === '') {
+      instance.acquireTokenSilent(request).then((res) => {
+        createFeedback(res.accessToken, commentForm).then((response) => {
+          if (response.error) {
+            setError(true)
+          } else {
+            updateFeedback()
+          }
+        })
       })
-    })
-
+    } else {
+      console.log(commentForm)
+      instance.acquireTokenSilent(request).then((res) => {
+        editFeedbackById(res.accessToken, commentForm).then((response) => {
+          if (response.error) {
+            setError(true)
+          } else {
+            updateFeedback()
+          }
+        })
+      })
+    }
+    
     hide()
   }
 

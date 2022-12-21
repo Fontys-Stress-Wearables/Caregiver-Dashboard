@@ -4,10 +4,11 @@ import Title from './Title/Title'
 import CommentList from './CommentList/CommentList'
 
 const PatientDashboard = () => {
+
   return (
     <BaseLayout>
       <Title />
-      <Graph />
+      <Graph/>
       <CommentList />
     </BaseLayout>
   )
