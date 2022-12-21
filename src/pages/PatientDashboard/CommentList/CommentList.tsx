@@ -7,7 +7,6 @@ import {
   getFeedbackByPatientId,
   deleteFeedbackById,
   useAuthRequest,
-  createFeedback,
 } from '../../../utils/api/calls'
 import Comment from './Comment/Comment'
 import CommentModal from '../../../components/Modals/CommentModal/CommentModal'
@@ -63,22 +62,6 @@ const CommentList = () => {
 
     instance.acquireTokenSilent(request).then((res) => {
       deleteFeedbackById(res.accessToken, id).then((response) => {
-        if (response.error) {
-          setError(true)
-        } else {
-          setError(false)
-          updateFeedback()
-        }
-      })
-    })
-  }
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const createComment = (feedback: FeedbackProps) => {
-    if (feedback == undefined) return
-
-    instance.acquireTokenSilent(request).then((res) => {
-      createFeedback(res.accessToken, feedback).then((response) => {
         if (response.error) {
           setError(true)
         } else {
