@@ -2,6 +2,7 @@
 import Mui from '../../../../utils/Mui'
 import * as React from 'react'
 import styles from './Feedback.module.scss'
+import { format } from 'date-fns'
 
 type Props = {
   feedback: FeedbackProps
@@ -20,7 +21,7 @@ function Feedback({ feedback, openModal, deleteFeedback }: Props) {
       <Mui.ListItemText
         classes={{ primary: styles.Text }}
         primary={`${feedback.comment}`}
-        secondary={feedback.createdStressMeasurementDate.split('T')[0]}
+        secondary={format(new Date(feedback.createdStressMeasurementDate), 'dd-MM-yyyy')}
       />
       <Mui.ListItemIcon className={styles.Icon}>
         <Mui.IconButton aria-label='edit' onClick={openModal}>
