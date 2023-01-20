@@ -21,7 +21,7 @@ function Feedback({ feedback, openModal, deleteFeedback }: Props) {
       <Mui.ListItemText
         classes={{ primary: styles.Text }}
         primary={`${feedback.comment}`}
-        secondary={format(new Date(feedback.createdStressMeasurementDate), 'dd-MM-yyyy')}
+        secondary={format(new Date(feedback.createdStressMeasurementDate), 'dd-MM-yyyy HH:mm')}
       />
       <Mui.ListItemIcon className={styles.Icon}>
         <Mui.IconButton aria-label='edit' onClick={openModal}>
