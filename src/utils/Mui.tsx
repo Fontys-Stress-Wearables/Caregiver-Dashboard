@@ -9,12 +9,14 @@ import BarChartIcon from '@mui/icons-material/BarChart'
 import DeleteIcon from '@mui/icons-material/Delete'
 import IconButton from '@mui/material/IconButton'
 import ImageIcon from '@mui/icons-material/Image'
+import { ListItemIcon } from '@mui/material'
 
 export default {
   List,
   ListItem,
   ListItemText,
   ListItemAvatar,
+  ListItemIcon,
   Avatar,
   EditIcon,
   PersonIcon,

@@ -117,7 +117,6 @@ export const useAuthRequest = () => {
 
 const callApi = async ({ token, apiUrl, path, method, body }: ApiCalls) => {
   const url = `${apiUrl || API_URL}/${path}`
-  console.log(url)
 
   const fetchOptions: RequestInit = {
     method,
@@ -137,8 +136,6 @@ const callApi = async ({ token, apiUrl, path, method, body }: ApiCalls) => {
   }
 
   const responseText = await response.text()
-  console.log("responseText")
-  console.log(responseText)
   return {
     response: responseText && responseText.length > 0 ? JSON.parse(responseText) : {},
     error: false,
@@ -183,13 +180,15 @@ export const updatePatient = (
     body: patient,
   })
 
-export const getFeedbackByPatientId = (
+export const getFeedbackByPatientIdAndTimespan = (
   accessToken: string,
   patientId: string,
+  startTime: string,
+  endTime: string,
 ): Promise<FeedbackPropsResponse> =>
   callApi({
     token: accessToken,
-    path: `feedback/patient/${patientId}`,
+    path: `feedback/timespan/${patientId}?startTime=${startTime}&endTime=${endTime}`,
     method: 'GET',
   })
 

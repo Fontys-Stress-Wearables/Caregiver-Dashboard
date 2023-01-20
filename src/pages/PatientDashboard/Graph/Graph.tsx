@@ -1,53 +1,56 @@
 import * as React from 'react'
+import { useEffect, useRef, useState } from 'react'
 import 'chartjs-adapter-moment'
-import Form from 'react-bootstrap/esm/Form'
-import CommentModal from '../../../components/Modals/CommentModal/CommentModal'
+import FeedbackModal from '../../../components/Modals/FeedbackModal/FeedbackModal'
 import {
   FeedbackProps,
+  getFeedbackById,
   getStressDataByPatientIdAndTimespan,
   useAuthRequest,
-  getFeedbackById,
 } from '../../../utils/api/calls'
-import { useEffect, useRef, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { useMsal } from '@azure/msal-react'
-import { graphOptions, getGraphData } from './GraphOptions'
-import { Line, getElementAtEvent } from 'react-chartjs-2'
-import { Chart as ChartJS, CategoryScale, LinearScale } from 'chart.js'
-import { PointElement, LineElement, Title, Tooltip, Legend, TimeScale } from 'chart.js'
-import styles from './Graph.module.css'
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { DEFAULT_IFRAME_TIMEOUT_MS } from '@azure/msal-browser'
+import { getGraphData, graphOptions } from './GraphOptions'
+import { getElementAtEvent, Line } from 'react-chartjs-2'
+import {
+  CategoryScale,
+  Chart as ChartJS,
+  Legend,
+  LinearScale,
+  LineElement,
+  PointElement,
+  TimeScale,
+  Title,
+  Tooltip,
+} from 'chart.js'
+import styles from './Graph.module.scss'
 
 // ChartJS imports must be registered here
 ChartJS.register(CategoryScale, LinearScale, TimeScale)
 ChartJS.register(PointElement, LineElement, Title, Tooltip, Legend, TimeScale)
 
-const emptyComment = {
+const emptyFeedback = {
   id: '',
   patientId: '',
   authorId: '',
   stressMeasurementId: '',
   comment: '',
   createdCommentDate: '',
-  createdStressMeasurementDate:'',
+  createdStressMeasurementDate: '',
 }
 
-const Graph = () => {
+type Props = {
+  dateForm: { startDate: string; endDate: string }
+  updateFeedback: () => void
+}
+const Graph = ({ dateForm, updateFeedback }: Props) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [error, setError] = useState(false)
   const [graphData, setGraphData] = useState(getGraphData([]))
   // const [graphData, setGraphData] = useState(getGraphData(MockHr())) // Mock HR Data
 
   const [showFeedbackModal, setShowFeedbackModal] = useState(false)
-  const [commentForm, setCommentForm] = useState<FeedbackProps>(emptyComment)
-  const [feedback, setFeedack] = useState<FeedbackProps>()
-
-  const yesterday = new Date(new Date().setDate(new Date().getDate() - 1))
-  const [dateForm, setDateForm] = useState({
-    startDate: yesterday.toISOString().split('T')[0],
-    endDate: new Date().toISOString().split('T')[0],
-  })
+  const [feedbackForm, setFeedbackForm] = useState<FeedbackProps>(emptyFeedback)
 
   const { id } = useParams()
   const { instance } = useMsal()
@@ -78,29 +81,19 @@ const Graph = () => {
         }
       })
     })
-    
   }
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    setDateForm({ ...dateForm, [event.target.name]: event.target.value })
-  }
-
-  const updateFeedback = () => {
-    // ToDo Method of updating feedback after clicking it through graph
-  }
-
-  const getFeedback = (feedbackId: string) => {
-    if (feedbackId == undefined) return
+  const fetchFeedback = (feedbackId: string) => {
+    if (feedbackId == undefined) return undefined
 
     instance.acquireTokenSilent(request).then((res) => {
       getFeedbackById(res.accessToken, feedbackId).then((response) => {
         if (response.error) {
           setError(true)
+          return undefined
         } else {
           setError(false)
-          const fetchedFeedback = response.response
-          console.log(fetchedFeedback)
-          setFeedack(fetchedFeedback)
+          return response.response
         }
       })
     })
@@ -112,9 +105,7 @@ const Graph = () => {
     if (getElementAtEvent(chartRef.current, event)[0]) {
       const dataPointIndex = getElementAtEvent(chartRef.current, event)[0].index
       const dataPointData = graphData.datasets[0].data[dataPointIndex]
-      console.log(dataPointData.comment)
-      if (dataPointData.comment == undefined || dataPointData.comment === "") {
-        console.log("empty comment")
+      if (dataPointData.comment == undefined || dataPointData.comment === '') {
         const initialComment = {
           id: '',
           patientId: dataPointData.patientId,
@@ -124,14 +115,14 @@ const Graph = () => {
           createdCommentDate: JSON.stringify(new Date()),
           createdStressMeasurementDate: dataPointData.timeStamp,
         }
-        setCommentForm(initialComment)
-        setShowFeedbackModal(true) // Here we change state
+        setFeedbackForm(initialComment)
+        setShowFeedbackModal(true)
       } else {
-        if (dataPointData.commentId == undefined) return 
-        getFeedback(dataPointData.commentId)
-        if (feedback != undefined) {
-          setCommentForm(feedback)
-          setShowFeedbackModal(true) // Here we change state
+        if (dataPointData.commentId == undefined) return
+        const fetchedFeedback = fetchFeedback(dataPointData.commentId)
+        if (fetchedFeedback != undefined) {
+          setFeedbackForm(fetchedFeedback)
+          setShowFeedbackModal(true)
         }
       }
     }
@@ -140,30 +131,6 @@ const Graph = () => {
   return (
     <div className={styles.Container}>
       <h3>Heart rate</h3>
-      <div className={styles.DateForm}>
-        <Form>
-          <Form.Group className='mb-3' controlId='exampleForm.ControlInput1'>
-            <Form.Label>Start Date</Form.Label>
-            <Form.Control
-              type='date'
-              name='startDate'
-              placeholder='Start Date'
-              defaultValue={dateForm.startDate}
-              onChange={handleChange}
-            />
-          </Form.Group>
-          <Form.Group className='mb-3' controlId='exampleForm.ControlInput1'>
-            <Form.Label>End Date</Form.Label>
-            <Form.Control
-              type='date'
-              name='endDate'
-              placeholder='End Date'
-              defaultValue={dateForm.endDate}
-              onChange={handleChange}
-            />
-          </Form.Group>
-        </Form>
-      </div>
       <div className={styles.Wrapper}>
         <div className={styles.Graph}>
           <Line
@@ -175,9 +142,9 @@ const Graph = () => {
         </div>
       </div>
 
-      <CommentModal
-        commentForm={commentForm}
-        setCommentForm={setCommentForm}
+      <FeedbackModal
+        feedbackForm={feedbackForm}
+        setFeedbackForm={setFeedbackForm}
         updateFeedback={updateFeedback}
         show={showFeedbackModal}
         hide={() => setShowFeedbackModal(false)}
