@@ -3,44 +3,46 @@ import Button from 'react-bootstrap/esm/Button'
 import Form from 'react-bootstrap/esm/Form'
 import Modal from 'react-bootstrap/esm/Modal'
 import { useMsal } from '@azure/msal-react'
-import { editFeedbackById, createFeedback, useAuthRequest, FeedbackProps } from '../../../utils/api/calls'
+import {
+  editFeedbackById,
+  createFeedback,
+  useAuthRequest,
+  FeedbackProps,
+} from '../../../utils/api/calls'
 
 type Props = {
-  commentForm: FeedbackProps
-  setCommentForm: Dispatch<SetStateAction<FeedbackProps>>
+  feedbackForm: FeedbackProps
+  setFeedbackForm: Dispatch<SetStateAction<FeedbackProps>>
   updateFeedback: () => void
   show: boolean
   hide: () => void
 }
 
-const CommentModal = ({ commentForm, setCommentForm, updateFeedback, show, hide }: Props) => {
+const FeedbackModal = ({ feedbackForm, setFeedbackForm, updateFeedback, show, hide }: Props) => {
   const { instance } = useMsal()
   const request = useAuthRequest()
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [error, setError] = useState(false)
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    setCommentForm({ ...commentForm, [event.target.name]: event.target.value })
+    setFeedbackForm({ ...feedbackForm, [event.target.name]: event.target.value })
   }
 
   const handleSubmit = () => {
-    console.log(commentForm)
-    console.log(commentForm.id)
-    console.log(commentForm.id === '')
-    if (commentForm.id === '') {
+    if (feedbackForm.id === '') {
       instance.acquireTokenSilent(request).then((res) => {
-        createFeedback(res.accessToken, commentForm).then((response) => {
+        createFeedback(res.accessToken, feedbackForm).then((response) => {
           if (response.error) {
             setError(true)
           } else {
+            setError(true)
             updateFeedback()
           }
         })
       })
     } else {
-      console.log(commentForm)
       instance.acquireTokenSilent(request).then((res) => {
-        editFeedbackById(res.accessToken, commentForm).then((response) => {
+        editFeedbackById(res.accessToken, feedbackForm).then((response) => {
           if (response.error) {
             setError(true)
           } else {
@@ -49,7 +51,7 @@ const CommentModal = ({ commentForm, setCommentForm, updateFeedback, show, hide 
         })
       })
     }
-    
+
     hide()
   }
 
@@ -66,7 +68,7 @@ const CommentModal = ({ commentForm, setCommentForm, updateFeedback, show, hide 
               type='text'
               name='comment'
               placeholder='Comment'
-              defaultValue={commentForm.comment}
+              defaultValue={feedbackForm.comment}
               onChange={handleChange}
             />
           </Form.Group>
@@ -84,4 +86,4 @@ const CommentModal = ({ commentForm, setCommentForm, updateFeedback, show, hide 
   )
 }
 
-export default CommentModal
+export default FeedbackModal

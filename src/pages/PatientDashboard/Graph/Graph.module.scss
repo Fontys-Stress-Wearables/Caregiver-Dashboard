@@ -3,7 +3,7 @@
 }
 
 .Wrapper {
-  max-width: 100rem;
+  max-width: 80rem;
   width: 100%;
   margin: auto;
   display: flex;
@@ -19,9 +19,4 @@
   --commentDataPointColour: rgb(25, 25, 112, 0.8);
   --dataPointColour: rgb(30, 144, 255, 0.5);
   --graphColour: rgb(30, 144, 255);
-}
-
-.DateForm {
-  width: 60%;
-  margin: 0 auto;
 }

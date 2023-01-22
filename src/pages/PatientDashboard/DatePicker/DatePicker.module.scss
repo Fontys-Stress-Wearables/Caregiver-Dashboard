@@ -1,0 +1,15 @@
+﻿.Container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+}
+
+.DatePicker {
+  width: 35rem;
+}
+
+.Label {
+  display: flex;
+  justify-content: flex-start;
+}
