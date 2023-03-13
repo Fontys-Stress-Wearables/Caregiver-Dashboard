@@ -20,7 +20,7 @@
     "date-fns": "^2.29.3",
     "dotenv": "^16.0.3",
     "dotenv-cli": "^6.0.0",
-    "focus-trap-react": "^10.0.0",
+    "focus-trap-react": "^10.1.1",
     "luxon": "^3.0.4",
     "moment": "^2.29.4",
     "react": "^17.0.2",
